@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <declare-styleable name="Panel">
+        <attr name="layout_width" format="integer" />
+        <attr name="android:layout_height" format="integer" />
+        <attr name="android:id" format="string"/>
+    </declare-styleable>
+
+
+</resources>
