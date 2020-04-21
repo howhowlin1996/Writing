@@ -2,6 +2,8 @@ package com.example.writing;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,69 +12,59 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //Panel mPanel;
-
+     long lastTime =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
         final Button saveButton = findViewById(R.id.SaveButton);
         final Button deleteButton= findViewById(R.id.DeleteButton);
-
-       // final ImageView writingPanel = findViewById(R.id.WritingPanel);
-
+        final Panel mPanel =findViewById(R.id.panel);
         saveButton.setOnClickListener(this);
-
         deleteButton.setOnClickListener(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mPanel.setBackground(getDrawable(R.drawable.longlong));
+        }
 
-
-        //畫布
-       //mPanel = new Panel(this);
-        //setContentView(mPanel);
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
         final Panel mPanel =findViewById(R.id.panel);
-        mPanel.savePicture();
-        if (v.getId()==R.id.SaveButton){
-            mPanel.savePicture();
-            Toast.makeText(MainActivity.this,"儲存完畢",Toast.LENGTH_LONG).show();
-        }
-        else if (v.getId()==R.id.DeleteButton){
-            mPanel.resetCanvas();
-        }
-    }
-
-
-    /*@SuppressLint("ResourceType")
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.xml.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.menu_about:
-                mPanel.resetCanvas();
-                break;
-            case R.id.menu_save:
+        long newTime = System.currentTimeMillis();
+        if(newTime-lastTime>1000){
+            if (v.getId()==R.id.SaveButton){
+                if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.longlong_copy).getConstantState())&&lastTime!=0){
+                    //Toast.makeText(MainActivity.this,"correct",Toast.LENGTH_LONG).show();
+                    mPanel.resetCanvas();
+                    mPanel.setBackground(getDrawable(R.drawable.longlong));
+                    return;
+                }
                 mPanel.savePicture();
+                Toast.makeText(MainActivity.this,"儲存完畢",Toast.LENGTH_LONG).show();
 
-                break;
-            case R.id.menu_quit:
-                this.finish();
-                break;
+            }
+            else if (v.getId()==R.id.DeleteButton){
+                mPanel.resetCanvas();
+                mPanel.setBackground(getDrawable(R.drawable.longlong_copy));
+            }
+            lastTime=newTime;
         }
-        return super.onOptionsItemSelected(item);
-    }*/
+        else{
+            Toast.makeText(MainActivity.this,"停",Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+
 }

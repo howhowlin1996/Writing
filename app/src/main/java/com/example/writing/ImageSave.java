@@ -6,11 +6,13 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 
 public  class ImageSave extends AsyncTask<Bitmap,Integer, File> {
@@ -22,11 +24,13 @@ public  class ImageSave extends AsyncTask<Bitmap,Integer, File> {
         this.context=context;
     }
     public void Save (Context context, Bitmap bmp) {
-        File appDir = new File(Environment.getExternalStorageDirectory(), "Canvas_Painter");
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing");
         if (!appDir.exists()) {
             appDir.mkdir();
         }
-        String fileName = System.currentTimeMillis() + ".jpg";
+        Date day =new Date();
+        CharSequence time = DateFormat.format("MMddyy hh:mm:ss", day.getTime());
+        String fileName = "writing "+time + ".jpg";
         File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -47,7 +51,7 @@ public  class ImageSave extends AsyncTask<Bitmap,Integer, File> {
             e.printStackTrace();
         }
         // 最後通知相簿更新
-        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + "/storage/emulated/0/Pictures/Canvas_Painter")));
+        //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + "/storage/emulated/0/Pictures/Writing")));
 
 
 

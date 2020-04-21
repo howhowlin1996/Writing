@@ -1,32 +1,18 @@
 package com.example.writing;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static android.app.PendingIntent.getActivity;
 import static java.lang.StrictMath.abs;
 
 
@@ -36,13 +22,13 @@ class Panel extends View {
     List<PointF> points=new ArrayList<PointF>();
     Bitmap vBitmap;
     Canvas vBitmapCanvas;
-    Paint mpaint = new Paint();
+    Paint mainpaint = new Paint();
 
     public Panel(Context context,AttributeSet attrs) {
         super(context,attrs);
-        mpaint.setColor(Color.BLACK);
-        mpaint.setStyle(Paint.Style.STROKE);
-        mpaint.setStrokeWidth(10);
+        mainpaint.setColor(Color.BLACK);
+        mainpaint.setStyle(Paint.Style.STROKE);
+        mainpaint.setStrokeWidth(10);
 
         //取得手機解析度
         DisplayMetrics dm = new DisplayMetrics();
@@ -50,7 +36,7 @@ class Panel extends View {
         windowManager.getDefaultDisplay().getMetrics(dm);
 
         //設定bitmap大小
-        vBitmap = Bitmap.createBitmap(dm.widthPixels,dm.heightPixels, Bitmap.Config.RGB_565);
+        vBitmap = Bitmap.createBitmap(dm.widthPixels,dm.widthPixels+dm.widthPixels/2, Bitmap.Config.RGB_565);
         vBitmapCanvas = new Canvas(vBitmap);
         vBitmapCanvas.drawColor(Color.WHITE);
 
@@ -63,8 +49,8 @@ class Panel extends View {
             PointF p1 = points.get(i - 1);
             PointF p2 = points.get(i);
             if(abs(p1.x-p2.x)<50 && abs(p1.y-p2.y)<50) {
-                canvas.drawLine(p1.x, p1.y, p2.x, p2.y, mpaint);
-                vBitmapCanvas.drawLine(p1.x, p1.y, p2.x, p2.y, mpaint);
+                canvas.drawLine(p1.x, p1.y, p2.x, p2.y, mainpaint);
+                vBitmapCanvas.drawLine(p1.x, p1.y, p2.x, p2.y, mainpaint);
             }
         }
     }
