@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         saveButton.setOnClickListener(this);
         deleteButton.setOnClickListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPanel.setBackground(getDrawable(R.drawable.longlong));
+            mPanel.setBackground(getDrawable(R.drawable.longlong_copy));
         }
 
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.longlong_copy).getConstantState())&&lastTime!=0){
                     //Toast.makeText(MainActivity.this,"correct",Toast.LENGTH_LONG).show();
                     mPanel.resetCanvas();
-                    mPanel.setBackground(getDrawable(R.drawable.longlong));
+                    mPanel.setBackground(getDrawable(R.drawable.space));
                     return;
                 }
                 mPanel.savePicture();
