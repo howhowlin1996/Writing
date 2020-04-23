@@ -1,15 +1,9 @@
 package com.example.writing;
 
-import android.annotation.SuppressLint;
-import android.app.PendingIntent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -17,19 +11,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class WritingPanel extends AppCompatActivity implements View.OnClickListener {
     //Panel mPanel;
      long lastTime =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout);
-        final Button saveButton = findViewById(R.id.SaveButton);
+        setContentView(R.layout.layout);                                         //import layout.xml
+        final Button saveButton = findViewById(R.id.SaveButton);                 //get two button id in layout.xml saveButton and deleteButton
         final Button deleteButton= findViewById(R.id.DeleteButton);
-        final Panel mPanel =findViewById(R.id.panel);
-        saveButton.setOnClickListener(this);
+        final Panel mPanel =findViewById(R.id.panel);                            //get the panel id in layout.xml
+        saveButton.setOnClickListener(this);                                     // if user click the button call function Onclick
         deleteButton.setOnClickListener(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {            //set panel background for copying the character
             mPanel.setBackground(getDrawable(R.drawable.longlong_copy));
         }
 
@@ -40,17 +34,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         final Panel mPanel =findViewById(R.id.panel);
-        long newTime = System.currentTimeMillis();
+        long newTime = System.currentTimeMillis();                              //set time limit to avoid users hitting the button too many times in a short period
         if(newTime-lastTime>1000){
-            if (v.getId()==R.id.SaveButton){
+            if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
                 if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.longlong_copy).getConstantState())&&lastTime!=0){
-                    //Toast.makeText(MainActivity.this,"correct",Toast.LENGTH_LONG).show();
                     mPanel.resetCanvas();
                     mPanel.setBackground(getDrawable(R.drawable.space));
                     return;
                 }
                 mPanel.savePicture();
-                Toast.makeText(MainActivity.this,"儲存完畢",Toast.LENGTH_LONG).show();
+                Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
 
             }
             else if (v.getId()==R.id.DeleteButton){
@@ -60,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             lastTime=newTime;
         }
         else{
-            Toast.makeText(MainActivity.this,"停",Toast.LENGTH_LONG).show();
+            Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
         }
 
 
