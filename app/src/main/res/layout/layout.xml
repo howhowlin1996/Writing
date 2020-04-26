@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.85" />
 
-        <com.example.writing.Panel
+        <com.example.writing.panel.Panel
             android:id="@+id/panel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
