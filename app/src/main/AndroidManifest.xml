@@ -21,8 +21,8 @@
         <activity android:name=".coosetype.SinglePage"/>
         <activity android:name=".coosetype.LeftRightPage"/>
         <activity android:name=".panel.WritingPanel"/>
-        <activity android:name=".puzzle.puzzle"/>
-        <activity android:name=".coosetype.ChooseTypePage">
+        <activity android:name=".coosetype.ChooseTypePage"/>
+        <activity android:name=".puzzle.Puzzle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

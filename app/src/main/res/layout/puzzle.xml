@@ -5,11 +5,74 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.example.writing.puzzle.PuzzlePanelGroup
+        android:id="@+id/Group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:visibility="visible"
-        app:srcCompat="@drawable/longlong" />
+        <com.example.writing.puzzle.AnswerBoard
+            android:id="@+id/answerBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/questionPanelLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/questionPanelRIght"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charUp1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charUp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charUp3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charUp4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charDown1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charDown2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charDown3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.writing.puzzle.PuzzlePanel
+            android:id="@+id/charDown4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.example.writing.puzzle.PuzzlePanelGroup>
 </LinearLayout>

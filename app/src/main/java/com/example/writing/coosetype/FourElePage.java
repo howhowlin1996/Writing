@@ -1,6 +1,5 @@
 package com.example.writing.coosetype;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
-import com.example.writing.panel.WritingPanel;
-import com.example.writing.puzzle.puzzle;
+import com.example.writing.puzzle.Puzzle;
 
 public class FourElePage extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -26,7 +24,7 @@ public class FourElePage extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
 
 
-        Intent intent =new Intent(getBaseContext(),puzzle.class);
+        Intent intent =new Intent(getBaseContext(), Puzzle.class);
         startActivity(intent);
 
     }
