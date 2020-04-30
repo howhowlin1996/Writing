@@ -3,6 +3,7 @@ package com.example.writing.coosetype;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +16,8 @@ public class FourElePage extends AppCompatActivity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fourelechoose);
-       final TextView textView =findViewById(R.id.textView);
-       textView.setOnClickListener(this);
+        Button threeele=findViewById(R.id.threeele);
+        threeele.setOnClickListener(this);
     }
 
 

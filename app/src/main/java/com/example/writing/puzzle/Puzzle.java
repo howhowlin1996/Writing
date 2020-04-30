@@ -3,6 +3,8 @@ package com.example.writing.puzzle;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -15,12 +17,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
+import com.example.writing.panel.WritingPanel;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
+public class Puzzle extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener  {
     private float begin_x,begin_y;
     private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
@@ -75,6 +79,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
         down2.setOnTouchListener(this);
         down3.setOnTouchListener(this);
         down4.setOnTouchListener(this);
+        answerBoard.setOnClickListener((View.OnClickListener) this);
 
         for (int i=0;i<11;i++){
             idMap.put(group.getChildAt(i).getId(),i);
@@ -198,6 +203,9 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
     }
 
 
-
-
+    @Override
+    public void onClick(View v) {
+        Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+        startActivity(intent);
+    }
 }

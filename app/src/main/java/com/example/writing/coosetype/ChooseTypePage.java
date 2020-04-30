@@ -30,8 +30,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         Integer idnum=v.getId();
-
-
         if (idnum==R.id.SingleButton){
             Intent intent = new  Intent(ChooseTypePage.this, SinglePage.class);             //change activity to the activity that every button matches
             startActivity(intent);

@@ -2,9 +2,12 @@ package com.example.writing.coosetype;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import com.example.writing.panel.WritingPanel;
+import com.example.writing.puzzle.Puzzle;
 
 public class UpDownPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -12,6 +15,8 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updownchoose);
+        Button updown=findViewById(R.id.updown);
+        updown.setOnClickListener(this);
 
     }
 
@@ -22,7 +27,7 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
 
 
 
-        Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+        Intent intent =new Intent(getBaseContext(), Puzzle.class);
         startActivity(intent);
 
     }
