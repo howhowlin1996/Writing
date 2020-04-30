@@ -1,11 +1,18 @@
 package com.example.writing.puzzle;
 
 
+import android.accessibilityservice.AccessibilityService;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import java.util.HashMap;
@@ -15,8 +22,8 @@ import java.util.Queue;
 
 public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
     private float begin_x,begin_y;
-    private int move_x,move_y;
-    private long begin_time=0,final_time=0;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id;
+    private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
     private int[]begin_l=new int [11];
     private int[]begin_t=new int[11];
     private Map<Integer,Integer>idMap=new HashMap<>();
@@ -52,6 +59,13 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
             down4.setBackground(getDrawable(R.drawable.longlong_copy));
             answerBoard.setBackground(getDrawable(R.drawable.space));
         }
+        DisplayMetrics dm = new DisplayMetrics();
+
+        WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        width=dm.widthPixels;
+        height=dm.heightPixels;
+
 
         up1.setOnTouchListener(this);
         up2.setOnTouchListener(this);
@@ -72,9 +86,11 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         int idnum=v.getId();
+        int middle_w,middle_h;
 
         if (final_time==0){
             saveInfoPos();
@@ -90,14 +106,53 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
         switch (event.getAction()){
 
             case MotionEvent.ACTION_DOWN:
-
                 begin_x=event.getX();
                 begin_y=event.getY();
 
             case MotionEvent.ACTION_MOVE:
                 move_x=(int)(event.getRawX()-begin_x);                                              /*2*begin_y??*/
                 move_y=(int)(event.getRawY()-2*begin_y);
-                v.layout(move_x,move_y,move_x+v.getWidth(),move_y+v.getHeight());
+                middle_w=move_x+v.getWidth()/2;
+                middle_h=move_y+v.getHeight()/2;
+                if(middle_w>hit_l&&middle_w<hit_r&&middle_h>hit_t&&middle_h<hit_b){                 //if the radical puzzles hit the answerboard more than 1sec then change its background amd set the puzzle back to the start
+                   if(hit_final==0){
+                       hit_puzzle_id=idnum;                                                          //to judge which puzzle hit the answerboard
+                       hit_begin=System.currentTimeMillis();
+                       hit_final=System.currentTimeMillis();
+                   }
+                   else{
+                       if(idnum==hit_puzzle_id){
+                           hit_final=System.currentTimeMillis();
+                       }
+                       else {
+                           hit_final=0;
+                       }
+
+                   }
+                   if(hit_final-hit_begin>1000){
+                       AnswerBoard answerBoard=findViewById(R.id.answerBoard);
+                       backToStart(v.getId());
+                       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
+                           answerBoard.setBackground(getDrawable(R.drawable.longlong));
+                       }
+                       break;
+                   }
+                }
+                if (move_x<0){
+                      move_x=0;
+                }
+                 if(move_y<0){
+                    move_y=0;
+                }
+                 if(move_x+v.getWidth()>width){
+                      move_x=width-v.getWidth();
+                }
+                 if(move_y+v.getHeight()>height-v.getHeight()*3/4){
+                     move_y=height-v.getHeight()*7/4;
+                }
+
+                 v.layout(move_x,move_y,move_x+v.getWidth(),move_y+v.getHeight());
+
         }
 
         final_time=System.currentTimeMillis();
@@ -127,6 +182,10 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
             begin_l[i]=group.begin_l[i];
             begin_t[i]=group.begin_t[i];
         }
+        hit_l=begin_l[0];
+        hit_t=begin_t[0];
+        hit_r=hit_l+group.getChildAt(0).getWidth();
+        hit_b=hit_t+group.getChildAt(0).getHeight();
     }
 
 
@@ -137,6 +196,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener {
         View child=group.getChildAt(idnum);
         child.layout(begin_l[idnum],begin_t[idnum],begin_l[idnum]+child.getWidth(),begin_t[idnum]+child.getHeight());
     }
+
+
 
 
 }

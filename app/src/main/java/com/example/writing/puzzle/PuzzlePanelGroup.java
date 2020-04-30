@@ -22,7 +22,6 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         height=dm.heightPixels;
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {                         //to set the group to meet the screen
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
