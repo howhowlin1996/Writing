@@ -28,8 +28,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
     private float begin_x,begin_y;
     private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
-    private int[]begin_l=new int [11];
-    private int[]begin_t=new int[11];
+    private int[]begin_l=new int [13];
+    private int[]begin_t=new int[13];
     private Map<Integer,Integer>idMap=new HashMap<>();
     private Queue<Integer>puzzlequeue=new LinkedList<Integer>();
     @Override
@@ -51,8 +51,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
 
-            qu1.setBackground(getDrawable(R.drawable.no));
-            qu2.setBackground(getDrawable(R.drawable.longlong));
+            qu1.setBackground(getDrawable(R.drawable.pic_0000));
+            qu2.setBackground(getDrawable(R.drawable.white));
             up1.setBackground(getDrawable(R.drawable.longlong_copy));
             up2.setBackground(getDrawable(R.drawable.longlong_copy));
             up3.setBackground(getDrawable(R.drawable.longlong_copy));
@@ -81,7 +81,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         down4.setOnTouchListener(this);
         answerBoard.setOnClickListener((View.OnClickListener) this);
 
-        for (int i=0;i<11;i++){
+        for (int i=0;i<13;i++){
             idMap.put(group.getChildAt(i).getId(),i);
         }
 
@@ -183,7 +183,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
     public void saveInfoPos(){                                                                      //The work of this function is to remember the begin position of every views by using array
         PuzzlePanelGroup group=findViewById(R.id.Group);
-        for (int i=0;i<11;i++){
+        for (int i=0;i<13;i++){
             begin_l[i]=group.begin_l[i];
             begin_t[i]=group.begin_t[i];
         }

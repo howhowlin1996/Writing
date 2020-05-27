@@ -22,7 +22,9 @@
         <activity android:name=".coosetype.LeftRightPage"/>
         <activity android:name=".panel.WritingPanel"/>
         <activity android:name=".puzzle.Puzzle"/>
+        <activity android:name=".badge.Badge"/>
         <activity android:name=".coosetype.ChooseTypePage">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -3,15 +3,19 @@ package com.example.writing.puzzle;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.example.writing.coosetype.LeftRightPage;
+
 public class PuzzlePanelGroup extends ViewGroup {                                                   /*PuzzleGroup is for puzzle package only, it is used to align the puzzle view. These group contains 11puzzle views*/
     private Context this_context;
     int width,height,viewgroup_h;                                                                   //width means the width of screen, height means the same.
-    public final  int[]begin_l=new int [11];                                                        //these two array use for storing the begin left and top position of 11 views
-    public  final int[]begin_t=new int[11];
+    public final  int[]begin_l=new int [13];                                                        //these two array use for storing the begin left and top position of 11 views
+    public  final int[]begin_t=new int[13];
+
     public PuzzlePanelGroup(Context context, AttributeSet attrs) {                                  //to measure the screen size
         super(context, attrs);
         this_context=context;
@@ -35,16 +39,25 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         View sizeview=getChildAt(1);
         int puzzleHeight=sizeview.getMeasuredHeight();
         int puzzleWidth=sizeview.getMeasuredWidth();
-        for (int i=1;i<3;i++){                                                                      //to set the question puzzle
+        left_pos+=puzzleWidth/3*2;
+        for (int i=1;i<5;i++){                                                                      //to set the question puzzle
             View childview=getChildAt(i);                                                           //there are two question puzzles which are on the top of screen
-            left_pos+=puzzleWidth;
+
+            if(i==2||i==4){
+                puzzleWidth=sizeview.getMeasuredWidth()/2;
+            }
+            else{
+                puzzleWidth=sizeview.getMeasuredWidth();
+            }
             viewgroup_h=0;
             childview.layout(left_pos,viewgroup_h,left_pos+puzzleWidth,viewgroup_h+puzzleHeight);
             begin_l[i]=left_pos;
             begin_t[i]=viewgroup_h;
+            left_pos+=puzzleWidth/10*9;
         }
+        puzzleWidth=sizeview.getMeasuredWidth();
         left_pos=0;
-        for (int i=3;i<7;i++){                                                                      // to set the radical puzzles which are in the upper part of screen
+        for (int i=5;i<9;i++){                                                                      // to set the radical puzzles which are in the upper part of screen
             View childview=getChildAt(i);
             viewgroup_h=puzzleHeight;
             childview.layout(left_pos,viewgroup_h,left_pos+puzzleWidth,viewgroup_h+puzzleHeight);
@@ -64,7 +77,7 @@ public class PuzzlePanelGroup extends ViewGroup {                               
             begin_t[i]=viewgroup_h;
         }
         left_pos=0;
-        for (int i=7;i<11;i++){
+        for (int i=9;i<13;i++){
             View childview=getChildAt(i);
             viewgroup_h=height-2*puzzleHeight;
             childview.layout(left_pos,viewgroup_h,left_pos+puzzleWidth,viewgroup_h+puzzleHeight);            //to set the radical puzzles which are in the bottom of screen
