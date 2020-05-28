@@ -34,6 +34,7 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
 
 
         Intent intent =new Intent(getBaseContext(), Puzzle.class);
+        intent.putExtra("num",11);
         startActivity(intent);
 
     }

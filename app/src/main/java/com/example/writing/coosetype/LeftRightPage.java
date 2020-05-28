@@ -28,8 +28,14 @@ public class LeftRightPage extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-
+         int ID=v.getId();
         Intent intent =new Intent(getBaseContext(), Puzzle.class);
+        if(ID==R.id.leftright2){
+            intent.putExtra("num",31);
+        }
+        else if(ID==R.id.leftright3){
+            intent.putExtra("num",32);
+        }
         startActivity(intent);
     }
 }

@@ -1,14 +1,11 @@
 package com.example.writing.puzzle;
 
 
-import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,8 +25,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
     private float begin_x,begin_y;
     private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
-    private int[]begin_l=new int [13];
-    private int[]begin_t=new int[13];
+    private int[]begin_l=new int [15];
+    private int[]begin_t=new int[15];
     private Map<Integer,Integer>idMap=new HashMap<>();
     private Queue<Integer>puzzlequeue=new LinkedList<Integer>();
     @Override
@@ -46,22 +43,24 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         PuzzlePanel down2=findViewById(R.id.charDown2);
         PuzzlePanel down3=findViewById(R.id.charDown3);
         PuzzlePanel down4=findViewById(R.id.charDown4);
-        AnswerBoard answerBoard=findViewById(R.id.answerBoard);
+        AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
         PuzzlePanelGroup group=findViewById(R.id.Group);
+
+        group.splitNum(getIntent().getExtras().getInt("num"));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
 
             qu1.setBackground(getDrawable(R.drawable.pic_0000));
             qu2.setBackground(getDrawable(R.drawable.white));
-            up1.setBackground(getDrawable(R.drawable.longlong_copy));
-            up2.setBackground(getDrawable(R.drawable.longlong_copy));
-            up3.setBackground(getDrawable(R.drawable.longlong_copy));
-            up4.setBackground(getDrawable(R.drawable.longlong_copy));
-            down1.setBackground(getDrawable(R.drawable.longlong_copy));
-            down2.setBackground(getDrawable(R.drawable.longlong_copy));
-            down3.setBackground(getDrawable(R.drawable.longlong_copy));
-            down4.setBackground(getDrawable(R.drawable.longlong_copy));
-            answerBoard.setBackground(getDrawable(R.drawable.space));
+            up1.setBackground(getDrawable(R.drawable.pic_000111));
+            up2.setBackground(getDrawable(R.drawable.longlong));
+            up3.setBackground(getDrawable(R.drawable.space));
+            up4.setBackground(getDrawable(R.drawable.space));
+            down1.setBackground(getDrawable(R.drawable.pic_000112));
+            down2.setBackground(getDrawable(R.drawable.no));
+            down3.setBackground(getDrawable(R.drawable.space));
+            down4.setBackground(getDrawable(R.drawable.space));
+            //answerBoard.setBackground(getDrawable(R.drawable.space));
         }
         DisplayMetrics dm = new DisplayMetrics();
 
@@ -81,7 +80,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         down4.setOnTouchListener(this);
         answerBoard.setOnClickListener((View.OnClickListener) this);
 
-        for (int i=0;i<13;i++){
+        for (int i=0;i<15;i++){
             idMap.put(group.getChildAt(i).getId(),i);
         }
 
@@ -101,9 +100,9 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
             saveInfoPos();
         }
         if (puzzlequeue.size()!=0) {
-                if (!puzzlequeue.contains(idnum)){
-                    puzzlequeue.add(idnum);
-                }
+            if (!puzzlequeue.contains(idnum)){
+                puzzlequeue.add(idnum);
+            }
         }
         else{
             puzzlequeue.add(idnum);
@@ -120,43 +119,43 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
                 middle_w=move_x+v.getWidth()/2;
                 middle_h=move_y+v.getHeight()/2;
                 if(middle_w>hit_l&&middle_w<hit_r&&middle_h>hit_t&&middle_h<hit_b){                 //if the radical puzzles hit the answerboard more than 1sec then change its background amd set the puzzle back to the start
-                   if(hit_final==0){
-                       hit_puzzle_id=idnum;                                                          //to judge which puzzle hit the answerboard
-                       hit_begin=System.currentTimeMillis();
-                       hit_final=System.currentTimeMillis();
-                   }
-                   else{
-                       if(idnum==hit_puzzle_id){
-                           hit_final=System.currentTimeMillis();
-                       }
-                       else {
-                           hit_final=0;
-                       }
+                    if(hit_final==0){
+                        hit_puzzle_id=idnum;                                                          //to judge which puzzle hit the answerboard
+                        hit_begin=System.currentTimeMillis();
+                        hit_final=System.currentTimeMillis();
+                    }
+                    else{
+                        if(idnum==hit_puzzle_id){
+                            hit_final=System.currentTimeMillis();
+                        }
+                        else {
+                            hit_final=0;
+                        }
 
-                   }
-                   if(hit_final-hit_begin>1000){
-                       AnswerBoard answerBoard=findViewById(R.id.answerBoard);
-                       backToStart(v.getId());
-                       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
-                           answerBoard.setBackground(getDrawable(R.drawable.longlong));
-                       }
-                       break;
-                   }
+                    }
+                    if(hit_final-hit_begin>1000){
+                        AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
+                        backToStart(v.getId());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
+                            answerBoard.setBackground(getDrawable(R.drawable.longlong));
+                        }
+                        break;
+                    }
                 }
                 if (move_x<0){
-                      move_x=0;
+                    move_x=0;
                 }
-                 if(move_y<0){
+                if(move_y<0){
                     move_y=0;
                 }
-                 if(move_x+v.getWidth()>width){
-                      move_x=width-v.getWidth();
+                if(move_x+v.getWidth()>width){
+                    move_x=width-v.getWidth();
                 }
-                 if(move_y+v.getHeight()>height-v.getHeight()*3/4){
-                     move_y=height-v.getHeight()*7/4;
+                if(move_y+v.getHeight()>height-v.getHeight()*3/4){
+                    move_y=height-v.getHeight()*7/4;
                 }
 
-                 v.layout(move_x,move_y,move_x+v.getWidth(),move_y+v.getHeight());
+                v.layout(move_x,move_y,move_x+v.getWidth(),move_y+v.getHeight());
 
         }
 
@@ -183,7 +182,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
     public void saveInfoPos(){                                                                      //The work of this function is to remember the begin position of every views by using array
         PuzzlePanelGroup group=findViewById(R.id.Group);
-        for (int i=0;i<13;i++){
+        for (int i=0;i<15;i++){
             begin_l[i]=group.begin_l[i];
             begin_t[i]=group.begin_t[i];
         }

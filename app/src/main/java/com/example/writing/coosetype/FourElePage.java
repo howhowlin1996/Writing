@@ -26,6 +26,7 @@ public class FourElePage extends AppCompatActivity implements View.OnClickListen
 
 
         Intent intent =new Intent(getBaseContext(), Puzzle.class);
+        intent.putExtra("num",41);
         startActivity(intent);
 
     }

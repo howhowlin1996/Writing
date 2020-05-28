@@ -17,10 +17,22 @@
         app:layout_constraintVertical_bias="0.3">
 
         <com.example.writing.puzzle.AnswerBoard
-            android:id="@+id/answerBoard"
+            android:id="@+id/answerBoard1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:background="@drawable/block" />
+
+        <com.example.writing.puzzle.AnswerBoard
+            android:id="@+id/answerBoard2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/block" />
+
+        <com.example.writing.puzzle.AnswerBoard
+            android:id="@+id/answerBoard3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/block" />
 
         <com.example.writing.puzzle.PuzzlePanel
             android:id="@+id/questionPanelLeft"

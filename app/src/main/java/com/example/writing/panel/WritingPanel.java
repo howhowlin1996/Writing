@@ -29,7 +29,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         deleteButton.setOnClickListener(this);
         badge.setOnClickListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {            //set panel background for copying the character
-            mPanel.setBackground(getDrawable(R.drawable.longlong_copy));
+            mPanel.setBackground(getDrawable(R.drawable.no_copy));
         }
 
 

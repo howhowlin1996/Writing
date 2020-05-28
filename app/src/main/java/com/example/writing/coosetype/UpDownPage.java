@@ -28,6 +28,7 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
 
 
         Intent intent =new Intent(getBaseContext(), Puzzle.class);
+        intent.putExtra("num",21);
         startActivity(intent);
 
     }
