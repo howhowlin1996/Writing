@@ -29,7 +29,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         deleteButton.setOnClickListener(this);
         badge.setOnClickListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {            //set panel background for copying the character
-            mPanel.setBackground(getDrawable(R.drawable.no_copy));
+            mPanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
         }
 
 
@@ -47,7 +47,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         }
         if(newTime-lastTime>1000){
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
-                if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.longlong_copy).getConstantState())&&lastTime!=0){
+                if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.pic_0001_copy).getConstantState())&&lastTime!=0){
                     mPanel.resetCanvas();
                     mPanel.setBackground(getDrawable(R.drawable.space));
                     return;
@@ -58,7 +58,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
             }
             else if (v.getId()==R.id.DeleteButton){
                 mPanel.resetCanvas();
-                mPanel.setBackground(getDrawable(R.drawable.longlong_copy));
+                mPanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
             }
             lastTime=newTime;
         }

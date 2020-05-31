@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.42000002"
-        app:srcCompat="@drawable/no" />
+        app:srcCompat="@drawable/pic_0001" />
 
     <LinearLayout
         android:layout_width="409dp"

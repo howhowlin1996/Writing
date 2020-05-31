@@ -23,7 +23,7 @@ import java.util.Queue;
 
 public class Puzzle extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener  {
     private float begin_x,begin_y;
-    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
     private int[]begin_l=new int [15];
     private int[]begin_t=new int[15];
@@ -45,21 +45,21 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         PuzzlePanel down4=findViewById(R.id.charDown4);
         AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
         PuzzlePanelGroup group=findViewById(R.id.Group);
-
-        group.splitNum(getIntent().getExtras().getInt("num"));
+        split_code=getIntent().getExtras().getInt("num");
+        group.splitNum(split_code);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
 
             qu1.setBackground(getDrawable(R.drawable.pic_0000));
             qu2.setBackground(getDrawable(R.drawable.white));
-            up1.setBackground(getDrawable(R.drawable.pic_000111));
-            up2.setBackground(getDrawable(R.drawable.longlong));
-            up3.setBackground(getDrawable(R.drawable.space));
-            up4.setBackground(getDrawable(R.drawable.space));
-            down1.setBackground(getDrawable(R.drawable.pic_000112));
-            down2.setBackground(getDrawable(R.drawable.no));
-            down3.setBackground(getDrawable(R.drawable.space));
-            down4.setBackground(getDrawable(R.drawable.space));
+            up1.setBackground(getDrawable(R.drawable.p5973));
+            up2.setBackground(getDrawable(R.drawable.p5bf8));
+            up3.setBackground(getDrawable(R.drawable.p571f));
+            //up4.setBackground(getDrawable(R.drawable.space));
+            down1.setBackground(getDrawable(R.drawable.p5b50));
+            down2.setBackground(getDrawable(R.drawable.p65a4));
+            down3.setBackground(getDrawable(R.drawable.p6728));
+            //down4.setBackground(getDrawable(R.drawable.space));
             //answerBoard.setBackground(getDrawable(R.drawable.space));
         }
         DisplayMetrics dm = new DisplayMetrics();
@@ -134,10 +134,21 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
                     }
                     if(hit_final-hit_begin>1000){
-                        AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
+                        AnswerBoard answerBoard1=findViewById(R.id.answerBoard1);
+                        AnswerBoard answerBoard2=findViewById(R.id.answerBoard2);
+                        AnswerBoard answerBoard3=findViewById(R.id.answerBoard3);
                         backToStart(v.getId());
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
-                            answerBoard.setBackground(getDrawable(R.drawable.longlong));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
+                            if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
+                                answerBoard1.setBackground(v.getBackground());
+                            }
+                            if(middle_w>answerBoard2.getLeft()&&middle_w<answerBoard2.getRight()&&middle_h>answerBoard2.getTop()&&middle_h<answerBoard2.getBottom()){
+                                answerBoard2.setBackground(v.getBackground());
+                            }
+                            if(middle_w>answerBoard3.getLeft()&&middle_w<answerBoard3.getRight()&&middle_h>answerBoard3.getTop()&&middle_h<answerBoard3.getBottom()){
+                                answerBoard3.setBackground(v.getBackground());
+                            }
+
                         }
                         break;
                     }
@@ -181,6 +192,11 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
 
     public void saveInfoPos(){                                                                      //The work of this function is to remember the begin position of every views by using array
+        int width=0;
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        width=dm.widthPixels/2;
         PuzzlePanelGroup group=findViewById(R.id.Group);
         for (int i=0;i<15;i++){
             begin_l[i]=group.begin_l[i];
@@ -188,8 +204,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         }
         hit_l=begin_l[0];
         hit_t=begin_t[0];
-        hit_r=hit_l+group.getChildAt(0).getWidth();
-        hit_b=hit_t+group.getChildAt(0).getHeight();
+        hit_r=hit_l+width;
+        hit_b=hit_t+width;
     }
 
 
