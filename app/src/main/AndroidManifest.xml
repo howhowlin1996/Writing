@@ -15,11 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".coosetype.FourElePage"/>                                  <!--add any activity needs to change-->
+        <!--add any activity needs to change-->
         <activity android:name=".coosetype.InOutPage"/>
         <activity android:name=".coosetype.UpDownPage"/>
         <activity android:name=".coosetype.SinglePage"/>
-        <activity android:name=".coosetype.LeftRightPage"/>
         <activity android:name=".panel.WritingPanel"/>
         <activity android:name=".puzzle.Puzzle"/>
         <activity android:name=".badge.Badge"/>

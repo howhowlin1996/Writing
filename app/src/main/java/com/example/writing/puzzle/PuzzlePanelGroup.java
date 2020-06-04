@@ -3,13 +3,11 @@ package com.example.writing.puzzle;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.example.writing.R;
-import com.example.writing.coosetype.LeftRightPage;
 
 public class PuzzlePanelGroup extends ViewGroup {                                                   /*PuzzleGroup is for puzzle package only, it is used to align the puzzle view. These group contains 11puzzle views*/
     private Context this_context;

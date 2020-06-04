@@ -16,6 +16,7 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updownchoose);
         Button updown=findViewById(R.id.updown);
+
         updown.setOnClickListener(this);
 
     }
