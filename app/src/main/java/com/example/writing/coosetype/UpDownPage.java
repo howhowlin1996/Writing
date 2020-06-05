@@ -16,20 +16,38 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updownchoose);
         Button updown=findViewById(R.id.updown);
-
+        Button leftright2=findViewById(R.id.leftright2_updown);
+        Button leftright3=findViewById(R.id.leftright3_updown);
+        Button updown3=findViewById(R.id.updown3);
         updown.setOnClickListener(this);
+        updown3.setOnClickListener(this);
+        leftright2.setOnClickListener(this);
+        leftright3.setOnClickListener(this);
 
     }
 
 
     @Override
     public void onClick(View v) {
+        int num=0;
+        if(v.getId()==R.id.updown){
+            num=21;
+        }
+        else if(v.getId()==R.id.updown3){
+            num=22;
+        }
+        else if(v.getId()==R.id.leftright2_updown){
+           num=31;
+        }
+        else if(v.getId()==R.id.leftright3_updown){
+           num=32;
+        }
 
 
 
 
         Intent intent =new Intent(getBaseContext(), Puzzle.class);
-        intent.putExtra("num",21);
+        intent.putExtra("num",num);
         startActivity(intent);
 
     }

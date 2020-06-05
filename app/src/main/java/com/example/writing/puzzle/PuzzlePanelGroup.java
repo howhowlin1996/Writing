@@ -41,9 +41,17 @@ public class PuzzlePanelGroup extends ViewGroup {                               
             answer3.measure(0,0);
         }
         else if(piece/10==2){
-            answer1.measure(width/2,width/4);
-            answer2.measure(width/2,width/4);
-            answer3.measure(0,0);
+            if(piece%10==1){
+                answer1.measure(width/2,width/4);
+                answer2.measure(width/2,width/4);
+                answer3.measure(0,0);
+            }
+            else if(piece%10==2){
+                answer1.measure(width/2,width/6);
+                answer2.measure(width/2,width/6);
+                answer3.measure(width/2,width/6);
+            }
+
         }
         else if(piece/10==3){
             if(piece%10==1){
@@ -146,17 +154,33 @@ public class PuzzlePanelGroup extends ViewGroup {                               
 
         }
         else if(piece/10==2){
-            for (int i=0;i<2;i++){                                                                      //to set the puzzlepanel in the middle of screen
-                View Paneled=getChildAt(i);
-                int PanelHeight= Paneled.getMeasuredHeight();
-                int PanelWidth=Paneled.getMeasuredWidth();
-                //Log.d("errorhere",new String(" "+PanelHeight+" "+PanelWidth));
-                left_pos=puzzleWidth;
-                Paneled.layout(left_pos,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelHeight);
-                begin_l[i]=left_pos;
-                begin_t[i]=viewgroup_h;
-                viewgroup_h+=PanelHeight;
+            if(piece%10==1){
+                for (int i=0;i<2;i++){                                                                      //to set the puzzlepanel in the middle of screen
+                    View Paneled=getChildAt(i);
+                    int PanelHeight= Paneled.getMeasuredHeight();
+                    int PanelWidth=Paneled.getMeasuredWidth();
+                    //Log.d("errorhere",new String(" "+PanelHeight+" "+PanelWidth));
+                    left_pos=puzzleWidth;
+                    Paneled.layout(left_pos,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelHeight);
+                    begin_l[i]=left_pos;
+                    begin_t[i]=viewgroup_h;
+                    viewgroup_h+=PanelHeight;
+                }
             }
+            else if(piece%10==2){
+                for (int i=0;i<3;i++){                                                                      //to set the puzzlepanel in the middle of screen
+                    View Paneled=getChildAt(i);
+                    int PanelHeight= Paneled.getMeasuredHeight();
+                    int PanelWidth=Paneled.getMeasuredWidth();
+                    //Log.d("errorhere",new String(" "+PanelHeight+" "+PanelWidth));
+                    left_pos=puzzleWidth;
+                    Paneled.layout(left_pos,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelHeight);
+                    begin_l[i]=left_pos;
+                    begin_t[i]=viewgroup_h;
+                    viewgroup_h+=PanelHeight;
+                }
+            }
+
 
         }
         else if(piece/10==3){

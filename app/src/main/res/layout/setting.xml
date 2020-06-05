@@ -35,6 +35,42 @@
                     android:layout_weight="1" />
 
                 <ImageView
+                    android:id="@+id/RightUp_setting"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rightup" />
+
+                <Spinner
+                    android:id="@+id/RightUpSpin"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ThreeEle_setting"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/threeele" />
+
+                <Spinner
+                    android:id="@+id/ThreeEleSpin"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1" />
+
+                <ImageView
                     android:id="@+id/RightMiddle_setting"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -93,14 +129,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/LeftRight2_setting"
+                    android:id="@+id/UpDown3_setting"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/leftright2" />
+                    app:srcCompat="@drawable/updown3" />
 
                 <Spinner
-                    android:id="@+id/LeftRight2Spin"
+                    android:id="@+id/UpDown3Spin"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="25dp"
@@ -129,14 +165,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/LeftRight3_setting"
+                    android:id="@+id/LeftRight2_setting"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/leftright3" />
+                    app:srcCompat="@drawable/leftright2" />
 
                 <Spinner
-                    android:id="@+id/LeftRight3Spin"
+                    android:id="@+id/LeftRight2Spin"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="25dp"
@@ -165,14 +201,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/ThreeEle_setting"
+                    android:id="@+id/LeftRight3_setting"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/threeele" />
+                    app:srcCompat="@drawable/leftright3" />
 
                 <Spinner
-                    android:id="@+id/ThreeEleSpin"
+                    android:id="@+id/LeftRight3Spin"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="25dp"
@@ -190,29 +226,6 @@
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="25dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/RightUp_setting"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/rightup" />
-
-                <Spinner
-                    android:id="@+id/RightUpSpin"
-                    android:layout_width="160dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginRight="180dp"
                     android:layout_weight="1" />
 
             </LinearLayout>

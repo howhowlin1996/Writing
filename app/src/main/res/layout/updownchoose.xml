@@ -69,6 +69,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/updown3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/updown3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <Button
             android:id="@+id/leftright3_updown"
             android:layout_width="100dp"
             android:layout_height="100dp"

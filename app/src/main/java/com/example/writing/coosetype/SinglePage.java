@@ -19,8 +19,9 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singlechoose);
         Button single=findViewById(R.id.single);
+        Button threeele=findViewById(R.id.threeele_single);
         single.setOnClickListener(this);
-
+        threeele.setOnClickListener(this);
         }
 
 
@@ -29,12 +30,14 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-
-
-
-
         Intent intent =new Intent(getBaseContext(), Puzzle.class);
-        intent.putExtra("num",11);
+       if(v.getId()==R.id.single){
+           intent.putExtra("num",11);
+       }
+       else if(v.getId()==R.id.threeele_single){
+           intent.putExtra("num",41);
+       }
+
         startActivity(intent);
 
     }

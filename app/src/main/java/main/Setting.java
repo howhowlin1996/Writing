@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 
 public class Setting extends AppCompatActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
-     int  charactertype  [] =new int [12];
+     int  charactertype  [] =new int [13];
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         Spinner middlemiddle =findViewById(R.id.MiddleMiddleSpin);
         Spinner middledown =findViewById(R.id.MiddleDownSpin);
         Spinner leftdown =findViewById(R.id.LeftDownSpin);
+        Spinner updown3=findViewById(R.id.UpDown3Spin);
         Spinner randomspin=findViewById(R.id.RandomSpin);
         Button confirm=findViewById(R.id.ConfirmButton_setting);
         for(int i=0;i<12;i++){
@@ -56,9 +57,11 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         middlemiddle.setAdapter(targetList);
         middledown.setAdapter(targetList);
         leftdown.setAdapter(targetList);
+        updown3.setAdapter(targetList);
         randomspin.setAdapter(randomList);
         single.setOnItemSelectedListener(this);
         updown.setOnItemSelectedListener(this);
+        updown3.setOnItemSelectedListener(this);
         leftright2.setOnItemSelectedListener(this);
         leftright3.setOnItemSelectedListener(this);
         threeele.setOnItemSelectedListener(this);
@@ -87,35 +90,38 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         else if (parent.getId()==R.id.UpDownSpin){
             charactertype[1]=position;
         }
-        else if(parent.getId()==R.id.LeftRight2Spin){
+        else if (parent.getId()==R.id.UpDown3Spin){
             charactertype[2]=position;
         }
-        else if(parent.getId()==R.id.LeftRight3Spin){
+        else if(parent.getId()==R.id.LeftRight2Spin){
             charactertype[3]=position;
         }
-        else if(parent.getId()==R.id.ThreeEleSpin){
+        else if(parent.getId()==R.id.LeftRight3Spin){
             charactertype[4]=position;
         }
-        else  if (parent.getId()==R.id.RightUpSpin){
+        else if(parent.getId()==R.id.ThreeEleSpin){
             charactertype[5]=position;
         }
-        else if(parent.getId()==R.id.RightMiddleSpin){
+        else  if (parent.getId()==R.id.RightUpSpin){
             charactertype[6]=position;
         }
-        else if(parent.getId()==R.id.RightDownSpin){
+        else if(parent.getId()==R.id.RightMiddleSpin){
             charactertype[7]=position;
         }
-        else if(parent.getId()==R.id.MiddleMiddleSpin){
+        else if(parent.getId()==R.id.RightDownSpin){
             charactertype[8]=position;
         }
-        else if(parent.getId()==R.id.MiddleDownSpin){
+        else if(parent.getId()==R.id.MiddleMiddleSpin){
             charactertype[9]=position;
         }
-        else if(parent.getId()==R.id.LeftDownSpin){
+        else if(parent.getId()==R.id.MiddleDownSpin){
             charactertype[10]=position;
         }
-        else if(parent.getId()==R.id.RandomSpin){
+        else if(parent.getId()==R.id.LeftDownSpin){
             charactertype[11]=position;
+        }
+        else if(parent.getId()==R.id.RandomSpin){
+            charactertype[12]=position;
         }
 
 
@@ -128,6 +134,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
     @Override
     public void onClick(View v) {
+        onBackPressed();
 
     }
 }
