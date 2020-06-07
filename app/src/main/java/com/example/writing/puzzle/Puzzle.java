@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
+import com.example.writing.panel.CopyWriting;
 import com.example.writing.panel.WritingPanel;
 
 import java.util.HashMap;
@@ -220,7 +221,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
     @Override
     public void onClick(View v) {
-        Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+        Intent intent =new Intent(getBaseContext(), CopyWriting.class);
         startActivity(intent);
     }
 }

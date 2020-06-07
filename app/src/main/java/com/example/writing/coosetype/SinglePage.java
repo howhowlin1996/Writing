@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
+import com.example.writing.panel.CopyWriting;
 import com.example.writing.panel.WritingPanel;
 import com.example.writing.puzzle.Puzzle;
 
@@ -30,7 +31,7 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent intent =new Intent(getBaseContext(), Puzzle.class);
+        Intent intent =new Intent(getBaseContext(), WritingPanel.class);
        if(v.getId()==R.id.single){
            intent.putExtra("num",11);
        }

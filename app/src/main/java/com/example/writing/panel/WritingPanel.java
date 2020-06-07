@@ -12,11 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 import com.example.writing.badge.Badge;
+import com.example.writing.coosetype.ChooseTypePage;
+import com.example.writing.coosetype.UpDownPage;
+import com.example.writing.memo.Memo;
+import com.example.writing.puzzle.Puzzle;
 
 
 public class WritingPanel extends AppCompatActivity implements View.OnClickListener {
     //Panel mPanel;
      long lastTime =0;
+    int split_code=0;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,13 +30,15 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         final Button saveButton = findViewById(R.id.SaveButton);                 //get two button id in layout.xml saveButton and deleteButton
         final Button deleteButton= findViewById(R.id.DeleteButton);
         final Panel mPanel =findViewById(R.id.panel);                            //get the panel id in layout.xml
-        final  Button badge=findViewById(R.id.BadgeButton);
+        final Button helpButton=findViewById(R.id.help_writing);
+        final Button memo=findViewById(R.id.memo_writing);
+
         saveButton.setOnClickListener(this);                                     // if user click the button call function Onclick
         deleteButton.setOnClickListener(this);
-        badge.setOnClickListener(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {            //set panel background for copying the character
-            mPanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
-        }
+        helpButton.setOnClickListener(this);
+        memo.setOnClickListener(this);
+        mPanel.setBackground(getDrawable(R.drawable.space));
+        split_code=getIntent().getExtras().getInt("num");
 
 
     }
@@ -40,11 +48,19 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         final Panel mPanel =findViewById(R.id.panel);
         long newTime = System.currentTimeMillis();                              //set time limit to avoid users hitting the button too many times in a short period
-        if(v.getId()==R.id.BadgeButton){
-            Intent intent =new Intent(WritingPanel.this, Badge.class);
+        if(v.getId()==R.id.help_writing){
+            Intent intent = new  Intent(this, Puzzle.class);
+            intent.putExtra("num",split_code);
+            startActivity(intent);
+            this.finish();
+
+        }
+        if(v.getId()==R.id.memo_writing){
+            Intent intent = new  Intent(this, Memo.class);
             startActivity(intent);
 
         }
+
         if(newTime-lastTime>1000){
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
                 if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.pic_0001_copy).getConstantState())&&lastTime!=0){
@@ -54,11 +70,13 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                 }
                 mPanel.savePicture();
                 Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
+                Intent intent = new  Intent(this, Badge.class);
+                startActivity(intent);
 
             }
             else if (v.getId()==R.id.DeleteButton){
                 mPanel.resetCanvas();
-                mPanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
+                mPanel.setBackground(getDrawable(R.drawable.space));
             }
             lastTime=newTime;
         }

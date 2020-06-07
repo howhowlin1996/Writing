@@ -24,6 +24,9 @@
         <activity android:name=".badge.Badge"/>
         <activity android:name=".coosetype.ChooseTypePage"/>
         <activity android:name="main.Setting"/>
+        <activity android:name=".badgefactory.BadgeFactory"/>
+        <activity android:name=".memo.Memo"/>
+        <activity android:name=".panel.CopyWriting"/>
         <activity android:name="main.FirstScene">
 
             <intent-filter>
