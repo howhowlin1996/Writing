@@ -5,6 +5,8 @@
     <!-- 創建與刪除檔許可權 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <!-- 寫入資料許可權 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -25,8 +27,11 @@
         <activity android:name=".coosetype.ChooseTypePage"/>
         <activity android:name="main.Setting"/>
         <activity android:name=".badgefactory.BadgeFactory"/>
-        <activity android:name=".memo.Memo"/>
+        <activity android:name=".memo.MemoSelect"/>
         <activity android:name=".panel.CopyWriting"/>
+        <activity android:name=".memo.MemoEditText"/>
+        <activity android:name=".memo.MemoLookUp"/>
+        <activity android:name=".memo.MemoEditPic"/>
         <activity android:name="main.FirstScene">
 
             <intent-filter>
