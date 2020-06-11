@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,13 +24,15 @@ import static java.lang.StrictMath.abs;
 
 class M_Panel extends View {
     List<PointF> points=new ArrayList<PointF>();
+    List<Integer>colors=new ArrayList<Integer>();
     Bitmap vBitmap;
+    int paintcolor;
     Canvas vBitmapCanvas;
     Paint mainpaint = new Paint();
 
     public M_Panel(Context context, AttributeSet attrs) {
         super(context,attrs);
-        mainpaint.setColor(Color.BLACK);
+        paintcolor=Color.BLACK;
         mainpaint.setStyle(Paint.Style.STROKE);
         mainpaint.setStrokeWidth(10);
 
@@ -38,9 +42,15 @@ class M_Panel extends View {
         windowManager.getDefaultDisplay().getMetrics(dm);
 
         //設定bitmap大小
-        vBitmap = Bitmap.createBitmap(dm.widthPixels,dm.widthPixels, Bitmap.Config.RGB_565);
+        vBitmap = Bitmap.createBitmap(dm.widthPixels,dm.heightPixels-100, Bitmap.Config.RGB_565);
         vBitmapCanvas = new Canvas(vBitmap);
         vBitmapCanvas.drawColor(Color.WHITE);
+
+    }
+
+    public  void changeColor(int color){
+        paintcolor=color;
+
 
     }
 
@@ -51,10 +61,18 @@ class M_Panel extends View {
             PointF p1 = points.get(i - 1);
             PointF p2 = points.get(i);
             if(abs(p1.x-p2.x)<50 && abs(p1.y-p2.y)<50) {
+                mainpaint.setColor(colors.get(i));
+                if(colors.get(i)==Color.WHITE){
+                    mainpaint.setStrokeWidth(30);
+                }
+                else{
+                    mainpaint.setStrokeWidth(10);
+                }
                 canvas.drawLine(p1.x, p1.y, p2.x, p2.y, mainpaint);
                 vBitmapCanvas.drawLine(p1.x, p1.y, p2.x, p2.y, mainpaint);
             }
         }
+
     }
 
 
@@ -63,6 +81,7 @@ class M_Panel extends View {
     public boolean onTouchEvent (MotionEvent event){
         for (int i = 0; i < event.getHistorySize(); i++) {
             points.add(new PointF(event.getHistoricalX(i), event.getHistoricalY(i)));
+            colors.add(paintcolor);
         }
         M_Panel.this.invalidate();
         return true;

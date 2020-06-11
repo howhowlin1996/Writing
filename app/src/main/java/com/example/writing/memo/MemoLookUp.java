@@ -65,7 +65,7 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
         }
         catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(this,"hERE",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"hERE",Toast.LENGTH_LONG).show();
         }
 
 
@@ -83,7 +83,7 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
         }
         catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(this,"hERE",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"hERE",Toast.LENGTH_LONG).show();
         }
 
 
