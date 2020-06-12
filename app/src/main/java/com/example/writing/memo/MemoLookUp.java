@@ -24,14 +24,13 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memo_lookup);
-        ReadFile();
-        ReadImage();
+            ReadImage();
         final Button keeppractice=findViewById(R.id.keepPractice_lookup);
         final Button edit=findViewById(R.id.editMemo_lookup);
-        final TextView memo=findViewById(R.id.memo_lookup);
+
         keeppractice.setOnClickListener(this);
         edit.setOnClickListener(this);
-        memo.setTextSize(18);
+
 
 
     }
@@ -49,28 +48,7 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
         }
 
     }
-    public void ReadFile(){
-        try{
-            FileInputStream fin=openFileInput("P1234.txt");
-            TextView textView=findViewById(R.id.memo_lookup);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int len = 0;
-            while ((len = fin.read(buffer)) != -1) {
-                baos.write(buffer, 0, len);
-            }
-            textView.setText(baos.toString());
-            fin.close();
-            baos.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            //Toast.makeText(this,"hERE",Toast.LENGTH_LONG).show();
-        }
 
-
-
-    }
 
     public void ReadImage(){
         try{

@@ -29,7 +29,6 @@
         <activity android:name=".badgefactory.BadgeFactory"/>
         <activity android:name=".memo.MemoSelect"/>
         <activity android:name=".panel.CopyWriting"/>
-        <activity android:name=".memo.MemoEditText"/>
         <activity android:name=".memo.MemoLookUp"/>
         <activity android:name=".memo.MemoEditPic"/>
         <activity android:name="main.FirstScene">
