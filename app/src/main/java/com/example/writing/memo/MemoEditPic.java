@@ -5,23 +5,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
+import android.text.InputType;
 import android.util.Log;
-import android.util.Pair;
+import static java.lang.StrictMath.abs;
+
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
@@ -30,13 +31,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
 
-public class MemoEditPic extends AppCompatActivity implements View.OnClickListener{
-
+public class MemoEditPic extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, View.OnFocusChangeListener, View.OnKeyListener {
+    private float begin_y,move_y,down_y,height;
+    private long final_time=0;
+    private int decision=0,top,bottom,old_top,old_bottom;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +58,13 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
         erase.setOnClickListener(this);
         text.setSingleLine(false);
         text.setHorizontallyScrolling(false);
+        text.setOnTouchListener(this);
+        text.setBackground(getDrawable(R.drawable.block));
+        text.setOnFocusChangeListener(this);
+        text.setOnKeyListener(this);
         ReadImage();
+
+
 
 
     }
@@ -117,7 +123,7 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
             M_Panel m_panel=findViewById(R.id.m_Panel);
             Bitmap bitmap = BitmapFactory.decodeStream(fin);
             m_panel.setvBitmap(bitmap);
-            //Toast.makeText(this,"hERE",Toast.LENGTH_LONG).show();
+            height=m_panel.vBitmapCanvas.getHeight();
             fin.close();
 
         }
@@ -125,7 +131,7 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
             e.printStackTrace();
             M_Panel m_panel=findViewById(R.id.m_Panel);
             m_panel.originSetvBitmap();
-            //Toast.makeText(this,"hERE",Toast.LENGTH_LONG).show();
+            height=m_panel.vBitmapCanvas.getHeight();
         }
 
 
@@ -133,4 +139,91 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
     }
 
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        LinearLayout here_bound=findViewById(R.id.layout_memo);
+        long begin_time=System.currentTimeMillis();
+        InputMethodManager imm = ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE));
+        if (final_time==0){
+            final_time=begin_time;
+        }
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                begin_y = event.getY();
+                down_y=event.getRawY()-begin_y-25;
+                //Log.d("HEREBEGINhere",new String(" "+" "+begin_y+" "+down_y+" "+v.getHeight()));
+            case MotionEvent.ACTION_MOVE:
+                move_y = event.getRawY() -begin_y-25;
+               // Log.d("HEREBEGIN",new String(" "+" "+begin_y+" "+move_y ));
+
+        }
+         top=v.getTop()+(int)(move_y-down_y);
+         bottom=v.getBottom()+(int)(move_y-down_y);
+
+
+        if(abs(move_y-down_y)>30){
+            final_time=begin_time;
+            if(top<0){
+                top=0;
+                bottom=v.getHeight();
+
+            }
+            if (bottom>here_bound.getTop()){
+                bottom=here_bound.getTop();
+                top=bottom-v.getHeight();
+            }
+            v.layout(0,top,v.getWidth(),bottom);
+            down_y=move_y;
+            decision=0;
+        }
+        else{
+            if(begin_time-final_time>500){
+                v.requestFocus();
+                imm.showSoftInput(v,0);
+                v.layout(0,top,v.getWidth(),bottom);
+                Log.d("TOUC",new String(" "+top+" "+bottom));
+                decision=1;
+                old_top=top;
+                old_bottom=bottom;
+            }
+
+
+        }
+        //Log.d("TOUC",new String(" "+final_time+" "+begin_time));
+        return false;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            Log.d("TOUC",new String(" "+hasFocus));
+        }
+        else {
+            Log.d("TOUC",new String(" "+hasFocus));
+        }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            //隐藏键盘
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+            }
+            EditText_memo here=findViewById(R.id.editText_memo);
+            if (decision==1&&here.getText().toString().length()!=0){
+                Log.d("HEREBEGINhere","hahhah");
+                v.layout(0,old_top,v.getWidth(),old_bottom);
+            }
+            return true;
+        }
+
+
+
+
+
+
+        return false;
+    }
 }

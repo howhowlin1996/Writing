@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
+import com.example.writing.coosetype.ChooseTypePage;
 
 public class Setting extends AppCompatActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
      int  charactertype  [] =new int [13];
@@ -41,13 +42,13 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         }
          String[] target={"0","1~5","6~10","11~15","16~20","21~25","26~30","31~35","36~40","41~45","46~50"};
          String[] randomchoose={"照順序","隨機出題"};
-         Integer[] num={1,2,3,4};
+         String[] num={"選項數量","1","2","3","4"};
 
         ArrayAdapter<String> targetList= new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, target);
         targetList.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         ArrayAdapter<String> randomList= new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, randomchoose);
         randomList.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        ArrayAdapter<Integer> numList= new ArrayAdapter<Integer>(this, R.layout.support_simple_spinner_dropdown_item, num);
+        ArrayAdapter<String> numList= new ArrayAdapter< String>(this, R.layout.support_simple_spinner_dropdown_item, num);
         numspin.setAdapter(numList);
         single.setAdapter(targetList);
         updown.setAdapter(targetList);
@@ -137,7 +138,8 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
     @Override
     public void onClick(View v) {
-        onBackPressed();
+        Intent intent =new Intent(getBaseContext(), ChooseTypePage.class);
+        startActivity(intent);
 
     }
 }

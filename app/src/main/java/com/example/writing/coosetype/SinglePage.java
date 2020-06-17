@@ -31,7 +31,7 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+        Intent intent =new Intent(getBaseContext(), ChooseResult.class);
        if(v.getId()==R.id.single){
            intent.putExtra("num",11);
        }

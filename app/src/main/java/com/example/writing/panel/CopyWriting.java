@@ -37,6 +37,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
 
         }
         else if(v.getId()==R.id.DeleteButton_copy){
+            mypanel.resetCanvas();
             mypanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
         }
 

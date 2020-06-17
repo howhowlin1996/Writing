@@ -13,27 +13,25 @@
             android:id="@+id/memo_writing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="筆記本"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.75"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/panel"
-            app:layout_constraintVertical_bias="0.72" />
+            app:layout_constraintTop_toBottomOf="@+id/characterQright_writing" />
 
         <Button
             android:id="@+id/help_writing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="幫幫我"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/panel"
-            app:layout_constraintVertical_bias="0.72" />
+            app:layout_constraintTop_toBottomOf="@+id/characterQleft_writing" />
 
         <Button
             android:id="@+id/SaveButton"
@@ -46,7 +44,7 @@
             app:layout_constraintHorizontal_bias="0.75"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85" />
+            app:layout_constraintVertical_bias="0.95" />
 
 
         <Button
@@ -60,18 +58,19 @@
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85" />
+            app:layout_constraintVertical_bias="0.95" />
 
         <com.example.writing.panel.Panel
             android:id="@+id/panel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.671" />
 
         <ImageView
             android:id="@+id/characterQleft_writing"

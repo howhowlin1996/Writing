@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+
         if(v.getId()==R.id.keepPractice_lookup){
             Intent intent =new Intent(this, WritingPanel.class);
             intent.putExtra("num",54);

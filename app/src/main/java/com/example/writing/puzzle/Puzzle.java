@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -24,10 +25,11 @@ import java.util.Queue;
 
 public class Puzzle extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener  {
     private float begin_x,begin_y;
-    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=0,answer2_name=0;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
     private int[]begin_l=new int [15];
     private int[]begin_t=new int[15];
+
     private Map<Integer,Integer>idMap=new HashMap<>();
     private Queue<Integer>puzzlequeue=new LinkedList<Integer>();
     @Override
@@ -94,6 +96,9 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        AnswerBoard answerBoard1=findViewById(R.id.answerBoard1);
+        AnswerBoard answerBoard2=findViewById(R.id.answerBoard2);
+        AnswerBoard answerBoard3=findViewById(R.id.answerBoard3);
         int idnum=v.getId();
         int middle_w,middle_h;
 
@@ -135,16 +140,18 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
                     }
                     if(hit_final-hit_begin>1000){
-                        AnswerBoard answerBoard1=findViewById(R.id.answerBoard1);
-                        AnswerBoard answerBoard2=findViewById(R.id.answerBoard2);
-                        AnswerBoard answerBoard3=findViewById(R.id.answerBoard3);
+
                         backToStart(v.getId());
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
                             if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
                                 answerBoard1.setBackground(v.getBackground());
+                                answer1_name=v.getId();
+                                answer1_change=1;
                             }
                             if(middle_w>answerBoard2.getLeft()&&middle_w<answerBoard2.getRight()&&middle_h>answerBoard2.getTop()&&middle_h<answerBoard2.getBottom()){
                                 answerBoard2.setBackground(v.getBackground());
+                                answer2_name=v.getId();
+                                answer2_change=1;
                             }
                             if(middle_w>answerBoard3.getLeft()&&middle_w<answerBoard3.getRight()&&middle_h>answerBoard3.getTop()&&middle_h<answerBoard3.getBottom()){
                                 answerBoard3.setBackground(v.getBackground());
@@ -186,6 +193,21 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         if (begin_time==0){
             begin_time=System.currentTimeMillis();
         }
+
+
+        if (answer1_change==1&&answer2_change==1){
+
+            if (answer1_name==findViewById(R.id.charUp1).getId()&&answer2_name==findViewById(R.id.charDown1).getId()){
+                Toast.makeText(this,"答對了",Toast.LENGTH_SHORT).show();
+                Intent intent =new Intent(getBaseContext(), CopyWriting.class);
+                startActivity(intent);
+            }
+            else {
+                    Toast.makeText(this,"不對喔",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
 
         return true;
     }
