@@ -47,7 +47,7 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
 
 
 
-        Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+        Intent intent =new Intent(getBaseContext(), ChooseResult.class);
         intent.putExtra("num",num);
         startActivity(intent);
 

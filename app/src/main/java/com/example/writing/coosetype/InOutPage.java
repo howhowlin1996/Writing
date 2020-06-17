@@ -37,7 +37,7 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+        Intent intent =new Intent(getBaseContext(),ChooseResult .class);
         int ID =v.getId();
         if(ID==R.id.rightup){
             Log.d("error","rightup");

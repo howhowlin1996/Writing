@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 import com.example.writing.badge.Badge;
-import com.example.writing.memo.MemoSelect;
+import com.example.writing.memo.MemoEditPic;
 import com.example.writing.puzzle.Puzzle;
 
 
@@ -54,7 +54,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
         }
         if(v.getId()==R.id.memo_writing){
-            Intent intent = new  Intent(this, MemoSelect.class);
+            Intent intent = new  Intent(this, MemoEditPic.class);
             startActivity(intent);
 
         }
