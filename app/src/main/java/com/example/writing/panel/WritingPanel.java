@@ -15,11 +15,15 @@ import com.example.writing.badge.Badge;
 import com.example.writing.memo.MemoEditPic;
 import com.example.writing.puzzle.Puzzle;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 
 public class WritingPanel extends AppCompatActivity implements View.OnClickListener {
     //Panel mPanel;
      long lastTime =0;
     int split_code=0;
+    Set<String> defaultSet=new TreeSet<String>();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,10 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                 mPanel.savePicture();
                 Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
                 Intent intent = new  Intent(this, Badge.class);
+                String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
+                int num;
+                num=getSharedPreferences("num",0).getInt(key_name,0);
+                getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
                 startActivity(intent);
 
             }

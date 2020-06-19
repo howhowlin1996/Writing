@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 import com.example.writing.badgefactory.BadgeFactory;
+import com.example.writing.coosetype.ChooseTypePage;
 import com.example.writing.panel.WritingPanel;
 
 public class Badge extends AppCompatActivity implements View.OnClickListener {
@@ -60,8 +61,8 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
 
         }
         else if(v.getId()==R.id.practice_badge){
-            Intent intent = new  Intent(this, WritingPanel.class);
-            intent.putExtra("num",0);
+            Intent intent = new  Intent(this, ChooseTypePage.class);
+            //intent.putExtra("num",0);
             startActivity(intent);
 
         }

@@ -1,6 +1,8 @@
 package main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,14 +12,22 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 import com.example.writing.coosetype.ChooseTypePage;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Setting extends AppCompatActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
      int  charactertype  [] =new int [13];
+     Set<String>chartypenum=new TreeSet<String>() ;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,42 +97,144 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
         if(parent.getId()==R.id.SingleSpin){
             charactertype[0]=position;
+            if (position!=0){
+                num.edit().putInt("Single",5).commit();
+                chartypenum.add("Single");
+
+            }
+            else{
+                num.edit().putInt("Single",0).commit();
+                chartypenum.remove("Single");
+            }
+
 
         }
         else if (parent.getId()==R.id.UpDownSpin){
             charactertype[1]=position;
+
+            if (position!=0){
+                num.edit().putInt("UpDown",5).commit();
+                chartypenum.add("UpDown");
+
+            }
+            else{
+                num.edit().putInt("UpDown",0).commit();
+                chartypenum.remove("UpDown");
+            }
         }
         else if (parent.getId()==R.id.UpDown3Spin){
             charactertype[2]=position;
+            if (position!=0){
+                num.edit().putInt("UpDown3",5).commit();
+                chartypenum.add("UpDown3");
+            }
+            else{
+                num.edit().putInt("UpDown3",0).commit();
+                chartypenum.remove("UpDown3");
+            }
         }
         else if(parent.getId()==R.id.LeftRight2Spin){
             charactertype[3]=position;
+            if (position!=0){
+                num.edit().putInt("LeftRight2",5).commit();
+                chartypenum.add("LeftRight2");
+            }
+            else{
+                num.edit().putInt("LeftRight2",0).commit();
+                chartypenum.remove("LeftRight2");
+            }
+
         }
         else if(parent.getId()==R.id.LeftRight3Spin){
             charactertype[4]=position;
+            if (position!=0){
+                num.edit().putInt("LeftRight3",5).commit();
+                chartypenum.add("LeftRight3");
+            }
+            else{
+                num.edit().putInt("LeftRight3",0).commit();
+                chartypenum.remove("LeftRight3");
+            }
         }
         else if(parent.getId()==R.id.ThreeEleSpin){
             charactertype[5]=position;
+            if (position!=0){
+                num.edit().putInt("ThreeEle",5).commit();
+                chartypenum.add("ThreeEle");
+            }
+            else{
+                num.edit().putInt("ThreeEle",0).commit();
+                chartypenum.remove("ThreeEle");
+            }
         }
         else  if (parent.getId()==R.id.RightUpSpin){
             charactertype[6]=position;
+            if (position!=0){
+                num.edit().putInt("RightUp",5).commit();
+                chartypenum.add("RightUp");
+            }
+            else{
+                num.edit().putInt("RightUp",0).commit();
+                chartypenum.remove("RightUp");
+            }
         }
         else if(parent.getId()==R.id.RightMiddleSpin){
             charactertype[7]=position;
+            if (position!=0){
+                num.edit().putInt("RightMiddle",5).commit();
+                chartypenum.add("RightMiddle");
+            }
+            else{
+                num.edit().putInt("RightMiddle",0).commit();
+                chartypenum.remove("RightMiddle");
+            }
         }
         else if(parent.getId()==R.id.RightDownSpin){
             charactertype[8]=position;
+            if (position!=0){
+                num.edit().putInt("RightDown",5).commit();
+                chartypenum.add("RightDow");
+            }
+            else{
+                num.edit().putInt("RightDown",0).commit();
+                chartypenum.remove("RightDown");
+            }
         }
         else if(parent.getId()==R.id.MiddleMiddleSpin){
             charactertype[9]=position;
+            if (position!=0){
+                num.edit().putInt("MiddleMiddle",5).commit();
+                chartypenum.add("MiddleMiddle");
+            }
+            else{
+                num.edit().putInt("MiddleMiddle",0).commit();
+                chartypenum.remove("MiddleMiddle");
+            }
         }
         else if(parent.getId()==R.id.MiddleDownSpin){
             charactertype[10]=position;
+            if (position!=0){
+                num.edit().putInt("MiddleDown",5).commit();
+                chartypenum.add("MiddleDown");
+            }
+            else{
+                num.edit().putInt("MiddleDown",0).commit();
+                chartypenum.remove("MiddleDown");
+            }
         }
         else if(parent.getId()==R.id.LeftDownSpin){
             charactertype[11]=position;
+            if (position!=0){
+                num.edit().putInt("LeftDown",5).commit();
+                chartypenum.add("LeftDown");
+            }
+            else{
+                num.edit().putInt("LeftDown",0).commit();
+                chartypenum.remove("LeftDown");
+            }
         }
         else if(parent.getId()==R.id.RandomSpin){
             charactertype[12]=position;
@@ -138,6 +250,8 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
     @Override
     public void onClick(View v) {
+        SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+        num.edit().putStringSet("chartypenum",chartypenum).commit();
         Intent intent =new Intent(getBaseContext(), ChooseTypePage.class);
         startActivity(intent);
 
