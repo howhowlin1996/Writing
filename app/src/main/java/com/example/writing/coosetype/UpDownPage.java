@@ -16,6 +16,8 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updownchoose);
+        getSupportActionBar().hide(); //隱藏標題
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         Button updown=findViewById(R.id.updown);
         Button leftright2=findViewById(R.id.leftright2_updown);
         Button leftright3=findViewById(R.id.leftright3_updown);

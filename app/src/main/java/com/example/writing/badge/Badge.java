@@ -22,6 +22,8 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.badge);
+        getSupportActionBar().hide(); //隱藏標題
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         ImageView badge1=findViewById(R.id.badgeChooseView1);
         ImageView badge2=findViewById(R.id.badgeChooseView2);
         ImageView badge3=findViewById(R.id.badgeChooseView3);

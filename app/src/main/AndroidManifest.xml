@@ -31,6 +31,7 @@
         <activity android:name=".memo.MemoLookUp"/>
         <activity android:name=".memo.MemoEditPic"/>
         <activity android:name=".coosetype.ChooseResult"/>
+        <activity android:name=".panel.LookWriting"/>
         <activity android:name="main.FirstScene">
 
             <intent-filter>

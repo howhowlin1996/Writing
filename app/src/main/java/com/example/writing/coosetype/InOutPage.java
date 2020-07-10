@@ -19,6 +19,8 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inoutchoose);
+        getSupportActionBar().hide(); //隱藏標題
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         Button  rightup=findViewById(R.id.rightup);
         Button  rightdown=findViewById(R.id.rightdown);
         Button  rightmiddle=findViewById(R.id.rightmiddle);

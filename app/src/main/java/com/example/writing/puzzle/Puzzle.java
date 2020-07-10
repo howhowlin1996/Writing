@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import com.example.writing.panel.CopyWriting;
+import com.example.writing.panel.LookWriting;
 import com.example.writing.panel.WritingPanel;
 
 import java.util.HashMap;
@@ -36,6 +38,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.puzzle);
+        getSupportActionBar().hide(); //隱藏標題
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         PuzzlePanel qu1=findViewById(R.id.questionPanelLeft);
         PuzzlePanel qu2=findViewById(R.id.questionPanelRIght);
         PuzzlePanel up1=findViewById(R.id.charUp1);
@@ -121,7 +125,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
             case MotionEvent.ACTION_MOVE:
                 move_x=(int)(event.getRawX()-begin_x);                                              /*2*begin_y??*/
-                move_y=(int)(event.getRawY()-2*begin_y);
+                move_y=(int)(event.getRawY()-begin_y);
                 middle_w=move_x+v.getWidth()/2;
                 middle_h=move_y+v.getHeight()/2;
                 if(middle_w>hit_l&&middle_w<hit_r&&middle_h>hit_t&&middle_h<hit_b){                 //if the radical puzzles hit the answerboard more than 1sec then change its background amd set the puzzle back to the start
@@ -139,9 +143,11 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
                         }
 
                     }
-                    if(hit_final-hit_begin>1000){
+                    if(hit_final-hit_begin>500){
 
                         backToStart(v.getId());
+                        Log.d("middle",new String(" "+ middle_w));
+                        Log.d("middle",new String("　"+middle_h));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
                             if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
                                 answerBoard1.setBackground(v.getBackground());
@@ -199,7 +205,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
             if (answer1_name==findViewById(R.id.charUp1).getId()&&answer2_name==findViewById(R.id.charDown1).getId()){
                 Toast.makeText(this,"答對了",Toast.LENGTH_SHORT).show();
-                Intent intent =new Intent(getBaseContext(), CopyWriting.class);
+                Intent intent =new Intent(getBaseContext(), LookWriting.class);
                 startActivity(intent);
             }
             else {
@@ -243,7 +249,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
     @Override
     public void onClick(View v) {
-        Intent intent =new Intent(getBaseContext(), CopyWriting.class);
+        Intent intent =new Intent(getBaseContext(), LookWriting.class);
         startActivity(intent);
     }
 }

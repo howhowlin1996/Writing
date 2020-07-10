@@ -12,18 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 
-public class CopyWriting extends AppCompatActivity implements View.OnClickListener {
+public class LookWriting extends AppCompatActivity implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.copywriting);
+        setContentView(R.layout.lookwriting);                                         //import layout.xml
         getSupportActionBar().hide(); //隱藏標題
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-        Panel mypanel=findViewById(R.id.panel_copy);
-        Button confirm=findViewById(R.id.SaveButton_copy);
-        Button delete=findViewById(R.id.DeleteButton_copy);
-        mypanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
+        Button confirm=findViewById(R.id.confirm_lookwriting);
+        Button delete=findViewById(R.id.delete_lookwriting);
+        Panel panel=findViewById(R.id.rightDownA_lookwriting);
+        panel.setBackground(getDrawable(R.drawable.white));
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
     }
@@ -31,17 +31,17 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
-        Panel mypanel=findViewById(R.id.panel_copy);
-        if(v.getId()==R.id.SaveButton_copy){
-            Intent intent =new Intent(this,WritingPanel.class);
-            intent.putExtra("num",0);
+        if(v.getId()==R.id.confirm_lookwriting)
+        {
+            Intent intent =new Intent(getBaseContext(), CopyWriting.class);
             startActivity(intent);
+        }
+        else{
+            Panel panel=findViewById(R.id.rightDownA_lookwriting);
+            panel.setBackground(getDrawable(R.drawable.white));
 
         }
-        else if(v.getId()==R.id.DeleteButton_copy){
-            mypanel.resetCanvas();
-            mypanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
-        }
+
 
     }
 }

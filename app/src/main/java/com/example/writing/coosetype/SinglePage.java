@@ -19,6 +19,8 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singlechoose);
+        getSupportActionBar().hide(); //隱藏標題
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         Button single=findViewById(R.id.single);
         Button threeele=findViewById(R.id.threeele_single);
         single.setOnClickListener(this);
