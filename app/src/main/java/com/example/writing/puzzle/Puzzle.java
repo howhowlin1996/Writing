@@ -57,7 +57,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {         //set panel background for copying the character
 
-            qu1.setBackground(getDrawable(R.drawable.pic_0000));
+            qu1.setBackground(getDrawable(R.drawable.cha31000000));
             qu2.setBackground(getDrawable(R.drawable.white));
             up1.setBackground(getDrawable(R.drawable.p5973));
             up2.setBackground(getDrawable(R.drawable.p5bf8));
@@ -124,7 +124,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
                 begin_y=event.getY();
 
             case MotionEvent.ACTION_MOVE:
-                move_x=(int)(event.getRawX()-begin_x);                                              /*2*begin_y??*/
+                move_x=(int)(event.getRawX()-begin_x);
                 move_y=(int)(event.getRawY()-begin_y);
                 middle_w=move_x+v.getWidth()/2;
                 middle_h=move_y+v.getHeight()/2;
@@ -146,8 +146,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
                     if(hit_final-hit_begin>500){
 
                         backToStart(v.getId());
-                        Log.d("middle",new String(" "+ middle_w));
-                        Log.d("middle",new String("　"+middle_h));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
                             if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
                                 answerBoard1.setBackground(v.getBackground());
@@ -176,8 +174,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
                 if(move_x+v.getWidth()>width){
                     move_x=width-v.getWidth();
                 }
-                if(move_y+v.getHeight()>height-v.getHeight()*3/4){
-                    move_y=height-v.getHeight()*7/4;
+                if(move_y+v.getHeight()>height){
+                    move_y=height-v.getHeight();
                 }
 
                 v.layout(move_x,move_y,move_x+v.getWidth(),move_y+v.getHeight());
@@ -225,7 +223,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
-        width=dm.widthPixels/2;
+        width=dm.widthPixels*70/100;
         PuzzlePanelGroup group=findViewById(R.id.Group);
         for (int i=0;i<15;i++){
             begin_l[i]=group.begin_l[i];

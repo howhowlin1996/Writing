@@ -104,6 +104,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[0]=position;
             if (position!=0){
                 num.edit().putInt("Single",5).commit();
+                num.edit().putInt("Single_position",position).commit();
                 chartypenum.add("Single");
 
             }
@@ -119,6 +120,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
             if (position!=0){
                 num.edit().putInt("UpDown",5).commit();
+                num.edit().putInt("UpDown_position",position).commit();
                 chartypenum.add("UpDown");
 
             }
@@ -131,6 +133,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[2]=position;
             if (position!=0){
                 num.edit().putInt("UpDown3",5).commit();
+                num.edit().putInt("UpDown3_position",position).commit();
                 chartypenum.add("UpDown3");
             }
             else{
@@ -142,6 +145,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[3]=position;
             if (position!=0){
                 num.edit().putInt("LeftRight2",5).commit();
+                num.edit().putInt("LeftRight2_position",position).commit();
                 chartypenum.add("LeftRight2");
             }
             else{
@@ -154,6 +158,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[4]=position;
             if (position!=0){
                 num.edit().putInt("LeftRight3",5).commit();
+                num.edit().putInt("LeftRight3_position",position).commit();
                 chartypenum.add("LeftRight3");
             }
             else{
@@ -165,6 +170,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[5]=position;
             if (position!=0){
                 num.edit().putInt("ThreeEle",5).commit();
+                num.edit().putInt("ThreeEle_position",position).commit();
                 chartypenum.add("ThreeEle");
             }
             else{
@@ -176,6 +182,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[6]=position;
             if (position!=0){
                 num.edit().putInt("RightUp",5).commit();
+                num.edit().putInt("RightUp_position",position).commit();
                 chartypenum.add("RightUp");
             }
             else{
@@ -187,6 +194,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[7]=position;
             if (position!=0){
                 num.edit().putInt("RightMiddle",5).commit();
+                num.edit().putInt("RightMiddle_position",position).commit();
                 chartypenum.add("RightMiddle");
             }
             else{
@@ -198,6 +206,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[8]=position;
             if (position!=0){
                 num.edit().putInt("RightDown",5).commit();
+                num.edit().putInt("RightDown_position",position).commit();
                 chartypenum.add("RightDow");
             }
             else{
@@ -209,6 +218,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[9]=position;
             if (position!=0){
                 num.edit().putInt("MiddleMiddle",5).commit();
+                num.edit().putInt("MiddleMiddle_position",position).commit();
                 chartypenum.add("MiddleMiddle");
             }
             else{
@@ -220,6 +230,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[10]=position;
             if (position!=0){
                 num.edit().putInt("MiddleDown",5).commit();
+                num.edit().putInt("MiddleDown_position",position).commit();
                 chartypenum.add("MiddleDown");
             }
             else{
@@ -231,6 +242,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             charactertype[11]=position;
             if (position!=0){
                 num.edit().putInt("LeftDown",5).commit();
+                num.edit().putInt("LeftDown_position",position).commit();
                 chartypenum.add("LeftDown");
             }
             else{

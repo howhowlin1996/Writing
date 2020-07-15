@@ -23,7 +23,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         Panel mypanel=findViewById(R.id.panel_copy);
         Button confirm=findViewById(R.id.SaveButton_copy);
         Button delete=findViewById(R.id.DeleteButton_copy);
-        mypanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
+        mypanel.setBackground(getDrawable(R.drawable.cha31000000));
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
     }
@@ -40,7 +40,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         }
         else if(v.getId()==R.id.DeleteButton_copy){
             mypanel.resetCanvas();
-            mypanel.setBackground(getDrawable(R.drawable.pic_0001_copy));
+            mypanel.setBackground(getDrawable(R.drawable.cha31000000));
         }
 
     }

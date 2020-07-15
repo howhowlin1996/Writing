@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.26"
-        app:srcCompat="@drawable/pic_0001" />
+        app:srcCompat="@drawable/cha31000000" />
 
     <ImageView
         android:id="@+id/badgeView"

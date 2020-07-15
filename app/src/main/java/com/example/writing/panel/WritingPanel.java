@@ -1,12 +1,16 @@
 package com.example.writing.panel;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -29,6 +33,8 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        int answer_position=storeinform.getInt("answer_position",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);                                         //import layout.xml
         getSupportActionBar().hide(); //隱藏標題
@@ -38,6 +44,35 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         final Panel mPanel =findViewById(R.id.panel);                            //get the panel id in layout.xml
         final Button helpButton=findViewById(R.id.help_writing);
         final Button memo=findViewById(R.id.memo_writing);
+
+        ImageView charLeft=findViewById(R.id.characterQleft_writing);
+        ImageView charRight=findViewById(R.id.characterQright_updown);
+        ImageView phoLeft=findViewById(R.id.phoneticQleft_updown);
+        ImageView phoRight=findViewById(R.id.phoneticQright_updown);
+        String rightString=storeinform.getString("right",null);
+        String leftString =storeinform.getString("left",null);
+        String middleString=storeinform.getString("middle",null);
+        Resources here_r=this.getResources();
+        if(middleString.equals("0")){
+            if(answer_position==0){
+                charLeft.setImageResource(R.drawable.white);
+                phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+            }
+            else{
+
+                charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charRight.setImageResource(R.drawable.white);
+                phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+            }
+
+        }
+        else {
+
+        }
 
         saveButton.setOnClickListener(this);                                     // if user click the button call function Onclick
         deleteButton.setOnClickListener(this);
@@ -69,7 +104,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
         if(newTime-lastTime>1000){
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
-                if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.pic_0001_copy).getConstantState())&&lastTime!=0){
+                if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.space).getConstantState())&&lastTime!=0){
                     mPanel.resetCanvas();
                     mPanel.setBackground(getDrawable(R.drawable.space));
                     return;

@@ -13,20 +13,17 @@
         <ImageView
             android:id="@+id/leftUpQ_lookwriting"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pic_0000" />
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/leftDownQ_lookwriting"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pic_0001" />
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/rightUpA_lookwriting"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pic_0000" />
+            android:layout_height="wrap_content" />
 
         <com.example.writing.panel.Panel
             android:id="@+id/rightDownA_lookwriting"

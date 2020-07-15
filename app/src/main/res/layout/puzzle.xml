@@ -42,8 +42,7 @@
         <ImageView
             android:id="@+id/spellingView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pic_00001" />
+            android:layout_height="wrap_content" />
 
         <com.example.writing.puzzle.PuzzlePanel
             android:id="@+id/questionPanelRIght"
@@ -53,8 +52,7 @@
         <ImageView
             android:id="@+id/spellingView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pic_000011" />
+            android:layout_height="wrap_content" />
 
         <com.example.writing.puzzle.PuzzlePanel
             android:id="@+id/charUp1"

@@ -26,16 +26,14 @@
         <ImageView
             android:id="@+id/characterQleft_copywriting"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/pic_0000" />
+            android:layout_height="100dp" />
 
         <ImageView
             android:id="@+id/phoneticleftQ_copywriting"
             android:layout_width="50dp"
             android:layout_height="100dp"
             android:layout_marginStart="90dp"
-            android:layout_marginLeft="90dp"
-            app:srcCompat="@drawable/pic_00001" />
+            android:layout_marginLeft="90dp" />
 
         <com.example.writing.panel.Panel
             android:id="@+id/panel_copy"
@@ -47,8 +45,7 @@
             android:layout_width="50dp"
             android:layout_height="100dp"
             android:layout_marginStart="90dp"
-            android:layout_marginLeft="90dp"
-            app:srcCompat="@drawable/pic_000011" />
+            android:layout_marginLeft="90dp" />
 
     </com.example.writing.panel.CopyWritingGroup>
 
