@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -33,10 +34,13 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
-        int answer_position=storeinform.getInt("answer_position",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);                                         //import layout.xml
+        WritingPanelGroup group=findViewById(R.id.group_writing);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        int answer_position=storeinform.getInt("answer_position",0);
+        group.setType(answer_position);
+        group.invalidate();
         getSupportActionBar().hide(); //隱藏標題
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         final Button saveButton = findViewById(R.id.SaveButton);                 //get two button id in layout.xml saveButton and deleteButton
@@ -45,27 +49,27 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         final Button helpButton=findViewById(R.id.help_writing);
         final Button memo=findViewById(R.id.memo_writing);
 
-        ImageView charLeft=findViewById(R.id.characterQleft_writing);
-        ImageView charRight=findViewById(R.id.characterQright_updown);
-        ImageView phoLeft=findViewById(R.id.phoneticQleft_updown);
-        ImageView phoRight=findViewById(R.id.phoneticQright_updown);
+        ImageView charimage=findViewById(R.id.characterQleft_writing);
+        Panel charpanel=findViewById(R.id.panel);
+        ImageView phoimage=findViewById(R.id.phoneticleftQ_writing);
+        ImageView phopanel=findViewById(R.id.phoneticQright_writing);
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
         String middleString=storeinform.getString("middle",null);
         Resources here_r=this.getResources();
         if(middleString.equals("0")){
             if(answer_position==0){
-                charLeft.setImageResource(R.drawable.white);
-                phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                charpanel.setBackground(getDrawable(R.drawable.block));
+                phopanel.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charimage.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                phoimage.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
             }
             else{
 
-                charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                charRight.setImageResource(R.drawable.white);
-                phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                charimage.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                phoimage.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charpanel.setBackground(getDrawable(R.drawable.block));
+                phopanel.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
 
             }
 

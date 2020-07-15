@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 public class CopyWritingGroup extends ViewGroup {
-    int width,height;
+    int width,height,type=1;
     Context this_context;
     public  CopyWritingGroup(Context context, AttributeSet attrs) {
         super(context,attrs);
@@ -22,6 +22,12 @@ public class CopyWritingGroup extends ViewGroup {
 
     }
 
+    public void setType(int type_here){
+        type=type_here;
+
+    }
+
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -30,26 +36,53 @@ public class CopyWritingGroup extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.d("here"," ");
         int width_pos=0,height_pos=0;
         height_pos+=width/7;
 
-        for (int i=0;i<2;i++){
-            width_pos+=width/16;
-            getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
-            width_pos+=3*width/8+width/16;
+        if (type==1){
+            for (int i=0;i<2;i++){
+                width_pos+=width/16;
+                getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
+                width_pos+=3*width/8+width/16;
+
+            }
+            for(int i=2;i<6;i+=2){
+                getChildAt(i).layout(width*15/100,height_pos,width*85/100,height_pos+width*70/100);
+                height_pos+=+width*70/100;
+
+            }
+            height_pos=width/7;
+            for (int i=3;i<6;i+=2){
+                getChildAt(i).layout(width*85/100,height_pos,width*95/100,height_pos+width*70/100);
+                height_pos+=+width*70/100;
+
+            }
 
         }
-        for(int i=2;i<6;i+=2){
-            getChildAt(i).layout(width*15/100,height_pos,width*85/100,height_pos+width*70/100);
-            height_pos+=+width*70/100;
+        else if(type==0){
+
+            for (int i=0;i<2;i++){
+                width_pos+=width/16;
+                getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
+                width_pos+=3*width/8+width/16;
+
+            }
+            for(int i=2;i<6;i+=2){
+                getChildAt(6-i).layout(width*15/100,height_pos,width*85/100,height_pos+width*70/100);
+                height_pos+=+width*70/100;
+
+            }
+            height_pos=width/7;
+            for (int i=3;i<6;i+=2){
+                getChildAt(8-i).layout(width*85/100,height_pos,width*95/100,height_pos+width*70/100);
+                height_pos+=+width*70/100;
+
+            }
+        }
+        else{
 
         }
-        height_pos=width/7;
-        for (int i=3;i<6;i+=2){
-            getChildAt(i).layout(width*85/100,height_pos,width*95/100,height_pos+width*70/100);
-            height_pos+=+width*70/100;
 
-        }
+
     }
 }

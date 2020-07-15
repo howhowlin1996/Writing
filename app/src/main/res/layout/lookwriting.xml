@@ -8,7 +8,8 @@
 
     <com.example.writing.panel.LookWritingGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:id="@+id/group_lookwriting">
 
         <ImageView
             android:id="@+id/leftUpQ_lookwriting"
