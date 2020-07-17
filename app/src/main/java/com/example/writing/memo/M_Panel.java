@@ -42,6 +42,7 @@ class M_Panel extends View {
         paintcolor=Color.BLACK;
         mainpaint.setStyle(Paint.Style.STROKE);
         mainpaint.setStrokeWidth(10);
+
         //取得手機解析度
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -52,11 +53,12 @@ class M_Panel extends View {
         vBitmap = Bitmap.createBitmap(dm.widthPixels,dm.heightPixels-mar_bot, Bitmap.Config.RGB_565);
 
 
+
     }
 
     public void originSetvBitmap(){
         vBitmapCanvas = new Canvas(vBitmap);
-        vBitmapCanvas.drawColor(Color.WHITE);
+        vBitmapCanvas.drawColor(Color.TRANSPARENT);
     }
 
     public  void setvBitmap( Bitmap bitmap){
@@ -111,6 +113,7 @@ class M_Panel extends View {
 
     @Override
     public void onDraw (Canvas canvas){
+
         super.onDraw(canvas);
         if (changemap!=null){
             mSrcRect = new Rect(0, 0, changemap.getWidth(),changemap.getHeight());

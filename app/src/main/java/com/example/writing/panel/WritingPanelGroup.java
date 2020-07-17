@@ -19,12 +19,10 @@ public class WritingPanelGroup extends ViewGroup {
         width=dm.widthPixels;
         height=dm.heightPixels;
         this.setMeasuredDimension(width,height);
-        Log.d("decision_group",new String(" "+type));
 
     }
     public void setType(int type_here){
         type=type_here;
-
     }
 
 

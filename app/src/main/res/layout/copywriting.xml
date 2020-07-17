@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/copywriting_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
 
     <com.example.writing.panel.CopyWritingGroup
+        android:id="@+id/group_copywriting"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/group_copywriting">
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/DeleteButton_copy"
