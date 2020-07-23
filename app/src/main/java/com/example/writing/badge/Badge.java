@@ -32,12 +32,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
+
+import main.FirstScene;
 
 public class Badge extends AppCompatActivity implements View.OnClickListener {
     FileInputStream photo;
     String photo_name;
     Bitmap bmp;
     Bitmap badge;
+    Set<String> defaultSet=new TreeSet<String>();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -53,8 +58,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         Button share=findViewById(R.id.share_badge);
         Button practice=findViewById(R.id.practice_badge);
         ReadImage();
-        badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(),
-                R.drawable.badge);
+        badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge);
         badge1.setOnClickListener(this);
         badge2.setOnClickListener(this);
         badge3.setOnClickListener(this);
@@ -105,8 +109,15 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
                 Bitmap  bmpcombine=Bitmap.createBitmap(badge.getWidth(),badge.getHeight(),bmp.getConfig());
                 Canvas canvas=new Canvas (bmpcombine);
                 canvas.drawColor(Color.WHITE);
+                int bmpWidth = bmp.getWidth();
+                int bmpHeight=bmp.getHeight();
+                float newWidth=badge.getWidth()/2;
+                float newHeight=badge.getHeight()/2;
+                Matrix matrix=new Matrix();
+                matrix.postScale(newWidth/bmpWidth,newHeight/bmpHeight);
+                bmp=Bitmap.createBitmap(bmp,0,0,bmpWidth,bmpHeight,matrix,true);
+                canvas.drawBitmap(bmp,badge.getWidth()-bmp.getWidth()*6/5,badge.getHeight()/4,null);
                 canvas.drawBitmap(badge,0,0,null);
-                canvas.drawBitmap(bmp,badge.getWidth()/2,badge.getHeight()/2,null);
 
                 FileOutputStream fos = new FileOutputStream(file);
                 bmpcombine.compress(Bitmap.CompressFormat.JPEG, 100, fos);
@@ -127,17 +138,10 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
 
 
 
-
-            /*sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(getFileStreamPath(appDir.getPath())));
-            sharingIntent.setType("image/jpeg");
-            startActivity(sharingIntent);*/
-
-
-
         }
         else if(v.getId()==R.id.practice_badge){
+
             Intent intent = new  Intent(this, ChooseTypePage.class);
-            //intent.putExtra("num",0);
             startActivity(intent);
 
         }
@@ -162,23 +166,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
             ImageView characterbadge=findViewById(R.id.characterBadgeView);
             characterbadge.setBackground(getDrawable(R.drawable.space));
         }
-        /*try{
-            File appDir = new File(Environment.getExternalStorageDirectory(), "Writing");
-            String fileName = photo_name+ ".jpg";
-            File file = new File(appDir, fileName);
-            Log.d("photoname",photo_name);
-            FileInputStream fin=new FileInputStream(file);
-            ImageView characterbadge=findViewById(R.id.characterBadgeView);
-            Bitmap bitmap = BitmapFactory.decodeStream(fin);
-            characterbadge.setImageBitmap(bitmap);
-            fin.close();
 
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            ImageView characterbadge=findViewById(R.id.characterBadgeView);
-            characterbadge.setBackground(getDrawable(R.drawable.space));
-        }*/
 
 
 

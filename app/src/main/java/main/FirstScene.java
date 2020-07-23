@@ -33,8 +33,7 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
         setting.setOnClickListener(this);
         Toast.makeText(this,new String(" "+getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet)),Toast.LENGTH_SHORT).show();
         if (getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).size()==0){
-            start.setVisibility(View.GONE);
-            Toast.makeText(this,"here",Toast.LENGTH_SHORT).show();
+            start.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -58,6 +57,6 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
             startActivity(intent);
 
         }
-        this.finish();
+
     }
 }

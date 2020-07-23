@@ -26,7 +26,6 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
         getSupportActionBar().hide(); //隱藏標題
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         Button single=findViewById(R.id.single);
-        Button threeele=findViewById(R.id.threeele_single);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         ImageView charLeft=findViewById(R.id.characterQleft_single);
         ImageView charRight=findViewById(R.id.characterQright_single);
@@ -59,7 +58,6 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
         }
 
         single.setOnClickListener(this);
-        threeele.setOnClickListener(this);
         }
 
 
@@ -72,9 +70,7 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
        if(v.getId()==R.id.single){
            intent.putExtra("num",11);
        }
-       else if(v.getId()==R.id.threeele_single){
-           intent.putExtra("num",41);
-       }
+
 
         startActivity(intent);
 

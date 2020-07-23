@@ -28,6 +28,7 @@ import java.util.TreeSet;
 public class Setting extends AppCompatActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
      int  charactertype  [] =new int [13];
      Set<String>chartypenum=new TreeSet<String>() ;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,6 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         Spinner updown =findViewById(R.id.UpDownSpin);
         Spinner leftright2 =findViewById(R.id.LeftRight2Spin);
         Spinner leftright3 =findViewById(R.id.LeftRight3Spin);
-        Spinner threeele =findViewById(R.id.ThreeEleSpin);
         Spinner rightup =findViewById(R.id.RightUpSpin);
         Spinner rightmiddle =findViewById(R.id.RightMiddleSpin);
         Spinner rightdown =findViewById(R.id.RightDownSpin);
@@ -66,7 +66,6 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         updown.setAdapter(targetList);
         leftright2.setAdapter(targetList);
         leftright3.setAdapter(targetList);
-        threeele.setAdapter(targetList);
         rightup.setAdapter(targetList);
         rightmiddle.setAdapter(targetList);
         rightdown.setAdapter(targetList);
@@ -80,7 +79,6 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         updown3.setOnItemSelectedListener(this);
         leftright2.setOnItemSelectedListener(this);
         leftright3.setOnItemSelectedListener(this);
-        threeele.setOnItemSelectedListener(this);
         rightup.setOnItemSelectedListener(this);
         rightmiddle.setOnItemSelectedListener(this);
         rightdown.setOnItemSelectedListener(this);
@@ -107,10 +105,12 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
                 num.edit().putInt("Single_position",position).commit();
                 chartypenum.add("Single");
 
+
             }
             else{
                 num.edit().putInt("Single",0).commit();
                 chartypenum.remove("Single");
+
             }
 
 
@@ -123,10 +123,12 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
                 num.edit().putInt("UpDown_position",position).commit();
                 chartypenum.add("UpDown");
 
+
             }
             else{
                 num.edit().putInt("UpDown",0).commit();
                 chartypenum.remove("UpDown");
+
             }
         }
         else if (parent.getId()==R.id.UpDown3Spin){
@@ -135,10 +137,12 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
                 num.edit().putInt("UpDown3",5).commit();
                 num.edit().putInt("UpDown3_position",position).commit();
                 chartypenum.add("UpDown3");
+
             }
             else{
                 num.edit().putInt("UpDown3",0).commit();
                 chartypenum.remove("UpDown3");
+
             }
         }
         else if(parent.getId()==R.id.LeftRight2Spin){
@@ -166,18 +170,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
                 chartypenum.remove("LeftRight3");
             }
         }
-        else if(parent.getId()==R.id.ThreeEleSpin){
-            charactertype[5]=position;
-            if (position!=0){
-                num.edit().putInt("ThreeEle",5).commit();
-                num.edit().putInt("ThreeEle_position",position).commit();
-                chartypenum.add("ThreeEle");
-            }
-            else{
-                num.edit().putInt("ThreeEle",0).commit();
-                chartypenum.remove("ThreeEle");
-            }
-        }
+
         else  if (parent.getId()==R.id.RightUpSpin){
             charactertype[6]=position;
             if (position!=0){
@@ -264,10 +257,16 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
     @Override
     public void onClick(View v) {
-        SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
-        num.edit().putStringSet("chartypenum",chartypenum).commit();
-        Intent intent =new Intent(getBaseContext(), ChooseTypePage.class);
-        startActivity(intent);
+        if (chartypenum.size()==0){
+            onBackPressed();
+        }
+        else {
+            SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+            num.edit().putStringSet("chartypenum",chartypenum).commit();
+            Intent intent =new Intent(getBaseContext(), ChooseTypePage.class);
+            startActivity(intent);
+        }
+
 
     }
 }
