@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +24,9 @@ import com.example.writing.badge.Badge;
 import com.example.writing.memo.MemoEditPic;
 import com.example.writing.puzzle.Puzzle;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -107,13 +112,14 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         }
 
         if(newTime-lastTime>1000){
+
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
                 if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.space).getConstantState())&&lastTime!=0){
                     mPanel.resetCanvas();
                     mPanel.setBackground(getDrawable(R.drawable.space));
                     return;
                 }
-                mPanel.savePicture();
+                savePicture();
                 Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
                 Intent intent = new  Intent(this, Badge.class);
                 String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
@@ -134,6 +140,23 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         }
 
 
+    }
+
+
+    public  void savePicture (){
+        final Panel mPanel =findViewById(R.id.panel);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="pic"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2);
+        try {
+            FileOutputStream fos = openFileOutput( photo_name+".jpg",Context.MODE_PRIVATE);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

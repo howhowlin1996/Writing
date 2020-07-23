@@ -23,7 +23,10 @@ class Panel extends View {
     List<PointF> points=new ArrayList<PointF>();
     Bitmap vBitmap;
     Canvas vBitmapCanvas;
+    String photo_name;
     Paint mainpaint = new Paint();
+
+
 
     public Panel(Context context,AttributeSet attrs) {
         super(context,attrs);
@@ -37,7 +40,7 @@ class Panel extends View {
         windowManager.getDefaultDisplay().getMetrics(dm);
 
         //設定bitmap大小
-        vBitmap = Bitmap.createBitmap(dm.widthPixels,dm.widthPixels, Bitmap.Config.RGB_565);
+        vBitmap = Bitmap.createBitmap(dm.widthPixels*70/100,dm.widthPixels*70/100, Bitmap.Config.RGB_565);
         vBitmapCanvas = new Canvas(vBitmap);
         vBitmapCanvas.drawColor(Color.WHITE);
 
@@ -73,6 +76,8 @@ class Panel extends View {
 
 
 
+
+
     //Reset
     public void resetCanvas() {
         points.clear();
@@ -82,9 +87,13 @@ class Panel extends View {
 
 
 
+
     //save as picture
     public void savePicture (){
-        ImageSave saveImageTask = new ImageSave( getContext());
-        saveImageTask.execute(vBitmap);
+
+
+        /*ImageSave saveImageTask = new ImageSave( getContext());
+        saveImageTask.photo_name=photo_name;
+        saveImageTask.execute(vBitmap);*/
     }
 }
