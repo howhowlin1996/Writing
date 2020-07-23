@@ -18,6 +18,8 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choosetype_result);
+        getSupportActionBar().hide(); //隱藏標題
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         TextView textView=findViewById(R.id.textView_result);
         Button confirm=findViewById(R.id.confirm_result);
         split_code=getIntent().getExtras().getInt("num");

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/puzzle_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/bg">
 
     <com.example.writing.puzzle.PuzzlePanelGroup
         android:id="@+id/Group"
@@ -42,8 +44,7 @@
         <ImageView
             android:id="@+id/spellingView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pic_00001" />
+            android:layout_height="wrap_content" />
 
         <com.example.writing.puzzle.PuzzlePanel
             android:id="@+id/questionPanelRIght"
@@ -53,8 +54,7 @@
         <ImageView
             android:id="@+id/spellingView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pic_000011" />
+            android:layout_height="wrap_content" />
 
         <com.example.writing.puzzle.PuzzlePanel
             android:id="@+id/charUp1"
@@ -75,7 +75,6 @@
             android:id="@+id/charUp4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
 
 
         <com.example.writing.puzzle.PuzzlePanel

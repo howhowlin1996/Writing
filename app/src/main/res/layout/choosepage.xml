@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/choosepagelayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/pic_0000" />
+            app:srcCompat="@drawable/cha31000000" />
 
         <ImageView
             android:id="@+id/characterQright_choose"
@@ -31,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/white" />
+            app:srcCompat="@drawable/cha31000011" />
 
         <ImageView
             android:id="@+id/phoneticQleft_choose"
@@ -42,8 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/characterQleft_choose"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/pic_00001" />
+            app:layout_constraintVertical_bias="0.05" />
 
         <ImageView
             android:id="@+id/phoneticQright_choose"
@@ -54,8 +55,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/characterQright_choose"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/pic_000011" />
+            app:layout_constraintVertical_bias="0.05" />
 
         <Button
             android:id="@+id/SingleButton"

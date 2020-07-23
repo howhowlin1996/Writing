@@ -1,50 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/setupbg">
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="500dp"
-        android:orientation="vertical"
-        android:weightSum="6"
+    <ImageView
+        android:id="@+id/setupshark"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintWidth_percent="0.35"
+        app:srcCompat="@drawable/setupshark" />
+
+    <LinearLayout
+        android:id="@+id/buttonlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="0.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.43"
+        app:layout_constraintWidth_percent="0.25">
 
         <Button
             android:id="@+id/beginButton_first"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginBottom="100dp"
-            android:text="開始寫字"
+            android:background="@drawable/startwriting"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:layout_weight="2" />
+            android:layout_weight="2" />
 
         <Button
             android:id="@+id/badge_first"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginBottom="100dp"
-            android:text="我的徽章"
+            android:background="@drawable/startburron"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:layout_weight="2" />
+            android:layout_weight="2" />
 
         <Button
             android:id="@+id/setting_firstscene"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="設定"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/setupbutton"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:layout_weight="2" />
+            android:layout_weight="2" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/textlayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:weightSum="6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="0.6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonlayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.43"
+        app:layout_constraintWidth_percent="0.75"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

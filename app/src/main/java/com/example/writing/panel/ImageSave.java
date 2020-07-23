@@ -1,12 +1,14 @@
 package com.example.writing.panel;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,21 +19,25 @@ import java.util.Date;
 
 public  class ImageSave extends AsyncTask<Bitmap,Integer, File> {
     final static String TAG = "MyActivity";
+      String photo_name;
 
     private Context context;
 
     public  ImageSave(Context context){
         this.context=context;
     }
+
     public void Save (Context context, Bitmap bmp) {
         File appDir = new File(Environment.getExternalStorageDirectory(), "Writing");
         if (!appDir.exists()) {
             appDir.mkdir();
         }
-        Date day =new Date();
-        CharSequence time = DateFormat.format("MMddyy hh:mm:ss", day.getTime());
-        String fileName = "writing "+time + ".jpg";
+        //Date day =new Date();
+        //CharSequence time = DateFormat.format("MMddyy hh:mm:ss", day.getTime());
+
+        String fileName = photo_name+ ".jpg";
         File file = new File(appDir, fileName);
+        Log.d("photoname",fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);

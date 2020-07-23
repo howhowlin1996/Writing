@@ -5,8 +5,10 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inoutchoose_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
 
         <ImageView
             android:id="@+id/characterQleft_inout"
@@ -17,8 +19,7 @@
             app:layout_constraintHorizontal_bias="0.199"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/pic_0000" />
+            app:layout_constraintVertical_bias="0.05" />
 
         <ImageView
             android:id="@+id/characterQright_inout"
@@ -29,8 +30,7 @@
             app:layout_constraintHorizontal_bias="0.80"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/white" />
+            app:layout_constraintVertical_bias="0.05" />
 
         <ImageView
             android:id="@+id/phoneticQleft_inout"
@@ -41,8 +41,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/characterQleft_inout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/pic_00001" />
+            app:layout_constraintVertical_bias="0.05" />
 
         <ImageView
             android:id="@+id/phoneticQright_inout"
@@ -53,8 +52,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/characterQright_inout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/pic_000011" />
+            app:layout_constraintVertical_bias="0.05" />
 
         <Button
             android:id="@+id/rightmiddle"
