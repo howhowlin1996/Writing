@@ -51,7 +51,6 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         final Panel mPanel =findViewById(R.id.panel);                            //get the panel id in layout.xml
         final Button helpButton=findViewById(R.id.help_writing);
         final Button memo=findViewById(R.id.memo_writing);
-
         ImageView charimage=findViewById(R.id.characterQleft_writing);
         Panel charpanel=findViewById(R.id.panel);
         ImageView phoimage=findViewById(R.id.phoneticleftQ_writing);
@@ -84,6 +83,8 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
         }
         else {
+            group.setType(1,answer_position);
+            group.invalidate();
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 charpanel.setBackground(getDrawable(R.drawable.block));
                 phopanel.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));

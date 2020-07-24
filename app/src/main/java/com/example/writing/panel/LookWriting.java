@@ -27,8 +27,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         LookWritingGroup group=findViewById(R.id.group_lookwriting);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         int answer_position=storeinform.getInt("answer_position",0);
-        group.setType(answer_position);
-        group.invalidate();
+
         Button confirm=findViewById(R.id.confirm_lookwriting);
         Button delete=findViewById(R.id.delete_lookwriting);
         Panel panel=findViewById(R.id.rightDownA_lookwriting);
@@ -37,11 +36,15 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         ImageView leftup=findViewById(R.id.leftUpQ_lookwriting);
         ImageView leftdown=findViewById(R.id.leftDownQ_lookwriting);
         ImageView charimage=findViewById(R.id.rightUpA_lookwriting);
+        ImageView lastleft=findViewById(R.id.leftLast_lookwriting);
+        ImageView lastright =findViewById(R.id.rightLast_lookwriting);
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
         String middleString=storeinform.getString("middle",null);
         Resources here_r=this.getResources();
         if(middleString.equals("0")){
+            group.setType(0,answer_position);
+            group.invalidate();
             if(answer_position==0){
                 leftup.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
                 leftdown.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
@@ -56,8 +59,64 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
 
         }
         else {
+            group.setType(1, answer_position);
+            if (answer_position == 0 || answer_position == 10 || answer_position == 20 || answer_position == 210) {
+                leftup.setImageResource(here_r.getIdentifier("cha" + leftString, "drawable", this.getPackageName()));
+                leftdown.setImageResource(here_r.getIdentifier("cha" + middleString, "drawable", this.getPackageName()));
+                //charimage.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                if (answer_position == 10) {
+                    charimage.setBackground(getDrawable(R.drawable.white));
+                    lastleft.setImageResource(here_r.getIdentifier("cha" + rightString, "drawable", this.getPackageName()));
+                    lastright.setImageResource(here_r.getIdentifier("cha" + rightString, "drawable", this.getPackageName()));
+                } else if (answer_position == 20) {
+                    charimage.setImageResource(here_r.getIdentifier("cha" + middleString, "drawable", this.getPackageName()));
+                    lastleft.setImageResource(here_r.getIdentifier("cha" + rightString, "drawable", this.getPackageName()));
+                    lastright.setBackground(getDrawable(R.drawable.white));
+                } else if (answer_position == 210) {
+                    charimage.setBackground(getDrawable(R.drawable.white));
+                    ;
+                    lastleft.setImageResource(here_r.getIdentifier("cha" + rightString, "drawable", this.getPackageName()));
+                    lastright.setBackground(getDrawable(R.drawable.white));
 
+                } else {
+                    charimage.setImageResource(here_r.getIdentifier("cha" + middleString, "drawable", this.getPackageName()));
+                    lastleft.setImageResource(here_r.getIdentifier("cha" + rightString, "drawable", this.getPackageName()));
+                    lastright.setImageResource(here_r.getIdentifier("cha" + rightString, "drawable", this.getPackageName()));
+
+                }
+
+
+            }
+            else if (answer_position == 1 || answer_position == 21) {
+                leftup.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                leftdown.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                charimage.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                if (answer_position == 1) {
+                    lastleft.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                    lastright.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else {
+                    lastleft.setBackground(getDrawable(R.drawable.white));
+                    lastright.setBackground(getDrawable(R.drawable.white));
+
+
+                }
+
+
+            }
+            else if(answer_position==2){
+                leftup.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                leftdown.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                charimage.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                lastleft.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                lastright.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+
+
+            }
         }
+
+
 
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);

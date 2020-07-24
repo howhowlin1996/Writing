@@ -46,5 +46,15 @@
             android:text="正確"
             android:textSize="18sp" />
 
+        <ImageView
+            android:id="@+id/leftLast_lookwriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/rightLast_lookwriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </com.example.writing.panel.LookWritingGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
