@@ -34,8 +34,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
     private float begin_x,begin_y;
     private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=0,answer2_name=0;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
-    private int[]begin_l=new int [15];
-    private int[]begin_t=new int[15];
+    private int[]begin_l=new int [16];
+    private int[]begin_t=new int[16];
 
     private Map<Integer,Integer>idMap=new HashMap<>();
     private Queue<Integer>puzzlequeue=new LinkedList<Integer>();
@@ -62,8 +62,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         group.splitNum(split_code);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         int answer_position=storeinform.getInt("answer_position",0);
-        group.setType(answer_position);
-        group.invalidate();
+
 
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
@@ -72,6 +71,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         String parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
         Resources here_r=this.getResources();
         if(middleString.equals("0")){
+            group.setType(0,answer_position);
+            group.invalidate();
             if(answer_position==0){
                 qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
                 up1.setBackground(getDrawable(here_r.getIdentifier(partone+"0","drawable",this.getPackageName())));
@@ -98,6 +99,12 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
         }
         else {
+
+
+
+
+
+
 
         }
         DisplayMetrics dm = new DisplayMetrics();
