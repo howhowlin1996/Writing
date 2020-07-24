@@ -35,6 +35,8 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
         ImageView charRight=findViewById(R.id.characterQright_inout);
         ImageView phoLeft=findViewById(R.id.phoneticQleft_inout);
         ImageView phoRight=findViewById(R.id.phoneticQright_inout);
+        ImageView charMiddle=findViewById(R.id.characterQmiddle_inout);
+        ImageView phoMiddle=findViewById(R.id.phoneticQmiddle_inout);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
@@ -42,8 +44,10 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
         int answer_position=storeinform.getInt("answer_position",0);
         Resources here_r=this.getResources();
         if(middleString.equals("0")){
+            charMiddle.setVisibility(View.GONE);
+            phoMiddle.setVisibility(View.GONE);
             if(answer_position==0){
-                charLeft.setImageResource(R.drawable.white);
+                //charLeft.setImageResource(R.drawable.white);
                 phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
                 charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
                 phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
@@ -52,13 +56,80 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
 
                 charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
                 phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                charRight.setImageResource(R.drawable.white);
+                //charRight.setImageResource(R.drawable.white);
                 phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
 
             }
 
         }
         else {
+              if (answer_position/10==0){
+                  if (answer_position==0){
+                      //charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                      charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                      charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                      phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                      phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                      phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                  }
+                  else if (answer_position==1){
+                      charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                      //charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                      charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                      phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                      phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                      phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+                  }
+                  else{
+                      charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                      charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                      //charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                      phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                      phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                      phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+                  }
+
+              }
+              else  if(answer_position/100==0){
+                  if(answer_position==21){
+                      charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                      //charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                      //charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                      phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                      phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                      phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+                  }
+                  else  if(answer_position==20){
+                      //charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                      charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                      //charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                      phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                      phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                      phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+                  }
+                  else if(answer_position==10){
+                      //charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                      //charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                      charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                      phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                      phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                      phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+                  }
+
+              }
+              else {
+                  phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                  phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                  phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+              }
+
+
 
         }
         rightup.setOnClickListener(this);

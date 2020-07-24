@@ -32,7 +32,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         Panel mypanel=findViewById(R.id.panel_copy);
         Button confirm=findViewById(R.id.SaveButton_copy);
         Button delete=findViewById(R.id.DeleteButton_copy);
-        mypanel.setBackground(getDrawable(R.drawable.cha31000000));
+
 
         ImageView charleft=findViewById(R.id.characterQleft_copywriting);
         ImageView pholeft=findViewById(R.id.phoneticleftQ_copywriting);

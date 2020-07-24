@@ -160,12 +160,16 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
         Resources here_r=this.getResources();
         if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName())!=0){
+            int answer_num=1;
+            int answer_position=2;
             phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName()));
             storeinform.edit().putString("right",chartype+question_num+qadecision+"2").commit();
 
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName())!=0){
                 phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
                 storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
+                answer_num++;
+                answer_position=20;
             }
             else{
                 charquestionleft.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"0"),"drawable",this.getPackageName()));
@@ -177,6 +181,13 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
                 phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
                 storeinform.edit().putString("middle",chartype+question_num+qadecision+"1").commit();
+
+                if (answer_num==2){
+                    answer_position=210;
+                }
+                else {
+                    answer_position=21;
+                }
             }
             else{
                 charquestionmiddle.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"1"),"drawable",this.getPackageName()));
@@ -186,17 +197,23 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             }
 
 
+                storeinform.edit().putInt("answer_position",answer_position).commit();
+
 
 
         }
         else if(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName())!=0){
             charquestionright.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName()));
             phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName()));
-            storeinform.edit().putString("right",chartype+question_num+"0"+"0").commit();
+            storeinform.edit().putString("right",chartype+question_num+"0"+"2").commit();
+            int answer_num=0;
+            int answer_position=-1;
 
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName())!=0){
                 phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
                 storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
+                answer_num++;
+                answer_position=0;
             }
             else{
                 charquestionleft.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"0"),"drawable",this.getPackageName()));
@@ -208,6 +225,12 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
                 phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
                 storeinform.edit().putString("middle",chartype+question_num+qadecision+"1").commit();
+                if (answer_num==1){
+                    answer_position=10;
+                }
+                else {
+                    answer_position=1;
+                }
             }
             else{
                 charquestionmiddle.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"1"),"drawable",this.getPackageName()));
@@ -215,6 +238,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
                 storeinform.edit().putString("middle",chartype+question_num+"0"+"1").commit();
 
             }
+            storeinform.edit().putInt("answer_position",answer_position).commit();
 
         }
         else{

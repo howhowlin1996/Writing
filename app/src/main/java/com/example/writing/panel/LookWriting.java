@@ -74,7 +74,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         }
         else{
             Panel panel=findViewById(R.id.rightDownA_lookwriting);
-            panel.setBackground(getDrawable(R.drawable.white));
+            panel.resetCanvas();
 
         }
 
