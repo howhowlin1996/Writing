@@ -42,17 +42,17 @@ public class WritingPanelGroup extends ViewGroup {
             if (answer_position==1){
 
                 int width_pos=0,height_pos=0;
-                height_pos+=width/7;
+                height_pos+=2*width/8;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,0,width_pos+3*width/8,height_pos);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
+                    width_pos+=3*width/8;
                 }
                 width_pos=0;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
+                    width_pos+=3*width/8;
 
                 }
                 height_pos=height/2-width*7/10;
@@ -71,17 +71,17 @@ public class WritingPanelGroup extends ViewGroup {
             }
             else if(answer_position==0){
                 int width_pos=0,height_pos=0;
-                height_pos+=width/7;
+                height_pos+=2*width/8;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,0,width_pos+3*width/8,height_pos);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
+                    width_pos+=3*width/8;
                 }
                 width_pos=0;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
+                    width_pos+=3*width/8;
 
                 }
                 height_pos=height/2-width*7/10;
@@ -103,17 +103,17 @@ public class WritingPanelGroup extends ViewGroup {
         else {
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 int width_pos=0,height_pos=0;
-                height_pos+=width/7;
+                height_pos+=2*width/8;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,0,width_pos+3*width/8,height_pos);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
+                    width_pos+=3*width/8;
                 }
                 width_pos=0;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
+                    width_pos+=3*width/8;
 
                 }
                 height_pos=width/7;
@@ -137,17 +137,17 @@ public class WritingPanelGroup extends ViewGroup {
             else if(answer_position==1||answer_position==21){
 
                 int width_pos=0,height_pos=0;
-                height_pos+=width/7;
+                height_pos+=2*width/8;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,0,width_pos+3*width/8,height_pos);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
+                    width_pos+=3*width/8;
                 }
                 width_pos=0;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
+                    width_pos+=3*width/8;
 
                 }
                 height_pos=width/7;
@@ -169,17 +169,17 @@ public class WritingPanelGroup extends ViewGroup {
             }
             else if(answer_position==2){
                 int width_pos=0,height_pos=0;
-                height_pos+=width/7;
+                height_pos+=2*width/8;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,0,width_pos+3*width/8,height_pos);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
+                    width_pos+=3*width/8;
                 }
                 width_pos=0;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/16;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+3*width/8,height);
-                    width_pos+=3*width/8+width/16;
+                    width_pos+=width/8;
+                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
+                    width_pos+=3*width/8;
 
                 }
                 height_pos=width/7;

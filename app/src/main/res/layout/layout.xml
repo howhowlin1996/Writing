@@ -16,7 +16,7 @@
             android:id="@+id/help_writing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="幫幫我"
+            android:background="@drawable/help"
             android:textSize="18sp"
             tools:textStyle="bold" />
 
@@ -24,7 +24,7 @@
             android:id="@+id/memo_writing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="筆記本"
+            android:background="@drawable/note"
             android:textSize="18sp"
             tools:textStyle="bold" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/DeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="刪除"
+            android:background="@drawable/eraser"
             android:textSize="18sp"
             tools:textStyle="bold" />
 
@@ -40,7 +40,7 @@
             android:id="@+id/SaveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="正確"
+            android:background="@drawable/yes"
             android:textSize="18sp"
             tools:textStyle="bold" />
 
