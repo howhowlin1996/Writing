@@ -3,6 +3,7 @@ package com.example.writing.puzzle;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -41,6 +42,9 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         AnswerBoard answer2=findViewById(R.id.answerBoard2);
         AnswerBoard answer3=findViewById(R.id.answerBoard3);
         int widthhere=width*140/100;
+        if (type==1){
+            widthhere=width*120/100;
+        }
         if(piece/10==1){
             answer1.measure(widthhere/2,widthhere/2);
             answer2.measure(0,0);
@@ -124,8 +128,10 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         }
 
         else {
+            Log.d("hahahhah",new String(" "+answer_position));
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
-                height_here=2*puzzleHeight+width*60/100;
+                Log.d("i am there"," ");
+                height_here=puzzleHeight+width*60/100;
                 for (int i=3;i<4;i+=2){                                                                     //to set the question puzzle
                     View childview=getChildAt(i);                                                           //there are two question puzzles which are on the top of screen
                     viewgroup_h=0;
@@ -136,7 +142,7 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                 }
                 getChildAt(5).layout(width*20/100,height_here,width*80/100,height_here+width*60/100);
 
-                height_here=2*puzzleHeight;
+                /*height_here=2*puzzleHeight;
                 for (int i=4;i<7;i+=2){                                                                     //to set the question puzzle
                     View childview=getChildAt(i);                                                           //there are two question puzzles which are on the top of screen
                     viewgroup_h=0;
@@ -145,25 +151,26 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                     begin_t[i]=height_here;
                     height_here+=width*60/100;
                 }
-                getChildAt(15).layout(width*80/100,height_here,width*90/100,height_here+width*60/100);
+                getChildAt(15).layout(width*80/100,height_here,width*90/100,height_here+width*60/100);*/
 
 
             }
 
             else if(answer_position==1||answer_position==21){
+                Log.d("i am here"," ");
 
-                height_here=2*puzzleHeight;
+                height_here=puzzleHeight;
                 for (int i=3;i<4;i+=2){                                                                     //to set the question puzzle
                     View childview=getChildAt(i);                                                           //there are two question puzzles which are on the top of screen
-                    viewgroup_h=0;
                     childview.layout(width*20/100,height_here,width*80/100,height_here+width*60/100);
                     begin_l[i]=width*20/100;
                     begin_t[i]=height_here;
                     height_here+=width*60/100;
                 }
+                height_here+=width*60/100;
                 getChildAt(5).layout(width*20/100,height_here,width*80/100,height_here+width*60/100);
 
-                height_here=2*puzzleHeight;
+                /*height_here=2*puzzleHeight;
                 for (int i=4;i<7;i+=2){                                                                     //to set the question puzzle
                     View childview=getChildAt(i);                                                           //there are two question puzzles which are on the top of screen
                     viewgroup_h=0;
@@ -172,25 +179,24 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                     begin_t[i]=height_here;
                     height_here+=width*60/100;
                 }
-                getChildAt(15).layout(width*80/100,height_here,width*90/100,height_here+width*60/100);
+                getChildAt(15).layout(width*80/100,height_here,width*90/100,height_here+width*60/100);*/
 
 
 
             }
             else if(answer_position==2){
-                height_here=2*puzzleHeight;
+                height_here=puzzleHeight;
                 for (int i=3;i<4;i+=2){                                                                     //to set the question puzzle
                     View childview=getChildAt(i);                                                           //there are two question puzzles which are on the top of screen
                     viewgroup_h=0;
                     childview.layout(width*20/100,height_here,width*80/100,height_here+width*60/100);
                     begin_l[i]=width*20/100;
                     begin_t[i]=height_here;
-                    height_here+=width*120/100;
+                    height_here+=width*60/100;
                 }
-                height_here=2*puzzleHeight+width*60/100;
                 getChildAt(5).layout(width*20/100,height_here,width*80/100,height_here+width*60/100);
 
-                height_here=2*puzzleHeight;
+                /*height_here=2*puzzleHeight;
                 for (int i=4;i<7;i+=2){                                                                     //to set the question puzzle
                     View childview=getChildAt(i);                                                           //there are two question puzzles which are on the top of screen
                     viewgroup_h=0;
@@ -200,7 +206,7 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                     height_here+=width*120/100;
                 }
                 height_here=2*puzzleHeight+width*60/100;
-                getChildAt(15).layout(width*80/100,height_here,width*90/100,height_here+width*60/100);
+                getChildAt(15).layout(width*80/100,height_here,width*90/100,height_here+width*60/100);*/
 
 
             }
@@ -261,15 +267,17 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         else{
 
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
+                viewgroup_h=puzzleHeight;
 
             }
 
             else if(answer_position==1||answer_position==21){
+                viewgroup_h=puzzleHeight+width*60/100;
 
 
             }
             else if(answer_position==2){
-
+                viewgroup_h=puzzleHeight+width*120/100;
             }
 
 
@@ -284,6 +292,9 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                 int PanelHeight= Paneled.getMeasuredHeight();
                 int PanelWidth=Paneled.getMeasuredWidth();
                 left_pos=puzzleWidth;
+                if (type==1){
+                    left_pos=width*20/100;
+                }
                 Paneled.layout(left_pos,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelHeight);
                 begin_l[i]=left_pos;
                 begin_t[i]=viewgroup_h;
@@ -297,6 +308,9 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                     int PanelHeight= Paneled.getMeasuredHeight();
                     int PanelWidth=Paneled.getMeasuredWidth();
                     left_pos=puzzleWidth;
+                    if (type==1){
+                        left_pos=width*20/100;
+                    }
                     Paneled.layout(left_pos,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelHeight);
                     begin_l[i]=left_pos;
                     begin_t[i]=viewgroup_h;
@@ -309,6 +323,9 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                     int PanelHeight= Paneled.getMeasuredHeight();
                     int PanelWidth=Paneled.getMeasuredWidth();
                     left_pos=puzzleWidth;
+                    if (type==1){
+                        left_pos=width*20/100;
+                    }
                     Paneled.layout(left_pos,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelHeight);
                     begin_l[i]=left_pos;
                     begin_t[i]=viewgroup_h;
@@ -320,6 +337,9 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         }
         else if(piece/10==3){
             left_pos=puzzleWidth;
+            if (type==1){
+                left_pos=width*20/100;
+            }
             if(piece%10==1){
                 for (int i=0;i<2;i++){                                                              //to set the puzzlepanel in the middle of screen
                     View Paneled=getChildAt(i);
@@ -350,6 +370,9 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         }
         else if(piece/10==4){
             left_pos=puzzleWidth;
+            if (type==1){
+                left_pos=width*20/100;
+            }
             int PanelHeight= getChildAt(0).getMeasuredHeight();
             int PanelWidth=getChildAt(0).getMeasuredWidth();
             getChildAt(0).layout(left_pos+PanelWidth/2,viewgroup_h,left_pos+PanelWidth*3/2,viewgroup_h+PanelHeight);
@@ -367,6 +390,9 @@ public class PuzzlePanelGroup extends ViewGroup {                               
             int PanelHeight= Paneled.getMeasuredHeight();
             int PanelWidth=Paneled.getMeasuredWidth();
             left_pos=puzzleWidth;
+            if (type==1){
+                left_pos=width*20/100;
+            }
             Paneled.layout(left_pos,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelHeight);
             begin_l[0]=left_pos;
             begin_t[0]=viewgroup_h;

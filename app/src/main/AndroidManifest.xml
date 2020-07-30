@@ -2,76 +2,91 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.writing">
+
     <!-- 創建與刪除檔許可權 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
-        tools:ignore="ProtectedPermissions" />
-    <!-- 寫入資料許可權 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" /> <!-- 寫入資料許可權 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/writing_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/writing_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--add any activity needs to change-->
-        <activity android:name=".coosetype.InOutPage"
+
+        <!-- add any activity needs to change -->
+        <activity
+            android:name=".coosetype.InOutPage"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".coosetype.UpDownPage"
+        <activity
+            android:name=".coosetype.UpDownPage"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".coosetype.SinglePage"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".coosetype.SinglePage"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".panel.WritingPanel"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".panel.WritingPanel"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".puzzle.Puzzle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".puzzle.Puzzle"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".badge.Badge"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".badge.Badge"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".coosetype.ChooseTypePage"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".coosetype.ChooseTypePage"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name="main.Setting"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="main.Setting"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".badgefactory.BadgeFactory"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".badgefactory.BadgeFactory"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".panel.CopyWriting"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".panel.CopyWriting"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".memo.MemoLookUp"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".memo.MemoLookUp"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".memo.MemoEditPic"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".memo.MemoEditPic"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".coosetype.ChooseResult"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".coosetype.ChooseResult"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".panel.LookWriting"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".panel.LookWriting"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name="main.FirstScene"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="main.FirstScene"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-
 
 </manifest>

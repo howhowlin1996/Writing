@@ -136,25 +136,27 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        int num=0;
+        SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+
         if(v.getId()==R.id.updown){
-            num=21;
+            num.edit().putInt("split_code",21).commit();
         }
         else if(v.getId()==R.id.updown3){
-            num=22;
+            num.edit().putInt("split_code",22).commit();
+
         }
         else if(v.getId()==R.id.leftright2_updown){
-           num=31;
+            num.edit().putInt("split_code",31).commit();
+
         }
         else if(v.getId()==R.id.leftright3_updown){
-           num=32;
-        }
+            num.edit().putInt("split_code",32).commit();
 
+        }
 
 
 
         Intent intent =new Intent(getBaseContext(), ChooseResult.class);
-        intent.putExtra("num",num);
         startActivity(intent);
 
     }

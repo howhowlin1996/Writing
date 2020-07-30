@@ -12,19 +12,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
-import com.example.writing.panel.CopyWriting;
 import com.example.writing.panel.LookWriting;
-
-import com.example.writing.panel.WritingPanel;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -58,12 +52,11 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         PuzzlePanel down4=findViewById(R.id.charDown4);
         AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
         PuzzlePanelGroup group=findViewById(R.id.Group);
-        split_code=getIntent().getExtras().getInt("num");
-        group.splitNum(split_code);
+        //Log.d("errorhere",new String(split_code+" "));
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        split_code=storeinform.getInt("split_code",0);
+        group.splitNum(split_code);
         int answer_position=storeinform.getInt("answer_position",0);
-
-
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
         String middleString=storeinform.getString("middle",null);
@@ -99,6 +92,56 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
         }
         else {
+            group.setType(1,answer_position);
+            group.invalidate();
+            up1.setBackground(getDrawable(here_r.getIdentifier(partone+"0","drawable",this.getPackageName())));
+            up2.setBackground(getDrawable(here_r.getIdentifier(partone+"1","drawable",this.getPackageName())));
+            up3.setBackground(getDrawable(here_r.getIdentifier(partone+"2","drawable",this.getPackageName())));
+            up4.setBackground(getDrawable(here_r.getIdentifier(partone+"3","drawable",this.getPackageName())));
+            down1.setBackground(getDrawable(here_r.getIdentifier(parttwo+"0","drawable",this.getPackageName())));
+            down2.setBackground(getDrawable(here_r.getIdentifier(parttwo+"1","drawable",this.getPackageName())));
+            down3.setBackground(getDrawable(here_r.getIdentifier(parttwo+"2","drawable",this.getPackageName())));
+            down4.setBackground(getDrawable(here_r.getIdentifier(parttwo+"3","drawable",this.getPackageName())));
+            if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
+                if (answer_position==210){
+                    qu1.setBackground(getDrawable(R.drawable.white));
+                    qu2.setBackground(getDrawable(R.drawable.white));
+                }
+                else if (answer_position==20){
+                    qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getDrawable(R.drawable.white));
+                }
+                else if (answer_position==10){
+                    qu1.setBackground(getDrawable(R.drawable.white));
+                    qu2.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                }
+                else {
+                    qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                }
+
+
+            }
+
+            else if(answer_position==1||answer_position==21){
+                if (answer_position==21){
+                    qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getDrawable(R.drawable.white));
+
+                }
+                else{
+                    qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                }
+
+
+
+            }
+            else if(answer_position==2){
+                qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                qu2.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+
+            }
 
 
 
@@ -240,13 +283,15 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
         if (answer1_change==1&&answer2_change==1){
 
+
             if (answer1_name==findViewById(R.id.charUp1).getId()&&answer2_name==findViewById(R.id.charDown1).getId()){
                 Toast.makeText(this,"答對了",Toast.LENGTH_SHORT).show();
                 Intent intent =new Intent(getBaseContext(), LookWriting.class);
                 startActivity(intent);
+
             }
             else {
-                    Toast.makeText(this,"不對喔",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"不對喔,再試試看",Toast.LENGTH_SHORT).show();
             }
         }
 

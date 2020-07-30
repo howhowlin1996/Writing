@@ -34,7 +34,6 @@ import java.util.TreeSet;
 public class WritingPanel extends AppCompatActivity implements View.OnClickListener {
     //Panel mPanel;
      long lastTime =0;
-    int split_code=0;
     Set<String> defaultSet=new TreeSet<String>();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -153,7 +152,6 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         helpButton.setOnClickListener(this);
         memo.setOnClickListener(this);
         mPanel.setBackground(getDrawable(R.drawable.space));
-        split_code=getIntent().getExtras().getInt("num");
 
 
     }
@@ -165,7 +163,6 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         long newTime = System.currentTimeMillis();                              //set time limit to avoid users hitting the button too many times in a short period
         if(v.getId()==R.id.help_writing){
             Intent intent = new  Intent(this, Puzzle.class);
-            intent.putExtra("num",split_code);
             startActivity(intent);
             this.finish();
 

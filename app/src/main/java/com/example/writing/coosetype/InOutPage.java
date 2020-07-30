@@ -145,31 +145,32 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         Intent intent =new Intent(getBaseContext(),ChooseResult .class);
+        SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
         int ID =v.getId();
         if(ID==R.id.rightup){
-            Log.d("error","rightup");
-            intent.putExtra("num",51);
+            //Log.d("error","rightup");
+            num.edit().putInt("split_code",51).commit();
         }
         else if(ID==R.id.rightdown){
-            Log.d("error","rightdown");
-            intent.putExtra("num",52);
+            //Log.d("error","rightdown");
+            num.edit().putInt("split_code",52).commit();
         }
         else if(ID==R.id.rightmiddle){
-            Log.d("error","rightmiddle");
-            intent.putExtra("num",53);
+            //Log.d("error","rightmiddle");
+            num.edit().putInt("split_code",53).commit();
         }
         else if(ID==R.id.middlemiddle){
-            Log.d("error","middlemiddle");
-            intent.putExtra("num",54);
+            //Log.d("error","middlemiddle");
+            num.edit().putInt("split_code",54).commit();
 
         }
         else if(ID==R.id.middledown){
-            Log.d("error","middledown");
-            intent.putExtra("num",55);
+            //Log.d("error","middledown");
+            num.edit().putInt("split_code",55).commit();
         }
         else if(ID==R.id.leftdown){
-            Log.d("error","leftdown");
-            intent.putExtra("num",56);
+            //Log.d("error","leftdown");
+            num.edit().putInt("split_code",56).commit();
         }
         startActivity(intent);
 
