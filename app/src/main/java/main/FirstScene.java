@@ -1,6 +1,9 @@
 package main;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -10,10 +13,14 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.writing.R;
+import com.example.writing.badgefactory.BadgeFactory;
 import com.example.writing.coosetype.ChooseTypePage;
 
+import java.security.Permission;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -21,6 +28,10 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
     Set<String> defaultSet=new TreeSet<String>();
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        int permission_check= ContextCompat.checkSelfPermission(this, Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS);
+        if (permission_check!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new  String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.firstscene);
         getSupportActionBar().hide(); //隱藏標題
@@ -49,7 +60,7 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
 
         }
         else if(v.getId()==R.id.badge_first){
-            Intent intent =new Intent(getBaseContext(),ChooseTypePage.class);
+            Intent intent =new Intent(getBaseContext(), BadgeFactory.class);
             startActivity(intent);
         }
         else if(v.getId()==R.id.setting_firstscene){
