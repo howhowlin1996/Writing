@@ -141,16 +141,20 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         DataHelper dbBadge=new DataHelper(this,"0000"+".db",null,1,"21");
         int time;
         time=dbBadge.practiceTime(file.toString());
-        dbBadge.close();
+
         if (time==0){
             badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge);
+            dbBadge.insert(file.toString(),1);
         }
         else if (time==1){
             badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge_2);
+            dbBadge.update(file.toString(),2);
         }
         else{
             badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge_3);
+            dbBadge.update(file.toString(),3);
         }
+        dbBadge.close();
 
     }
 }
