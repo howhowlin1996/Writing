@@ -12,11 +12,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -31,11 +30,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-import main.FirstScene;
 
 public class Badge extends AppCompatActivity implements View.OnClickListener {
     FileInputStream photo;
@@ -55,7 +52,6 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         Button factory=findViewById(R.id.badgeFactory_badge);
         Button share=findViewById(R.id.share_badge);
         Button practice=findViewById(R.id.practice_badge);
-        badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge);
         ReadImage();
         factory.setOnClickListener(this);
         share.setOnClickListener(this);
@@ -66,8 +62,6 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
-
-        ImageView background=findViewById(R.id.badgeView);
 
          if(v.getId()==R.id.badgeFactory_badge){
             Intent intent = new  Intent(this, BadgeFactory.class);
@@ -100,8 +94,6 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
             photo=fin;
             bmp = BitmapFactory.decodeStream(fin);
             fin.close();
-
-
         }
         catch(Exception e){
             e.printStackTrace();
@@ -113,7 +105,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
 
         String fileName = "badge"+photo_name+ ".jpg";
         File file = new File(appDir, fileName);
-        Log.d("photoname",fileName);
+        DBselect(file);
         Bitmap  bmpcombine=Bitmap.createBitmap(badge.getWidth(),badge.getHeight(),bmp.getConfig());
         try {
             Canvas canvas=new Canvas (bmpcombine);
@@ -127,7 +119,6 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
             bmp=Bitmap.createBitmap(bmp,0,0,bmpWidth,bmpHeight,matrix,true);
             canvas.drawBitmap(bmp,badge.getWidth()-bmp.getWidth()*6/5,badge.getHeight()/4,null);
             canvas.drawBitmap(badge,0,0,null);
-
             FileOutputStream fos = new FileOutputStream(file);
             bmpcombine.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
@@ -143,6 +134,23 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
 
 
 
+
+    }
+
+    public  void DBselect(File file){
+        DataHelper dbBadge=new DataHelper(this,"0000"+".db",null,1,"21");
+        int time;
+        time=dbBadge.practiceTime(file.toString());
+        dbBadge.close();
+        if (time==0){
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge);
+        }
+        else if (time==1){
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge_2);
+        }
+        else{
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge_3);
+        }
 
     }
 }
