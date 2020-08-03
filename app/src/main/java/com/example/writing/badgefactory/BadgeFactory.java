@@ -1,6 +1,7 @@
 package com.example.writing.badgefactory;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,11 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 import com.example.writing.badgefactory.DataHelper;
+import com.example.writing.coosetype.ChooseTypePage;
 
 import java.io.File;
 import java.io.FileInputStream;
 
 public class BadgeFactory extends AppCompatActivity implements View.OnClickListener {
+    String photo;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
         time =dbBadge.imageNum();
         Log.d("TIMEHERE",new String(time+" "));
         dbBadge.close();
+        group.height=(time/2+1)*width;
 
 
         Cursor file_position=dbBadge.getFileName();
@@ -52,7 +56,8 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
 
             Bitmap bmp=null;
             Log.d("HERE",file_position.getString(0));
-            File file=new File(file_position.getString(0));
+            photo=file_position.getString(0);
+            File file=new File(photo);
             try{
                 FileInputStream fin=new  FileInputStream(file);
                 Log.d("HERE",file_position.getString(0));
@@ -78,6 +83,7 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
         }
         for (int i=0;i<time;i++){
             View here=group.getChildAt(i);
+            here.setId(i);
             BadgeGroup.LayoutParams params=new BadgeGroup.LayoutParams(here.getLayoutParams());
             params.height=width/2;
             params.width=width/2;
@@ -87,10 +93,15 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
 
 
 
+
     }
 
     @Override
     public void onClick(View v) {
-        onBackPressed();
+        Log.d("herehere","1");
+        Log.d("herehere",new String(" "+v.getId()));
+        Intent intent = new  Intent(this, SingleBadge.class);
+        intent.putExtra("background",v.getId());
+        startActivity(intent);
     }
 }
