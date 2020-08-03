@@ -1,6 +1,8 @@
 package com.example.writing.coosetype;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +24,8 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         TextView textView=findViewById(R.id.textView_result);
         Button confirm=findViewById(R.id.confirm_result);
-        split_code=getIntent().getExtras().getInt("num");
+        SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+        split_code=num.getInt("split_code",0);
         confirm.setOnClickListener(this);
 
         if (split_code==31){

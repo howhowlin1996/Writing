@@ -16,6 +16,8 @@ import com.example.writing.R;
 import java.util.Set;
 import java.util.TreeSet;
 
+import main.FirstScene;
+
 
 public class ChooseTypePage extends AppCompatActivity implements View.OnClickListener {
     Set<String> defaultSet=new TreeSet<String>();
@@ -40,18 +42,20 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             setkeyname.remove(key_name);
             if (setkeyname.iterator().hasNext()){
                 key_name=setkeyname.iterator().next();
+                Log.d("number",key_name);
             }
+
             if (setkeyname.size()==0){
                 //Toast.makeText(this,"end",Toast.LENGTH_SHORT).show();
                 getSharedPreferences("num",0).edit().putStringSet("chartypenum",defaultSet).clear().commit();
+                Intent intent = new  Intent(this, FirstScene.class);
+                startActivity(intent);
             }
 
         }
         else{
             setQuestion(key_name,(position-1)*5+5-num);
         }
-        int a=(position-1)*5+5-num;
-        //Toast.makeText(this,new String(" "+key_name+" "+a),Toast.LENGTH_SHORT).show();
 
 
 
@@ -88,8 +92,11 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         final ImageView charquestionright=findViewById(R.id.characterQright_choose);
         final ImageView charquestionleft=findViewById(R.id.characterQleft_choose);
+        final ImageView charquestionmiddle=findViewById(R.id.characterQmiddle_choose);
         final ImageView phoquestionright=findViewById(R.id.phoneticQright_choose);
         final ImageView phoquestionleft=findViewById(R.id.phoneticQleft_choose);
+        final ImageView phoquestionmiddle=findViewById(R.id.phoneticQmiddle_chooose);
+
         String chartype="00";
         String question_num;
         String qadecision="1";
@@ -143,40 +150,127 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
         String identift_code=chartype+question_num+qadecision;
 
-        Toast.makeText(this,"cha" +identift_code+"0",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"cha" +identift_code+"0",Toast.LENGTH_SHORT).show();
+
+
 
 
 
 
 
         Resources here_r=this.getResources();
-        if(here_r.getIdentifier("cha" +chartype+question_num+qadecision+"0","drawable",this.getPackageName())!=0){
-            Log.d("decision","left");
-            charquestionleft.setImageResource(R.drawable.white);
-            phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
-            storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
-            qadecision="0";
-            charquestionright.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
-            phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
-            storeinform.edit().putString("right",chartype+question_num+qadecision+"1").commit();
-            storeinform.edit().putString("middle","0").commit();
-            storeinform.edit().putInt("answer_position",0).commit();
+        if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName())!=0){
+            int answer_num=1;
+            int answer_position=2;
+            phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName()));
+            storeinform.edit().putString("right",chartype+question_num+qadecision+"2").commit();
+
+            if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName())!=0){
+                phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
+                answer_num++;
+                answer_position=20;
+            }
+            else{
+                charquestionleft.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"0"),"drawable",this.getPackageName()));
+                phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+"0"+"0"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("right",chartype+question_num+"0"+"0").commit();
+
+
+            }
+            if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
+                phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("middle",chartype+question_num+qadecision+"1").commit();
+
+                if (answer_num==2){
+                    answer_position=210;
+                }
+                else {
+                    answer_position=21;
+                }
+            }
+            else{
+                charquestionmiddle.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"1"),"drawable",this.getPackageName()));
+                phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+"0"+"1"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("right",chartype+question_num+"0"+"1").commit();
+
+            }
+
+
+                storeinform.edit().putInt("answer_position",answer_position).commit();
+
+
 
         }
-        else if(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
-            Log.d("decision","Right");
-            charquestionright.setImageResource(R.drawable.white);
-            phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
-            storeinform.edit().putString("right",chartype+question_num+qadecision+"1").commit();
+        else if(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName())!=0){
+            charquestionright.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName()));
+            phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName()));
+            storeinform.edit().putString("right",chartype+question_num+"0"+"2").commit();
+            int answer_num=0;
+            int answer_position=-1;
 
-            qadecision="0";
-            charquestionleft.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
-            phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
-            storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
-            storeinform.edit().putString("middle","0").commit();
-            storeinform.edit().putInt("answer_position",1).commit();
+            if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName())!=0){
+                phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
+                answer_num++;
+                answer_position=0;
+            }
+            else{
+                charquestionleft.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"0"),"drawable",this.getPackageName()));
+                phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+"0"+"0"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("left",chartype+question_num+"0"+"0").commit();
+
+
+            }
+            if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
+                phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("middle",chartype+question_num+qadecision+"1").commit();
+                if (answer_num==1){
+                    answer_position=10;
+                }
+                else {
+                    answer_position=1;
+                }
+            }
+            else{
+                charquestionmiddle.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"1"),"drawable",this.getPackageName()));
+                phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+"0"+"1"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("middle",chartype+question_num+"0"+"1").commit();
+
+            }
+            storeinform.edit().putInt("answer_position",answer_position).commit();
+
         }
-        else if(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName())!=0){
+        else{
+            if(here_r.getIdentifier("cha" +chartype+question_num+qadecision+"0","drawable",this.getPackageName())!=0){
+                Log.d("decision","left");
+                charquestionmiddle.setVisibility(View.GONE);
+                phoquestionmiddle.setVisibility(View.GONE);
+                //charquestionleft.setImageResource(R.drawable.white);
+                phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
+                qadecision="0";
+                charquestionright.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
+                phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("right",chartype+question_num+qadecision+"1").commit();
+                storeinform.edit().putString("middle","0").commit();
+                storeinform.edit().putInt("answer_position",0).commit();
+
+            }
+            else if(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
+                Log.d("decision","Right");
+                charquestionmiddle.setVisibility(View.GONE);
+                phoquestionmiddle.setVisibility(View.GONE);
+                //charquestionright.setImageResource(R.drawable.white);
+                phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("right",chartype+question_num+qadecision+"1").commit();
+                qadecision="0";
+                charquestionleft.setImageResource(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
+                phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
+                storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
+                storeinform.edit().putString("middle","0").commit();
+                storeinform.edit().putInt("answer_position",1).commit();
+            }
 
         }
 

@@ -8,102 +8,52 @@
     android:background="@drawable/badgebg">
 
     <ImageView
-        android:id="@+id/characterBadgeView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26"
-        app:layout_constraintWidth_percent="0.55" />
-
-    <ImageView
         android:id="@+id/badgeView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.75"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="1"
-        app:layout_constraintHeight_percent="0.75"
-        app:srcCompat="@drawable/badge" />
+        app:layout_constraintWidth_percent="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/badgeView"
-        app:layout_constraintVertical_bias="0.77">
+        app:layout_constraintDimensionRatio="3"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/badgeFactory_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="獎章庫"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/startburron"
             android:textSize="18sp"
             tools:layout_gravity="center" />
 
         <Button
             android:id="@+id/share_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="分享"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/note"
             android:textSize="18sp"
             tools:layout_gravity="center" />
 
         <Button
             android:id="@+id/practice_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_gravity="center"
-            android:layout_weight="2"
-            android:text="繼續"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="409dp"
-        android:layout_height="113dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-        <ImageView
-            android:id="@+id/badgeChooseView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/badge" />
-
-        <ImageView
-            android:id="@+id/badgeChooseView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/badge_2" />
-
-        <ImageView
-            android:id="@+id/badgeChooseView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/badge_3" />
-
+            android:background="@drawable/returnbutton"
+            android:textSize="18sp"
+            tools:layout_gravity="center" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
