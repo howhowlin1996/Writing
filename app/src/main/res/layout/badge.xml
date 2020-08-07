@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/startburron"
+            android:background="@drawable/startbutton"
             android:textSize="18sp"
             tools:layout_gravity="center" />
 
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/note"
+            android:background="@drawable/share"
             android:textSize="18sp"
             tools:layout_gravity="center" />
 
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/returnbutton"
+            android:background="@drawable/keeppractice"
             android:textSize="18sp"
             tools:layout_gravity="center" />
     </LinearLayout>

@@ -68,7 +68,5 @@ public class DataHelper extends SQLiteOpenHelper {
         ptime.moveToFirst();
         return ptime;
 
-
-
     }
 }

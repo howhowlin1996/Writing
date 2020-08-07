@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import java.util.Set;
@@ -21,6 +23,7 @@ import main.FirstScene;
 
 public class ChooseTypePage extends AppCompatActivity implements View.OnClickListener {
     Set<String> defaultSet=new TreeSet<String>();
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +91,8 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    void setQuestion(String type,int num){
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    void setQuestion(String type, int num){
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         final ImageView charquestionright=findViewById(R.id.characterQright_choose);
         final ImageView charquestionleft=findViewById(R.id.characterQleft_choose);
@@ -163,10 +167,12 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             int answer_num=1;
             int answer_position=2;
             phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName()));
+            charquestionright.setBackground(getDrawable(R.drawable.questionblock));
             storeinform.edit().putString("right",chartype+question_num+qadecision+"2").commit();
 
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName())!=0){
                 phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
+                charquestionleft.setBackground(getDrawable(R.drawable.questionblock));
                 storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
                 answer_num++;
                 answer_position=20;
@@ -180,6 +186,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             }
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
                 phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
+                charquestionmiddle.setBackground(getDrawable(R.drawable.questionblock));
                 storeinform.edit().putString("middle",chartype+question_num+qadecision+"1").commit();
 
                 if (answer_num==2){
@@ -211,6 +218,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName())!=0){
                 phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
+                charquestionleft.setBackground(getDrawable(R.drawable.questionblock));
                 storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
                 answer_num++;
                 answer_position=0;
@@ -224,6 +232,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             }
             if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
                 phoquestionmiddle.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
+                charquestionmiddle.setBackground(getDrawable(R.drawable.questionblock));
                 storeinform.edit().putString("middle",chartype+question_num+qadecision+"1").commit();
                 if (answer_num==1){
                     answer_position=10;
@@ -247,6 +256,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
                 charquestionmiddle.setVisibility(View.GONE);
                 phoquestionmiddle.setVisibility(View.GONE);
                 //charquestionleft.setImageResource(R.drawable.white);
+                charquestionleft.setBackground(getDrawable(R.drawable.questionblock));
                 phoquestionleft.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"0"),"drawable",this.getPackageName()));
                 storeinform.edit().putString("left",chartype+question_num+qadecision+"0").commit();
                 qadecision="0";
@@ -262,6 +272,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
                 charquestionmiddle.setVisibility(View.GONE);
                 phoquestionmiddle.setVisibility(View.GONE);
                 //charquestionright.setImageResource(R.drawable.white);
+                charquestionright.setBackground(getDrawable(R.drawable.questionblock));
                 phoquestionright.setImageResource(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName()));
                 storeinform.edit().putString("right",chartype+question_num+qadecision+"1").commit();
                 qadecision="0";

@@ -16,13 +16,12 @@ public class BadgeGroup extends ViewGroup {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
         width=dm.widthPixels;
-        height=dm.heightPixels;
         this_context=context;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        this.setMeasuredDimension(width,width*5);
+        this.setMeasuredDimension(width,height);
     }
 
     @Override

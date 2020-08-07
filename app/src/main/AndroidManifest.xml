@@ -75,7 +75,11 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".panel.LookWriting"
+        android:name=".panel.LookWriting"
+        android:screenOrientation="portrait"
+        tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".badgefactory.SingleBadge"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
