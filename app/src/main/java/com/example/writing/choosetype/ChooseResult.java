@@ -1,4 +1,4 @@
-package com.example.writing.coosetype;
+package com.example.writing.choosetype;
 
 import android.content.Context;
 import android.content.Intent;

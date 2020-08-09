@@ -1,4 +1,5 @@
-package com.example.writing.coosetype;
+package com.example.writing.choosetype;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,30 +10,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.writing.R;
-import com.example.writing.panel.CopyWriting;
-import com.example.writing.panel.WritingPanel;
-import com.example.writing.puzzle.Puzzle;
 
-public class UpDownPage extends AppCompatActivity implements View.OnClickListener {
+import com.example.writing.R;
+
+public class SinglePage extends AppCompatActivity implements View.OnClickListener {
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.updownchoose);
+        setContentView(R.layout.singlechoose);
         getSupportActionBar().hide(); //隱藏標題
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-        Button updown=findViewById(R.id.updown);
-        Button leftright2=findViewById(R.id.leftright2_updown);
-        Button leftright3=findViewById(R.id.leftright3_updown);
-        Button updown3=findViewById(R.id.updown3);
-        ImageView charLeft=findViewById(R.id.characterQleft_updown);
-        ImageView charRight=findViewById(R.id.characterQright_updown);
-        ImageView phoLeft=findViewById(R.id.phoneticQleft_updown);
-        ImageView phoRight=findViewById(R.id.phoneticQright_updown);
-        ImageView charMiddle=findViewById(R.id.characterQmiddle_updown);
-        ImageView phoMiddle=findViewById(R.id.phoneticQmiddle_updown);
+        Button single=findViewById(R.id.single);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        ImageView charLeft=findViewById(R.id.characterQleft_single);
+        ImageView charRight=findViewById(R.id.characterQright_single);
+        ImageView phoLeft=findViewById(R.id.phoneticQleft_single);
+        ImageView phoRight=findViewById(R.id.phoneticQright_single);
+        ImageView charMiddle=findViewById(R.id.characterQmiddle_single);
+        ImageView phoMiddle=findViewById(R.id.phoneticQmiddle_single);
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
         String middleString=storeinform.getString("middle",null);
@@ -126,35 +123,21 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
 
 
         }
-        updown.setOnClickListener(this);
-        updown3.setOnClickListener(this);
-        leftright2.setOnClickListener(this);
-        leftright3.setOnClickListener(this);
 
-    }
+        single.setOnClickListener(this);
+        }
+
+
+
 
 
     @Override
     public void onClick(View v) {
+
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
-
-        if(v.getId()==R.id.updown){
-            num.edit().putInt("split_code",21).commit();
-        }
-        else if(v.getId()==R.id.updown3){
-            num.edit().putInt("split_code",22).commit();
-
-        }
-        else if(v.getId()==R.id.leftright2_updown){
-            num.edit().putInt("split_code",31).commit();
-
-        }
-        else if(v.getId()==R.id.leftright3_updown){
-            num.edit().putInt("split_code",32).commit();
-
-        }
-
-
+       if(v.getId()==R.id.single){
+           num.edit().putInt("split_code",11).commit();
+       }
 
         Intent intent =new Intent(getBaseContext(), ChooseResult.class);
         startActivity(intent);

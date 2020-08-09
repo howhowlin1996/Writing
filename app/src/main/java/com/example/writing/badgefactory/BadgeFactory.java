@@ -10,19 +10,14 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.TableLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
-import com.example.writing.badgefactory.DataHelper;
-import com.example.writing.coosetype.ChooseTypePage;
 
 import java.io.File;
 import java.io.FileInputStream;
