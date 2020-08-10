@@ -26,7 +26,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
     Set<String> defaultSet=new TreeSet<String>();
     Context context;
     int width_here,height_here;
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             setkeyname.remove(key_name);
             if (setkeyname.iterator().hasNext()){
                 key_name=setkeyname.iterator().next();
-                Log.d("number",key_name);
+                //Log.d("number",key_name);
             }
 
             if (setkeyname.size()==0){
@@ -69,15 +68,9 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         }
 
 
-       for (int i=0;i<3;i++){
-           chooseTypeGroup.getChildAt(i).setOnClickListener(this);
-       }
-
-
-
-
-
-
+        for (int i=0;i<3;i++){
+            chooseTypeGroup.getChildAt(i).setOnClickListener(this);
+        }
 
 
     }
@@ -154,13 +147,9 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             }
         };
         this.runOnUiThread(runnable);
-        Log.d("errorhaha","herre");
+        //Log.d("errorhaha","herre");
 
-        chooseTypeGroup.invalidate();
-
-
-
-
+        //chooseTypeGroup.invalidate();
 
 
 
@@ -169,7 +158,9 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+
         int idnum=v.getId();
+
         if (idnum==0){
             Intent intent = new  Intent(ChooseTypePage.this, SinglePage.class);             //change activity to the activity that every button matches
             startActivity(intent);
@@ -192,12 +183,12 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
     void setQuestion(String type, int num){
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         final ChooseTypeGroup chooseTypeGroup=findViewById(R.id.rootGroup_choosetype);
-        final View charquestionright=chooseTypeGroup.getChildAt(4);
         final View charquestionleft=chooseTypeGroup.getChildAt(3);
-        final View charquestionmiddle=chooseTypeGroup.getChildAt(5);
-        final View phoquestionright=chooseTypeGroup.getChildAt(7);
+        final View charquestionmiddle=chooseTypeGroup.getChildAt(4);
+        final View charquestionright=chooseTypeGroup.getChildAt(5);
         final View phoquestionleft=chooseTypeGroup.getChildAt(6);
-        final View phoquestionmiddle=chooseTypeGroup.getChildAt(8);
+        final View phoquestionmiddle=chooseTypeGroup.getChildAt(7);
+        final View phoquestionright=chooseTypeGroup.getChildAt(8);
 
         String chartype="00";
         String question_num;
@@ -262,8 +253,8 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
         Resources here_r=this.getResources();
         if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName())!=0){
-             chooseTypeGroup.getNum(3,3,3);
-             chooseTypeGroup.invalidate();
+            chooseTypeGroup.getNum(3,3,3);
+            chooseTypeGroup.invalidate();
             int answer_num=1;
             int answer_position=2;
             phoquestionright.setBackground(getDrawable(here_r.getIdentifier(new String("pho" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName())));
@@ -310,8 +301,10 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
         }
         else if(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName())!=0){
+
             chooseTypeGroup.getNum(3,3,3);
             chooseTypeGroup.invalidate();
+
             charquestionright.setBackground(getDrawable(here_r.getIdentifier(new String("cha" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName())));
             phoquestionright.setBackground(getDrawable(here_r.getIdentifier(new String("pho" +chartype+question_num+"0"+"2"),"drawable",this.getPackageName())));
             storeinform.edit().putString("right",chartype+question_num+"0"+"2").commit();
@@ -356,7 +349,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             chooseTypeGroup.getNum(3,2,2);
             chooseTypeGroup.invalidate();
             if(here_r.getIdentifier("cha" +chartype+question_num+qadecision+"0","drawable",this.getPackageName())!=0){
-                Log.d("decision","left");
+                //Log.d("decision","left");
                 charquestionmiddle.setVisibility(View.GONE);
                 phoquestionmiddle.setVisibility(View.GONE);
                 //charquestionleft.setBackground(R.drawable.white);
@@ -372,7 +365,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
             }
             else if(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
-                Log.d("decision","Right");
+                //Log.d("decision","Right");
                 charquestionmiddle.setVisibility(View.GONE);
                 phoquestionmiddle.setVisibility(View.GONE);
                 //charquestionright.setBackground(R.drawable.white);
