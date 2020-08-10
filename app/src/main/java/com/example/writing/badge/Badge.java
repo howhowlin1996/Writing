@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 import com.example.writing.badgefactory.BadgeFactory;
-import com.example.writing.coosetype.ChooseTypePage;
+import com.example.writing.choosetype.ChooseTypePage;
 
 import java.io.File;
 import java.io.FileInputStream;

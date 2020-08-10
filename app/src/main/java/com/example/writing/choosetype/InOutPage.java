@@ -1,11 +1,10 @@
-package com.example.writing.coosetype;
+package com.example.writing.choosetype;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,9 +12,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
-import com.example.writing.panel.CopyWriting;
-import com.example.writing.panel.WritingPanel;
-import com.example.writing.puzzle.Puzzle;
 
 public class InOutPage extends AppCompatActivity implements View.OnClickListener {
 
