@@ -3,130 +3,131 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 
 public class UpDownPage extends AppCompatActivity implements View.OnClickListener {
-
+    int width_here,height_here;
+    Context context;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.updownchoose);
         getSupportActionBar().hide(); //隱藏標題
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-        Button updown=findViewById(R.id.updown);
-        Button leftright2=findViewById(R.id.leftright2_updown);
-        Button leftright3=findViewById(R.id.leftright3_updown);
-        Button updown3=findViewById(R.id.updown3);
-        ImageView charLeft=findViewById(R.id.characterQleft_updown);
-        ImageView charRight=findViewById(R.id.characterQright_updown);
-        ImageView phoLeft=findViewById(R.id.phoneticQleft_updown);
-        ImageView phoRight=findViewById(R.id.phoneticQright_updown);
-        ImageView charMiddle=findViewById(R.id.characterQmiddle_updown);
-        ImageView phoMiddle=findViewById(R.id.phoneticQmiddle_updown);
-        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
-        String rightString=storeinform.getString("right",null);
-        String leftString =storeinform.getString("left",null);
-        String middleString=storeinform.getString("middle",null);
-        int answer_position=storeinform.getInt("answer_position",0);
-        Resources here_r=this.getResources();
-        if(middleString.equals("0")){
-            charMiddle.setVisibility(View.GONE);
-            phoMiddle.setVisibility(View.GONE);
-            if(answer_position==0){
-                //charLeft.setImageResource(R.drawable.white);
-                phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-            }
-            else{
-
-                charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                //charRight.setImageResource(R.drawable.white);
-                phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-
-            }
-
+        final ChooseTypeGroup chooseTypeGroup=findViewById(R.id.rootGroup_updownchoose);
+        WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        width_here=dm.widthPixels;
+        height_here=dm.heightPixels;
+        context=this;
+        prepareView();
+        setQuestion();
+        for (int i=0;i<4;i++){
+            chooseTypeGroup.getChildAt(i).setOnClickListener(this);
         }
-        else {
-            if (answer_position/10==0){
-                if (answer_position==0){
-                    //charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                    charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
-                    charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                    phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                    phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-                    phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
-                }
-                else if (answer_position==1){
-                    charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                    //charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
-                    charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                    phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                    phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-                    phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+
+
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected void prepareView(){
+        final ChooseTypeGroup chooseTypeGroup=findViewById(R.id.rootGroup_updownchoose);
+        chooseTypeGroup.setBackground(getDrawable(R.drawable.bg));
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                for (int i=0;i<4;i++){
+                    Button button_here=new Button(context);
+                    //Log.d("errorhaha", "111111111111111");
+                    chooseTypeGroup.addView(button_here);
 
                 }
-                else{
-                    charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                    charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
-                    //charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                    phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                    phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-                    phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                for (int i=0;i<4;i++){
+                    View button_here=chooseTypeGroup.getChildAt(i);
+                    ChooseTypeGroup.LayoutParams params=new ChooseTypeGroup.LayoutParams(button_here.getLayoutParams());
+                    params.height=width_here/3;
+                    params.width=width_here/3;
+                    String name="type"+new String(""+i);
+                    button_here.setTag(name);
+                    button_here.setId(i);
+                    button_here.setLayoutParams(params);
+
+
+                    if (i==0){
+                        button_here.setBackground(getDrawable(R.drawable.updown));
+                    }
+                    else if (i==1){
+                        button_here.setBackground(getDrawable(R.drawable.updown3));
+                    }
+                    else if (i==2){
+                        button_here.setBackground(getDrawable(R.drawable.leftright2));
+                    }
+                    else{
+                        button_here.setBackground(getDrawable(R.drawable.leftright3));
+                    }
+
 
                 }
+                Log.d("errorhaha","herre1");
+                for (int i=0;i<3;i++){
+                    ImageView imageView=new ImageView(context);
+                    chooseTypeGroup.addView(imageView);
+                    ChooseTypeGroup.LayoutParams params=new ChooseTypeGroup.LayoutParams(imageView.getLayoutParams());
+                    params.height=width_here/3;
+                    params.width=width_here/3;
+                    String name="question"+new String(""+i);;
+                    imageView.setTag(name);
+                    imageView.setId(3+i);
+                    imageView.setLayoutParams(params);
+
+
+                }
+
+                Log.d("errorhaha","herre3");
+                for (int i=0;i<3;i++){
+                    ImageView imageView=new ImageView(context);
+                    chooseTypeGroup.addView(imageView);
+                    ChooseTypeGroup.LayoutParams params=new ChooseTypeGroup.LayoutParams(imageView.getLayoutParams());
+                    params.height=width_here/3;
+                    params.width=width_here/12;
+                    String name="phonetic"+new String(""+i);;
+                    imageView.setTag(name);
+                    imageView.setId(6+i);
+                    imageView.setLayoutParams(params);
+
+
+
+
+                }
+
 
             }
-            else  if(answer_position/100==0){
-                if(answer_position==21){
-                    charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                    //charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
-                    //charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                    phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                    phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-                    phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
-
-                }
-                else  if(answer_position==20){
-                    //charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                    charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
-                    //charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                    phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                    phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-                    phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
-
-                }
-                else if(answer_position==10){
-                    //charLeft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
-                    //charMiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
-                    charRight.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
-                    phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                    phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-                    phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
-
-                }
-
-            }
-            else {
-                phoLeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                phoRight.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
-                phoMiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
-
-            }
+        };
+        this.runOnUiThread(runnable);
 
 
-        }
-        updown.setOnClickListener(this);
-        updown3.setOnClickListener(this);
-        leftright2.setOnClickListener(this);
-        leftright3.setOnClickListener(this);
+
+
+
+
+
+
 
     }
 
@@ -135,18 +136,18 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
 
-        if(v.getId()==R.id.updown){
+        if(v.getTag().equals("type0")){
             num.edit().putInt("split_code",21).commit();
         }
-        else if(v.getId()==R.id.updown3){
+        else if(v.getTag().equals("type1")){
             num.edit().putInt("split_code",22).commit();
 
         }
-        else if(v.getId()==R.id.leftright2_updown){
+        else if(v.getTag().equals("type2")){
             num.edit().putInt("split_code",31).commit();
 
         }
-        else if(v.getId()==R.id.leftright3_updown){
+        else if(v.getTag().equals("type3")){
             num.edit().putInt("split_code",32).commit();
 
         }
@@ -155,6 +156,132 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
 
         Intent intent =new Intent(getBaseContext(), ChooseResult.class);
         startActivity(intent);
+
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected void setQuestion(){
+
+        final ChooseTypeGroup chooseTypeGroup=findViewById(R.id.rootGroup_updownchoose);
+        View charLeft=chooseTypeGroup.getChildAt(4);
+        View charMiddle=chooseTypeGroup.getChildAt(5);
+        View charRight=chooseTypeGroup.getChildAt(6);
+        View phoLeft=chooseTypeGroup.getChildAt(7);
+        View phoMiddle=chooseTypeGroup.getChildAt(8);
+        View phoRight=chooseTypeGroup.getChildAt(9);
+
+
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String rightString=storeinform.getString("right",null);
+        String leftString =storeinform.getString("left",null);
+        String middleString=storeinform.getString("middle",null);
+        int answer_position=storeinform.getInt("answer_position",0);
+        Resources here_r=this.getResources();
+        if(middleString.equals("0")){
+           chooseTypeGroup.getNum(4,2,2);
+            if(answer_position==0){
+                charLeft.setBackground(getDrawable(R.drawable.questionblock));
+                phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                charRight.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+            }
+            else{
+
+                charLeft.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                charRight.setBackground(getDrawable(R.drawable.questionblock));
+                phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+
+            }
+
+        }
+        else {
+            chooseTypeGroup.getNum(4,3,3);
+            if (answer_position/10==0){
+                if (answer_position==0){
+                    //charLeft.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    charLeft.setBackground(getDrawable(R.drawable.questionblock));
+                    charMiddle.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    charRight.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                    phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                    phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+                    phoMiddle.setBackground(getDrawable(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName())));
+                }
+                else if (answer_position==1){
+                    charLeft.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    //charMiddle.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    charMiddle.setBackground(getDrawable(R.drawable.questionblock));
+                    charRight.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                    phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                    phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+                    phoMiddle.setBackground(getDrawable(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName())));
+
+                }
+                else{
+                    charLeft.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    charMiddle.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    //charRight.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                    charRight.setBackground(getDrawable(R.drawable.questionblock));
+                    phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                    phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+                    phoMiddle.setBackground(getDrawable(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName())));
+
+                }
+
+            }
+            else  if(answer_position/100==0){
+                if(answer_position==21){
+                    charLeft.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    //charMiddle.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    //charRight.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                    charMiddle.setBackground(getDrawable(R.drawable.questionblock));
+                    charRight.setBackground(getDrawable(R.drawable.questionblock));
+                    phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                    phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+                    phoMiddle.setBackground(getDrawable(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName())));
+
+                }
+                else  if(answer_position==20){
+                    //charLeft.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    charLeft.setBackground(getDrawable(R.drawable.questionblock));
+                    charMiddle.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    //charRight.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                    charRight.setBackground(getDrawable(R.drawable.questionblock));
+                    phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                    phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+                    phoMiddle.setBackground(getDrawable(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName())));
+
+                }
+                else if(answer_position==10){
+                    //charLeft.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    //charMiddle.setBackground(getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    charLeft.setBackground(getDrawable(R.drawable.questionblock));
+                    charMiddle.setBackground(getDrawable(R.drawable.questionblock));
+                    charRight.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                    phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                    phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+                    phoMiddle.setBackground(getDrawable(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName())));
+
+                }
+
+            }
+            else {
+                phoLeft.setBackground(getDrawable(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName())));
+                phoRight.setBackground(getDrawable(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName())));
+                phoMiddle.setBackground(getDrawable(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName())));
+
+            }
+
+
+        }
+
+
+
+
+
+
 
     }
 }

@@ -87,5 +87,6 @@ public class ChooseTypeGroup extends ViewGroup {
         }
         invalidate();
 
+
     }
 }

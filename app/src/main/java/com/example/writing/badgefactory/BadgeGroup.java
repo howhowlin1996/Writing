@@ -30,6 +30,7 @@ public class BadgeGroup extends ViewGroup {
         int badgeWidth=width/2;
         int badgeHeight=badgeWidth;
         for (int i=0;i<this.getChildCount();i++){
+
             if (i%2==0){
                 getChildAt(i).layout(0,last_height_position,badgeWidth,last_height_position+badgeHeight);
 

@@ -31,7 +31,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choosepage);
+        setContentView(R.layout.choosetype);
         final ChooseTypeGroup chooseTypeGroup=findViewById(R.id.rootGroup_choosetype);
         getSupportActionBar().hide(); //隱藏標題
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
