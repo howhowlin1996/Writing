@@ -19,6 +19,7 @@ public class WritingPanelGroup extends ViewGroup {
         width=dm.widthPixels;
         height=dm.heightPixels;
         this.setMeasuredDimension(width,height);
+        //Log.d("here",new String(height+" "+width));
 
     }
     public void setType(int type_here,int answer_position_here){
@@ -35,169 +36,195 @@ public class WritingPanelGroup extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.d("decision_group",new String(" "+type));
-        Log.d("here"," ");
+        //Log.d("decision_group",new String(" "+type));
+        //Log.d("here"," ");
         if (type==0){
+            int button_width,button_block;
+            int question_width,question_block;
+            button_width=height/8;
+            question_width=height/5;
+            question_block=(3*height/4-2*height/5)/3;
+           // button_block=(width-button_width*2)/3;
+            Log.d("herehere",new String(button_width+" "+question_width));
+
+
 
             if (answer_position==1){
 
                 int width_pos=0,height_pos=0;
-                height_pos+=2*width/8;
+                height_pos+=button_width;
+                width_pos=width/4;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,0,width_pos+button_width/2,height_pos);
+                    width_pos+=width/2;
                 }
-                width_pos=0;
+                width_pos=width/4;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,height-height_pos,width_pos+button_width/2,height);
+                    width_pos+=width/2;
 
                 }
-                height_pos=height/2-width*7/10;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
-                    getChildAt(i).layout(width*15/100,height_pos,width*85/100,height_pos+width*70/100);
-                    height_pos+=+width*70/100;
+                    getChildAt(i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
+                    height_pos+=question_width+question_block;
 
                 }
-                height_pos=height/2-width*7/10;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(i).layout(width*85/100,height_pos,width*95/100,height_pos+width*70/100);
-                    height_pos+=+width*70/100;
+                    getChildAt(i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    height_pos+=question_width+question_block;
 
                 }
 
             }
             else if(answer_position==0){
                 int width_pos=0,height_pos=0;
-                height_pos+=2*width/8;
+                height_pos+=button_width;
+                width_pos=width/4;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,0,width_pos+button_width/2,height_pos);
+                    width_pos+=width/2;
                 }
-                width_pos=0;
+                width_pos=width/4;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,height-height_pos,width_pos+button_width/2,height);
+                    width_pos+=width/2;
 
                 }
-                height_pos=height/2-width*7/10;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
-                    getChildAt(10-i).layout(width*15/100,height_pos,width*85/100,height_pos+width*70/100);         //turn up and down reverse change 4 to 6, 6 to 4
-                    height_pos+=+width*70/100;
+                    getChildAt(10-i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
+                    height_pos+=question_width+question_block;
 
                 }
-                height_pos=height/2-width*7/10;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(12-i).layout(width*85/100,height_pos,width*95/100,height_pos+width*70/100);
-                    height_pos+=+width*70/100;
+                    getChildAt(12-i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    height_pos+=question_width+question_block;
 
                 }
+
 
             }
 
         }
         else {
+            int button_width,button_block;
+            int question_width,question_block;
+            button_width=height/8;
+            question_width=height/5;
+            question_block=(3*height/4-3*height/5)/4;
+            //button_block=(width-button_width*2)/3;
+            Log.d("herehere",new String(button_width+" "+question_width+" "+height));
+
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 int width_pos=0,height_pos=0;
-                height_pos+=2*width/8;
+                height_pos+=button_width;
+                width_pos=width/4;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,0,width_pos+button_width/2,height_pos);
+                    width_pos+=width/2;
                 }
-                width_pos=0;
+                width_pos=width/4;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,height-height_pos,width_pos+button_width/2,height);
+                    width_pos+=width/2;
 
                 }
-                height_pos=width/7;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
-                    getChildAt(10-i).layout(width*20/100,height_pos,width*80/100,height_pos+width*60/100);         //turn up and down reverse change 4 to 6, 6 to 4
-                    height_pos+=width*60/100;
+                    getChildAt(10-i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);       //turn up and down reverse change 4 to 6, 6 to 4
+                    height_pos+=question_width+question_block;
 
                 }
-                getChildAt(8).layout(width*20/100,height_pos,width*80/100,height_pos+width*60/100);
+                getChildAt(8).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
 
-                height_pos=width/7;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(12-i).layout(width*80/100,height_pos,width*90/100,height_pos+width*60/100);
-                    height_pos+=width*60/100;
+                    getChildAt(12-i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    height_pos+=question_width+question_block;
 
                 }
-                getChildAt(9).layout(width*80/100,height_pos,width*90/100,height_pos+width*60/100);
+                getChildAt(9).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
 
             }
 
             else if(answer_position==1||answer_position==21){
 
                 int width_pos=0,height_pos=0;
-                height_pos+=2*width/8;
+                height_pos+=button_width;
+                width_pos=width/4;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,0,width_pos+button_width/2,height_pos);
+                    width_pos+=width/2;
                 }
-                width_pos=0;
+                width_pos=width/4;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,height-height_pos,width_pos+button_width/2,height);
+                    width_pos+=width/2;
 
                 }
-                height_pos=width/7;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
-                    getChildAt(i).layout(width*20/100,height_pos,width*80/100,height_pos+width*60/100);
-                    height_pos+=+width*60/100;
+                    getChildAt(i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
+                    height_pos+=question_width+question_block;
+
 
                 }
-                getChildAt(8).layout(width*20/100,height_pos,width*80/100,height_pos+width*60/100);
-                height_pos=width/7;
+                getChildAt(8).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(i).layout(width*80/100,height_pos,width*90/100,height_pos+width*60/100);
-                    height_pos+=+width*60/100;
+                    getChildAt(i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    height_pos+=question_width+question_block;
 
                 }
-                getChildAt(9).layout(width*80/100,height_pos,width*90/100,height_pos+width*60/100);
+                getChildAt(9).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
 
 
             }
             else if(answer_position==2){
                 int width_pos=0,height_pos=0;
-                height_pos+=2*width/8;
+                height_pos+=button_width;
+                width_pos=width/4;
                 for (int i=0;i<2;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,0,width_pos+2*width/8,height_pos);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,0,width_pos+button_width/2,height_pos);
+                    width_pos+=width/2;
                 }
-                width_pos=0;
+                width_pos=width/4;
                 for (int i=2;i<4;i++){
-                    width_pos+=width/8;
-                    getChildAt(i).layout(width_pos,height-height_pos,width_pos+2*width/8,height);
-                    width_pos+=3*width/8;
+
+                    getChildAt(i).layout(width_pos-button_width/2,height-height_pos,width_pos+button_width/2,height);
+                    width_pos+=width/2;
 
                 }
-                height_pos=width/7;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
-                    getChildAt(i).layout(width*20/100,height_pos,width*80/100,height_pos+width*60/100);
-                    height_pos+=width*120/100;
+                    getChildAt(i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
+                    height_pos+=(question_width+question_block)*2;
+
 
                 }
 
-                height_pos=width/7;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(i).layout(width*80/100,height_pos,width*90/100,height_pos+width*60/100);
-                    height_pos+=width*120/100;
+                    getChildAt(i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    height_pos+=(question_width+question_block)*2;
+
 
                 }
-                height_pos=width_pos+width*60/100;
-                getChildAt(8).layout(width*20/100,height_pos,width*80/100,height_pos+width*60/100);
-                getChildAt(9).layout(width*80/100,height_pos,width*90/100,height_pos+width*60/100);
+                height_pos=button_width+question_block*2+question_width;
+                getChildAt(8).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
+                getChildAt(9).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
 
             }
 
