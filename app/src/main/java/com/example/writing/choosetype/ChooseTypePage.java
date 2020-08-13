@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -52,7 +51,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             setkeyname.remove(key_name);
             if (setkeyname.iterator().hasNext()){
                 key_name=setkeyname.iterator().next();
-                //Log.d("number",key_name);
+
             }
 
             if (setkeyname.size()==0){
@@ -84,7 +83,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             public void run() {
                 for (int i=0;i<3;i++){
                     Button button_here=new Button(context);
-                    //Log.d("errorhaha", "111111111111111");
                     chooseTypeGroup.addView(button_here);
 
                 }
@@ -111,7 +109,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
 
                 }
-                Log.d("errorhaha","herre1");
                 for (int i=0;i<3;i++){
                     ImageView imageView=new ImageView(context);
                     chooseTypeGroup.addView(imageView);
@@ -126,7 +123,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
                 }
 
-                Log.d("errorhaha","herre3");
                 for (int i=0;i<3;i++){
                     ImageView imageView=new ImageView(context);
                     chooseTypeGroup.addView(imageView);
@@ -147,7 +143,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             }
         };
         this.runOnUiThread(runnable);
-        //Log.d("errorhaha","herre");
 
         //chooseTypeGroup.invalidate();
 
@@ -349,7 +344,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             chooseTypeGroup.getNum(3,2,2);
             chooseTypeGroup.invalidate();
             if(here_r.getIdentifier("cha" +chartype+question_num+qadecision+"0","drawable",this.getPackageName())!=0){
-                //Log.d("decision","left");
                 charquestionmiddle.setVisibility(View.GONE);
                 phoquestionmiddle.setVisibility(View.GONE);
                 //charquestionleft.setBackground(R.drawable.white);
@@ -365,7 +359,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
             }
             else if(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
-                //Log.d("decision","Right");
+
                 charquestionmiddle.setVisibility(View.GONE);
                 phoquestionmiddle.setVisibility(View.GONE);
                 //charquestionright.setBackground(R.drawable.white);

@@ -50,12 +50,12 @@ public class ChooseTypeGroup extends ViewGroup {
         int questionwidth = 0;
         int question_height ;
         int phonetic_height;
-        type_block = height / (type_num * 2 + type_num + 1);
+        type_block = (height-this.getChildAt(0).getLayoutParams().height*type_num) / ( type_num + 1);
         int button_height = type_block;
         if (question_num==3){
 
-            question_block = height / (question_num * 2 + question_num + 1);
-            phonetic_block = height / (phonetic_num * 2 + phonetic_num + 1);
+            question_block =( height-this.getChildAt(type_num).getLayoutParams().height*question_num) / (question_num  + 1);
+            phonetic_block = (height-this.getChildAt(type_num).getLayoutParams().height*phonetic_num) / (phonetic_num + 1);
             question_height = question_block;
             phonetic_height = phonetic_block;
 

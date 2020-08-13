@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -54,7 +53,6 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
             public void run() {
                 for (int i=0;i<4;i++){
                     Button button_here=new Button(context);
-                    //Log.d("errorhaha", "111111111111111");
                     chooseTypeGroup.addView(button_here);
 
                 }
@@ -84,7 +82,6 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
 
 
                 }
-                Log.d("errorhaha","herre1");
                 for (int i=0;i<3;i++){
                     ImageView imageView=new ImageView(context);
                     chooseTypeGroup.addView(imageView);
@@ -93,13 +90,12 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
                     params.width=width_here/3;
                     String name="question"+new String(""+i);;
                     imageView.setTag(name);
-                    imageView.setId(3+i);
+                    imageView.setId(4+i);
                     imageView.setLayoutParams(params);
 
 
                 }
 
-                Log.d("errorhaha","herre3");
                 for (int i=0;i<3;i++){
                     ImageView imageView=new ImageView(context);
                     chooseTypeGroup.addView(imageView);
@@ -108,7 +104,7 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
                     params.width=width_here/12;
                     String name="phonetic"+new String(""+i);;
                     imageView.setTag(name);
-                    imageView.setId(6+i);
+                    imageView.setId(7+i);
                     imageView.setLayoutParams(params);
 
 
