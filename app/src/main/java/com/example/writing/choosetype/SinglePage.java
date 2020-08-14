@@ -127,12 +127,13 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
 
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
-       if(v.getTag()=="type0"){
+       if(v.getTag().equals("type0")){
            num.edit().putInt("split_code",11).commit();
+           Intent intent =new Intent(getBaseContext(), ChooseResult.class);
+           startActivity(intent);
        }
 
-        Intent intent =new Intent(getBaseContext(), ChooseResult.class);
-        startActivity(intent);
+
 
     }
 

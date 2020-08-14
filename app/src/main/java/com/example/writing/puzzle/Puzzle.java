@@ -26,7 +26,7 @@ import java.util.Queue;
 
 public class Puzzle extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener  {
     private float begin_x,begin_y;
-    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=0,answer2_name=0;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
     private int[]begin_l=new int [16];
     private int[]begin_t=new int[16];
@@ -52,7 +52,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         PuzzlePanel down4=findViewById(R.id.charDown4);
         AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
         PuzzlePanelGroup group=findViewById(R.id.Group);
-        //Log.d("errorhere",new String(split_code+" "));
+
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         split_code=storeinform.getInt("split_code",0);
         group.splitNum(split_code);
@@ -63,6 +63,14 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         String partone="part"+rightString.substring(0,rightString.length()-2)+"0";
         String parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
         Resources here_r=this.getResources();
+        up1.setTag(0);
+        up2.setTag(1);
+        up3.setTag(2);
+        up4.setTag(3);
+        down1.setTag(4);
+        down2.setTag(5);
+        down3.setTag(6);
+        down4.setTag(7);
         if(middleString.equals("0")){
             group.setType(0,answer_position);
             group.invalidate();
@@ -226,25 +234,51 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
                     }
                     if(hit_final-hit_begin>500){
-
                         backToStart(v.getId());
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
-                            if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
-                                answerBoard1.setBackground(v.getBackground());
-                                answer1_name=v.getId();
-                                answer1_change=1;
+                        if (split_code/10!=5){
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
+                                if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
+                                    answerBoard1.setBackground(v.getBackground());
+                                    answer1_name=v.getTag().hashCode();
+                                    Log.d("here",new String(answer1_name+" "));
+                                    answer1_change=1;
+                                }
+                                if(middle_w>answerBoard2.getLeft()&&middle_w<answerBoard2.getRight()&&middle_h>answerBoard2.getTop()&&middle_h<answerBoard2.getBottom()){
+                                    answerBoard2.setBackground(v.getBackground());
+                                    answer2_name=v.getTag().hashCode();
+                                    answer2_change=1;
+                                }
+                                if(middle_w>answerBoard3.getLeft()&&middle_w<answerBoard3.getRight()&&middle_h>answerBoard3.getTop()&&middle_h<answerBoard3.getBottom()){
+                                    answerBoard3.setBackground(v.getBackground());
+                                }
+
                             }
-                            if(middle_w>answerBoard2.getLeft()&&middle_w<answerBoard2.getRight()&&middle_h>answerBoard2.getTop()&&middle_h<answerBoard2.getBottom()){
-                                answerBoard2.setBackground(v.getBackground());
-                                answer2_name=v.getId();
-                                answer2_change=1;
-                            }
-                            if(middle_w>answerBoard3.getLeft()&&middle_w<answerBoard3.getRight()&&middle_h>answerBoard3.getTop()&&middle_h<answerBoard3.getBottom()){
-                                answerBoard3.setBackground(v.getBackground());
-                            }
+                            break;
 
                         }
-                        break;
+                        else{
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
+                                if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
+                                    if(middle_w>answerBoard2.getLeft()&&middle_w<answerBoard2.getRight()&&middle_h>answerBoard2.getTop()&&middle_h<answerBoard2.getBottom()){
+                                        answerBoard2.setBackground(v.getBackground());
+                                        answer2_name=v.getTag().hashCode();
+                                        answer2_change=1;
+                                    }
+                                    else{
+                                        answerBoard1.setBackground(v.getBackground());
+                                        answer1_name=v.getTag().hashCode();
+                                        answer1_change=1;
+                                    }
+
+                                }
+
+
+                            }
+                            break;
+                        }
+
+
                     }
                 }
                 if (move_x<0){
@@ -284,13 +318,19 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         if (answer1_change==1&&answer2_change==1){
 
 
-            if (answer1_name==findViewById(R.id.charUp1).getId()&&answer2_name==findViewById(R.id.charDown1).getId()){
+            if (answer1_name==4&&answer2_name==0){
+
+                answer1_change=-1;
+                answer2_change=-1;
                 Toast.makeText(this,"答對了",Toast.LENGTH_SHORT).show();
                 Intent intent =new Intent(getBaseContext(), LookWriting.class);
                 startActivity(intent);
 
+
             }
             else {
+                answer1_change=0;
+                answer2_change=0;
                     Toast.makeText(this,"不對喔,再試試看",Toast.LENGTH_SHORT).show();
             }
         }

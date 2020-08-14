@@ -45,7 +45,7 @@ public class WritingPanelGroup extends ViewGroup {
             question_width=height/5;
             question_block=(3*height/4-2*height/5)/3;
            // button_block=(width-button_width*2)/3;
-            Log.d("herehere",new String(button_width+" "+question_width));
+           // Log.d("herehere",new String(button_width+" "+question_width));
 
 
 

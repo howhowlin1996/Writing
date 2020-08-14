@@ -51,11 +51,13 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             setkeyname.remove(key_name);
             if (setkeyname.iterator().hasNext()){
                 key_name=setkeyname.iterator().next();
+                num=getSharedPreferences("num",0).getInt(key_name,0);
+                position=getSharedPreferences("num",0).getInt(key_name+new String("_position"),0);
+                setQuestion(key_name,(position-1)*5+5-num);
 
             }
 
             if (setkeyname.size()==0){
-                //Toast.makeText(this,"end",Toast.LENGTH_SHORT).show();
                 getSharedPreferences("num",0).edit().putStringSet("chartypenum",defaultSet).clear().commit();
                 Intent intent = new  Intent(this, FirstScene.class);
                 startActivity(intent);
