@@ -19,18 +19,22 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import com.example.writing.panel.LookWriting;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Random;
 
 public class Puzzle extends AppCompatActivity implements View.OnTouchListener,View.OnClickListener  {
     private float begin_x,begin_y;
-    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1,up_answer=0,down_answer=4;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
     private int[]begin_l=new int [16];
     private int[]begin_t=new int[16];
-
+    private int[]up_part_question=new int[4];
+    private int[]down_part_question=new int[4];
     private Map<Integer,Integer>idMap=new HashMap<>();
     private Queue<Integer>puzzlequeue=new LinkedList<Integer>();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -52,9 +56,16 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         PuzzlePanel down4=findViewById(R.id.charDown4);
         AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
         PuzzlePanelGroup group=findViewById(R.id.Group);
+        for(int i=0;i<4;i++){
+            up_part_question[i]=-1;
+            down_part_question[i]=-1;
+        }
+
+
 
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         split_code=storeinform.getInt("split_code",0);
+        int part_num=storeinform.getInt("part_num",0);
         group.splitNum(split_code);
         int answer_position=storeinform.getInt("answer_position",0);
         String rightString=storeinform.getString("right",null);
@@ -63,6 +74,41 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         String partone="part"+rightString.substring(0,rightString.length()-2)+"0";
         String parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
         Resources here_r=this.getResources();
+        if (part_num==1){
+            up2.setVisibility(View.GONE);
+            down2.setVisibility(View.GONE);
+            up3.setVisibility(View.GONE);
+            down3.setVisibility(View.GONE);
+            up4.setVisibility(View.GONE);
+            down4.setVisibility(View.GONE);
+            upRandomPart(1);
+            downRandomPart(1);
+
+        }
+        else if(part_num==2){
+            up3.setVisibility(View.GONE);
+            down3.setVisibility(View.GONE);
+            up4.setVisibility(View.GONE);
+            down4.setVisibility(View.GONE);
+            upRandomPart(2);
+            downRandomPart(2);
+
+
+        }
+        else if (part_num==3){
+            up4.setVisibility(View.GONE);
+            down4.setVisibility(View.GONE);
+            upRandomPart(3);
+            downRandomPart(3);
+
+        }
+        else{
+
+            upRandomPart(4);
+            downRandomPart(4);
+        }
+
+
         up1.setTag(0);
         up2.setTag(1);
         up3.setTag(2);
@@ -76,25 +122,25 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
             group.invalidate();
             if(answer_position==0){
                 qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
-                up1.setBackground(getDrawable(here_r.getIdentifier(partone+"0","drawable",this.getPackageName())));
-                up2.setBackground(getDrawable(here_r.getIdentifier(partone+"1","drawable",this.getPackageName())));
-                up3.setBackground(getDrawable(here_r.getIdentifier(partone+"2","drawable",this.getPackageName())));
-                up4.setBackground(getDrawable(here_r.getIdentifier(partone+"3","drawable",this.getPackageName())));
-                down1.setBackground(getDrawable(here_r.getIdentifier(parttwo+"0","drawable",this.getPackageName())));
-                down2.setBackground(getDrawable(here_r.getIdentifier(parttwo+"1","drawable",this.getPackageName())));
-                down3.setBackground(getDrawable(here_r.getIdentifier(parttwo+"2","drawable",this.getPackageName())));
-                down4.setBackground(getDrawable(here_r.getIdentifier(parttwo+"3","drawable",this.getPackageName())));
+                up1.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[0],"drawable",this.getPackageName())));
+                up2.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[1],"drawable",this.getPackageName())));
+                up3.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[2],"drawable",this.getPackageName())));
+                up4.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[3],"drawable",this.getPackageName())));
+                down1.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[0],"drawable",this.getPackageName())));
+                down2.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[1],"drawable",this.getPackageName())));
+                down3.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[2],"drawable",this.getPackageName())));
+                down4.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[3],"drawable",this.getPackageName())));
             }
             else{
                 qu1.setBackground(getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
-                up1.setBackground(getDrawable(here_r.getIdentifier(partone+"0","drawable",this.getPackageName())));
-                up2.setBackground(getDrawable(here_r.getIdentifier(partone+"1","drawable",this.getPackageName())));
-                up3.setBackground(getDrawable(here_r.getIdentifier(partone+"2","drawable",this.getPackageName())));
-                up4.setBackground(getDrawable(here_r.getIdentifier(partone+"3","drawable",this.getPackageName())));
-                down1.setBackground(getDrawable(here_r.getIdentifier(parttwo+"0","drawable",this.getPackageName())));
-                down2.setBackground(getDrawable(here_r.getIdentifier(parttwo+"1","drawable",this.getPackageName())));
-                down3.setBackground(getDrawable(here_r.getIdentifier(parttwo+"2","drawable",this.getPackageName())));
-                down4.setBackground(getDrawable(here_r.getIdentifier(parttwo+"3","drawable",this.getPackageName())));
+                up1.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[0],"drawable",this.getPackageName())));
+                up2.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[1],"drawable",this.getPackageName())));
+                up3.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[2],"drawable",this.getPackageName())));
+                up4.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[3],"drawable",this.getPackageName())));
+                down1.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[0],"drawable",this.getPackageName())));
+                down2.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[1],"drawable",this.getPackageName())));
+                down3.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[2],"drawable",this.getPackageName())));
+                down4.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[3],"drawable",this.getPackageName())));
 
             }
 
@@ -102,14 +148,14 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         else {
             group.setType(1,answer_position);
             group.invalidate();
-            up1.setBackground(getDrawable(here_r.getIdentifier(partone+"0","drawable",this.getPackageName())));
-            up2.setBackground(getDrawable(here_r.getIdentifier(partone+"1","drawable",this.getPackageName())));
-            up3.setBackground(getDrawable(here_r.getIdentifier(partone+"2","drawable",this.getPackageName())));
-            up4.setBackground(getDrawable(here_r.getIdentifier(partone+"3","drawable",this.getPackageName())));
-            down1.setBackground(getDrawable(here_r.getIdentifier(parttwo+"0","drawable",this.getPackageName())));
-            down2.setBackground(getDrawable(here_r.getIdentifier(parttwo+"1","drawable",this.getPackageName())));
-            down3.setBackground(getDrawable(here_r.getIdentifier(parttwo+"2","drawable",this.getPackageName())));
-            down4.setBackground(getDrawable(here_r.getIdentifier(parttwo+"3","drawable",this.getPackageName())));
+            up1.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[0],"drawable",this.getPackageName())));
+            up2.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[1],"drawable",this.getPackageName())));
+            up3.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[2],"drawable",this.getPackageName())));
+            up4.setBackground(getDrawable(here_r.getIdentifier(partone+up_part_question[3],"drawable",this.getPackageName())));
+            down1.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[0],"drawable",this.getPackageName())));
+            down2.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[1],"drawable",this.getPackageName())));
+            down3.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[2],"drawable",this.getPackageName())));
+            down4.setBackground(getDrawable(here_r.getIdentifier(parttwo+down_part_question[3],"drawable",this.getPackageName())));
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 if (answer_position==210){
                     qu1.setBackground(getDrawable(R.drawable.white));
@@ -318,7 +364,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         if (answer1_change==1&&answer2_change==1){
 
 
-            if (answer1_name==4&&answer2_name==0){
+            if (answer1_name==up_answer&&answer2_name==down_answer){
 
                 answer1_change=-1;
                 answer2_change=-1;
@@ -373,5 +419,56 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
     public void onClick(View v) {
         Intent intent =new Intent(getBaseContext(), LookWriting.class);
         startActivity(intent);
+    }
+
+
+    private  void upRandomPart(int num ){
+        ArrayList<Integer>numlist=new ArrayList<Integer>();
+
+        for (int i=1;i<4;i++){
+            numlist.add(i);
+        }
+        Random rd=new Random();
+        int answer_position= rd.nextInt(num);
+        up_part_question[answer_position]=0;
+        up_answer=answer_position;
+        int bound=3;
+        for (int i=0;i<4;i++){
+            if(i!=answer_position){
+                int here= rd.nextInt(bound);
+                up_part_question[i]=numlist.get(here);
+                numlist.remove(here);
+                bound--;
+            }
+
+        }
+
+
+    }
+
+
+
+    private  void downRandomPart(int num ){
+        ArrayList<Integer>numlist=new ArrayList<Integer>();
+        for (int i=1;i<4;i++){
+            numlist.add(i);
+        }
+        Random rd=new Random();
+        int answer_position= rd.nextInt(num);
+        down_part_question[answer_position]=0;
+        down_answer=answer_position+4;
+        int bound=3;
+        for (int i=0;i<4;i++){
+            if(i!=answer_position){
+                int here= rd.nextInt(bound);
+                down_part_question[i]=numlist.get(here);
+                numlist.remove(here);
+                bound--;
+            }
+
+
+
+        }
+
     }
 }

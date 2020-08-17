@@ -46,16 +46,17 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
             group.setType(0,answer_position);
             group.invalidate();
             if(answer_position==0){
-                mypanel.setBackground(getDrawable(R.drawable.block));
+                mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName())));
                 pholeft.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
                 charleft.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
                 phoright.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+
             }
             else{
 
                 charleft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
                 pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
-                mypanel.setBackground(getDrawable(R.drawable.block));
+                mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName())));
                 phoright.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
 
             }
@@ -65,7 +66,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
             group.setType(1,answer_position);
             group.invalidate();
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
-                mypanel.setBackground(getDrawable(R.drawable.block));
+                mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName())));
                 phoright.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
                 if (answer_position==10){
                     charleft.setBackground(getDrawable(R.drawable.white));
@@ -111,7 +112,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
                     phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
 
                 }
-                mypanel.setBackground(getDrawable(R.drawable.block));
+                mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+middleString,"drawable",this.getPackageName())));
                 phoright.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
 
             }
@@ -120,7 +121,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
                 pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
                 charmiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
                 phomiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
-                mypanel.setBackground(getDrawable(R.drawable.block));
+                mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName())));
                 phoright.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
 
             }

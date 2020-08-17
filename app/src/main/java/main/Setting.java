@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,8 +21,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Setting extends AppCompatActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
-     int  charactertype  [] =new int [13];
+
      Set<String>chartypenum=new TreeSet<String>() ;
+     int random_position=0,part_num=1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,9 +45,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         Spinner randomspin=findViewById(R.id.RandomSpin);
         Button confirm=findViewById(R.id.ConfirmButton_setting);
         Spinner numspin=findViewById(R.id.numberSpin);
-        for(int i=0;i<12;i++){
-            charactertype[i]=0;
-        }
+
          String[] target={"0","1~5","6~10","11~15","16~20","21~25","26~30","31~35","36~40","41~45","46~50"};
          String[] randomchoose={"照順序","隨機出題"};
          String[] num={"選項數量","1","2","3","4"};
@@ -80,7 +80,9 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         middledown.setOnItemSelectedListener(this);
         leftdown.setOnItemSelectedListener(this);
         randomspin.setOnItemSelectedListener(this);
+        numspin.setOnItemSelectedListener(this);
         confirm.setOnClickListener(this);
+
 
 
 
@@ -93,7 +95,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
         if(parent.getId()==R.id.SingleSpin){
-            charactertype[0]=position;
+
             if (position!=0){
                 num.edit().putInt("Single",5).commit();
                 num.edit().putInt("Single_position",position).commit();
@@ -110,7 +112,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
         }
         else if (parent.getId()==R.id.UpDownSpin){
-            charactertype[1]=position;
+
 
             if (position!=0){
                 num.edit().putInt("UpDown",5).commit();
@@ -126,7 +128,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if (parent.getId()==R.id.UpDown3Spin){
-            charactertype[2]=position;
+
             if (position!=0){
                 num.edit().putInt("UpDown3",5).commit();
                 num.edit().putInt("UpDown3_position",position).commit();
@@ -140,7 +142,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if(parent.getId()==R.id.LeftRight2Spin){
-            charactertype[3]=position;
+
             if (position!=0){
                 num.edit().putInt("LeftRight2",5).commit();
                 num.edit().putInt("LeftRight2_position",position).commit();
@@ -153,7 +155,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
         }
         else if(parent.getId()==R.id.LeftRight3Spin){
-            charactertype[4]=position;
+
             if (position!=0){
                 num.edit().putInt("LeftRight3",5).commit();
                 num.edit().putInt("LeftRight3_position",position).commit();
@@ -166,7 +168,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         }
 
         else  if (parent.getId()==R.id.RightUpSpin){
-            charactertype[6]=position;
+
             if (position!=0){
                 num.edit().putInt("RightUp",5).commit();
                 num.edit().putInt("RightUp_position",position).commit();
@@ -178,7 +180,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if(parent.getId()==R.id.RightMiddleSpin){
-            charactertype[7]=position;
+
             if (position!=0){
                 num.edit().putInt("RightMiddle",5).commit();
                 num.edit().putInt("RightMiddle_position",position).commit();
@@ -190,7 +192,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if(parent.getId()==R.id.RightDownSpin){
-            charactertype[8]=position;
+
             if (position!=0){
                 num.edit().putInt("RightDown",5).commit();
                 num.edit().putInt("RightDown_position",position).commit();
@@ -202,7 +204,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if(parent.getId()==R.id.MiddleMiddleSpin){
-            charactertype[9]=position;
+
             if (position!=0){
                 num.edit().putInt("MiddleMiddle",5).commit();
                 num.edit().putInt("MiddleMiddle_position",position).commit();
@@ -214,7 +216,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if(parent.getId()==R.id.MiddleDownSpin){
-            charactertype[10]=position;
+
             if (position!=0){
                 num.edit().putInt("MiddleDown",5).commit();
                 num.edit().putInt("MiddleDown_position",position).commit();
@@ -226,7 +228,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if(parent.getId()==R.id.LeftDownSpin){
-            charactertype[11]=position;
+
             if (position!=0){
                 num.edit().putInt("LeftDown",5).commit();
                 num.edit().putInt("LeftDown_position",position).commit();
@@ -238,7 +240,13 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             }
         }
         else if(parent.getId()==R.id.RandomSpin){
-            charactertype[12]=position;
+               random_position=position;
+        }
+        else if (parent.getId()==R.id.numberSpin){
+            if (position>1){
+                part_num=position;
+            }
+
         }
 
 
@@ -257,6 +265,8 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         else {
             SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
             num.edit().putStringSet("chartypenum",chartypenum).commit();
+            num.edit().putInt("random",random_position).commit();
+            num.edit().putInt("part_num",part_num).commit();
             Intent intent =new Intent(getBaseContext(), ChooseTypePage.class);
             startActivity(intent);
         }
