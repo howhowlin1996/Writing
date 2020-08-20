@@ -78,10 +78,11 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
                         button_here.setBackground(getDrawable(R.drawable.rightup));
                     }
                     else if (i==1){
-                        button_here.setBackground(getDrawable(R.drawable.rightmiddle));
+                        button_here.setBackground(getDrawable(R.drawable.rightdown));
+
                     }
                     else if(i==2){
-                        button_here.setBackground(getDrawable(R.drawable.rightdown));
+                        button_here.setBackground(getDrawable(R.drawable.rightmiddle));
                     }
                     else if(i==3){
                         button_here.setBackground(getDrawable(R.drawable.middlemiddle));

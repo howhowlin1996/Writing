@@ -71,8 +71,17 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
         String middleString=storeinform.getString("middle",null);
-        String partone="part"+rightString.substring(0,rightString.length()-2)+"0";
-        String parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
+        String partone;
+        String parttwo;
+        if (split_code/10==5){
+             partone="part"+rightString.substring(0,rightString.length()-2)+"1";
+             parttwo="part"+rightString.substring(0,rightString.length()-2)+"0";
+        }
+        else{
+             partone="part"+rightString.substring(0,rightString.length()-2)+"0";
+             parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
+        }
+
         Resources here_r=this.getResources();
         if (part_num==1){
             up2.setVisibility(View.GONE);

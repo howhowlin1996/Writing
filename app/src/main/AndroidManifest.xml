@@ -22,6 +22,9 @@
         android:theme="@style/AppTheme">
 
         <!-- add any activity needs to change -->
+        <activity android:name="main.FirstScene"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".choosetype.InOutPage"
             android:screenOrientation="portrait"
@@ -83,7 +86,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="main.FirstScene"
+            android:name="main.EnterScene"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>

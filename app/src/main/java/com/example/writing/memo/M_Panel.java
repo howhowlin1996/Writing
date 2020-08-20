@@ -58,7 +58,7 @@ class M_Panel extends View {
 
     public void originSetvBitmap(){
         vBitmapCanvas = new Canvas(vBitmap);
-        vBitmapCanvas.drawColor(Color.TRANSPARENT);
+        vBitmapCanvas.drawColor(Color.WHITE);
     }
 
     public  void setvBitmap( Bitmap bitmap){

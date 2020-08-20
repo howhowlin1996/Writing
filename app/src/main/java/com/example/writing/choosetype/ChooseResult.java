@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,11 +38,13 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
 
         if (split_code==checkAnswer(key_name)){
             textView.setText("答對了");
-            confirm.setText("開始寫字");
+            //confirm.setText("開始寫字");
+            Toast.makeText(this,"開始寫字",Toast.LENGTH_SHORT).show();
         }
         else {
             textView.setText("答錯了");
-            confirm.setText("再試一次");
+            //confirm.setText("再試一次");
+            Toast.makeText(this,"再試一次",Toast.LENGTH_SHORT).show();
         }
 
     }

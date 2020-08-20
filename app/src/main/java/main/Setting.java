@@ -196,7 +196,7 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
             if (position!=0){
                 num.edit().putInt("RightDown",5).commit();
                 num.edit().putInt("RightDown_position",position).commit();
-                chartypenum.add("RightDow");
+                chartypenum.add("RightDown");
             }
             else{
                 num.edit().putInt("RightDown",0).commit();

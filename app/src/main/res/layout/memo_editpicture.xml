@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="清除"
+            android:background="@drawable/changeword"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="完成"
+            android:background="@drawable/yesword"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>

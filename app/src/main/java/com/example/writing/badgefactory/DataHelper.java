@@ -57,7 +57,6 @@ public class DataHelper extends SQLiteOpenHelper {
 
     public int imageNum( ){
         final String SQL = "SELECT * FROM " + "table_"+tableName + ";";
-        Log.d("error",new String(" "+SQL));
         Cursor ptime=this.getWritableDatabase().rawQuery(SQL,null);
         return ptime.getCount();
     }
@@ -69,4 +68,7 @@ public class DataHelper extends SQLiteOpenHelper {
         return ptime;
 
     }
+
+
+
 }

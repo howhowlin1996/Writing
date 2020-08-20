@@ -40,7 +40,6 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
        DataHelper dbBadge=new DataHelper(this,"0000"+".db",null,1,"21");
         int time;
         time =dbBadge.imageNum();
-        Log.d("TIMEHERE",new String(time+" "));
         dbBadge.close();
         group.height=(time/2+1)*width;
 
@@ -50,12 +49,10 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
             ImageView here=new ImageView(this);
 
             Bitmap bmp=null;
-            Log.d("HERE",file_position.getString(0));
             photo=file_position.getString(0);
             File file=new File(photo);
             try{
                 FileInputStream fin=new  FileInputStream(file);
-                Log.d("HERE",file_position.getString(0));
                 bmp = BitmapFactory.decodeStream(fin);
                 int bmpWidth=bmp.getWidth();
                 int bmpHeight=bmp.getHeight();
@@ -78,7 +75,7 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
         }
         for (int i=0;i<time;i++){
             View here=group.getChildAt(i);
-            here.setId(i);
+            here.setTag(i);
             BadgeGroup.LayoutParams params=new BadgeGroup.LayoutParams(here.getLayoutParams());
             params.height=width/2;
             params.width=width/2;
@@ -93,10 +90,8 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Log.d("herehere","1");
-        Log.d("herehere",new String(" "+v.getId()));
         Intent intent = new  Intent(this, SingleBadge.class);
-        intent.putExtra("background",v.getId());
+        intent.putExtra("background",(int)v.getTag());
         startActivity(intent);
     }
 }
