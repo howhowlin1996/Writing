@@ -36,6 +36,11 @@ public class EnterScene extends AppCompatActivity implements CompoundButton.OnCh
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+    }
     private void EnterScene(){
         final ImageView shark=findViewById(R.id.shark_enter);
         TextView consent=findViewById(R.id.consentRule);

@@ -239,6 +239,12 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+    }
+
 
 
 

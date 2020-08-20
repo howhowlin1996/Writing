@@ -68,6 +68,11 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+    }
 
     @Override
     public void onClick(View v) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 
 public class CopyWriting extends AppCompatActivity implements View.OnClickListener {
+    Drawable reset;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
             group.setType(0,answer_position);
             group.invalidate();
             if(answer_position==0){
+                reset=getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName()));
                 mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName())));
                 pholeft.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
                 charleft.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
@@ -53,7 +56,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
 
             }
             else{
-
+                reset=getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName()));
                 charleft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
                 pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
                 mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName())));
@@ -66,6 +69,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
             group.setType(1,answer_position);
             group.invalidate();
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
+                reset=getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName()));
                 mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName())));
                 phoright.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
                 if (answer_position==10){
@@ -112,11 +116,13 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
                     phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
 
                 }
+                reset=getDrawable(here_r.getIdentifier("copy"+middleString,"drawable",this.getPackageName()));
                 mypanel.setBackground(getDrawable(here_r.getIdentifier("copy"+middleString,"drawable",this.getPackageName())));
                 phoright.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
 
             }
             else if(answer_position==2){
+                reset=getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName()));
                 charleft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
                 pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
                 charmiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
@@ -136,6 +142,11 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -149,7 +160,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         }
         else if(v.getId()==R.id.DeleteButton_copy){
             mypanel.resetCanvas();
-            mypanel.setBackground(getDrawable(R.drawable.white));
+            mypanel.setBackground(reset);
         }
 
     }

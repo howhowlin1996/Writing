@@ -155,6 +155,11 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -176,11 +181,11 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         if(newTime-lastTime>1000){
 
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
-                if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.space).getConstantState())&&lastTime!=0){
+                /*if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.space).getConstantState())&&lastTime!=0){
                     mPanel.resetCanvas();
                     mPanel.setBackground(getDrawable(R.drawable.space));
                     return;
-                }
+                }*/
                 savePicture();
                 Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
                 Intent intent = new  Intent(this, Badge.class);

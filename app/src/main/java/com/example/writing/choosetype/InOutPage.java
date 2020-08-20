@@ -139,6 +139,11 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+    }
 
 
     @Override

@@ -121,6 +121,11 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
