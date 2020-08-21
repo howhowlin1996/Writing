@@ -187,7 +187,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                     return;
                 }*/
                 savePicture();
-                Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
+                //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
                 Intent intent = new  Intent(this, Badge.class);
                 String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
                 int num;

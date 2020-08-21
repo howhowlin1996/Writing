@@ -294,14 +294,13 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener,Vi
                         }
 
                     }
-                    if(hit_final-hit_begin>500){
+                    if(hit_final-hit_begin>100){
                         backToStart(v.getId());
                         if (split_code/10!=5){
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
                                 if(middle_w>answerBoard1.getLeft()&&middle_w<answerBoard1.getRight()&&middle_h>answerBoard1.getTop()&&middle_h<answerBoard1.getBottom()){
                                     answerBoard1.setBackground(v.getBackground());
                                     answer1_name=v.getTag().hashCode();
-                                    Log.d("here",new String(answer1_name+" "));
                                     answer1_change=1;
                                 }
                                 if(middle_w>answerBoard2.getLeft()&&middle_w<answerBoard2.getRight()&&middle_h>answerBoard2.getTop()&&middle_h<answerBoard2.getBottom()){

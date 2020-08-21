@@ -12,14 +12,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.example.writing.R;
 import com.example.writing.badgefactory.BadgeFactory;
@@ -30,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -74,10 +79,23 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
 
         }
         else if(v.getId()==R.id.share_badge){
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("image/jpeg");
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(combinefile.toString()));
-                startActivity(Intent.createChooser(shareIntent,"share"));
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("image/jpeg");
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+               Uri uri=FileProvider.getUriForFile(getBaseContext(),"com.example.writing.fileprovider",combinefile);
+             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+             shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
+             shareIntent.setType("image/jpeg");
+
+
+             } else {
+
+               shareIntent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(combinefile));
+               shareIntent.setType("image/jpeg");
+               shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+             }
+
+             startActivity(Intent.createChooser(shareIntent,"share"));
 
         }
         else if(v.getId()==R.id.practice_badge){
@@ -105,6 +123,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         }
         File appDir = new File(Environment.getExternalStorageDirectory(), "Writing");
         if (!appDir.exists()) {
+            Toast.makeText(this,appDir.toString(),Toast.LENGTH_SHORT);
             appDir.mkdir();
         }
 
@@ -128,14 +147,19 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
             bmpcombine.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
+
         } catch (FileNotFoundException e) {
+            Log.d("hahaha","no file");
             e.printStackTrace();
         } catch (IOException e) {
+            Log.d("hahaha","error");
             e.printStackTrace();
         }
+        combinefile=file;
 
         badgeView.setImageBitmap(bmpcombine);
-        combinefile=file;
+
+
 
 
 
