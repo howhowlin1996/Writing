@@ -1,6 +1,7 @@
 package main;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -42,9 +44,7 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
         setting.setOnClickListener(this);
         shark.getBackground().setAlpha(255);
         Toast.makeText(this,new String(" "+getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet)),Toast.LENGTH_SHORT).show();
-        if (getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).size()==0){
-            start.setVisibility(View.INVISIBLE);
-        }
+
 
     }
     @Override
@@ -59,8 +59,23 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.beginButton_first){
-            Intent intent =new Intent(getBaseContext(), ChooseTypePage.class);
-            startActivity(intent);
+            if (getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).size()==0){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("要先請老師出題喔~~");
+                builder.setPositiveButton("好!!!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                AlertDialog here =builder.create();
+                here.show();
+            }
+            else{
+                Intent intent =new Intent(getBaseContext(), ChooseTypePage.class);
+                startActivity(intent);
+
+            }
+
 
         }
         else if(v.getId()==R.id.badge_first){
