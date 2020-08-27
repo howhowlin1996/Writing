@@ -26,7 +26,6 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singlechoose);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         final ChooseTypeGroup chooseTypeGroup=findViewById(R.id.rootGroup_singlechoose);
         DisplayMetrics dm = new DisplayMetrics();
@@ -118,11 +117,7 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
 
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
 
 

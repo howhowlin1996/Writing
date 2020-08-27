@@ -29,7 +29,6 @@ public class SingleBadge extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singlebadge);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         ImageView badgeBackground=findViewById(R.id.badge_singleBadge);
         Button returnButton=findViewById(R.id.returnButton_singleBadge);
         Button shareButton=findViewById(R.id.shareButton_singleBadge);
@@ -68,11 +67,7 @@ public class SingleBadge extends AppCompatActivity implements View.OnClickListen
         shareButton.setOnClickListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
     @Override
     public void onClick(View v) {

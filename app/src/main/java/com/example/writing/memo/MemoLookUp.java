@@ -26,7 +26,6 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memo_lookup);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
             ReadImage();
         final Button keeppractice=findViewById(R.id.keepPractice_lookup);
         final Button edit=findViewById(R.id.editMemo_lookup);
@@ -37,11 +36,7 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
 
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
     @Override
     public void onClick(View v) {

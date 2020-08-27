@@ -44,7 +44,6 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         int answer_position=storeinform.getInt("answer_position",0);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         final Button saveButton = findViewById(R.id.SaveButton);                 //get two button id in layout.xml saveButton and deleteButton
         final Button deleteButton= findViewById(R.id.DeleteButton);
         final Panel mPanel =findViewById(R.id.panel);                            //get the panel id in layout.xml

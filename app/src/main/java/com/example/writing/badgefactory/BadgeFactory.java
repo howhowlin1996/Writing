@@ -29,7 +29,6 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.badgefactory);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         final BadgeGroup group=findViewById(R.id.badgeGroup_badgefactory);
         final ScrollView scrollView=findViewById(R.id.ScrollView_badge_factory);
         int width;
@@ -87,11 +86,7 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
 
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
     @Override
     public void onClick(View v) {

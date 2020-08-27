@@ -23,11 +23,9 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lookwriting);                                         //import layout.xml
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         LookWritingGroup group=findViewById(R.id.group_lookwriting);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         int answer_position=storeinform.getInt("answer_position",0);
-
         Button confirm=findViewById(R.id.confirm_lookwriting);
         Button delete=findViewById(R.id.delete_lookwriting);
         Panel panel=findViewById(R.id.rightDownA_lookwriting);

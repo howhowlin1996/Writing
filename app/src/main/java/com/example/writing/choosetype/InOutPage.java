@@ -63,11 +63,19 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
                     chooseTypeGroup.addView(button_here);
 
                 }
+
                 for (int i=0;i<6;i++){
                     View button_here=chooseTypeGroup.getChildAt(i);
                     ChooseTypeGroup.LayoutParams params=new ChooseTypeGroup.LayoutParams(button_here.getLayoutParams());
-                    params.height=width_here/3;
-                    params.width=width_here/3;
+                    if (width_here*6/3>height_here){
+                        params.height=height_here/6;
+                        params.width=height_here/6;
+                    }
+                    else {
+                        params.height=width_here/3;
+                        params.width=width_here/3;
+                    }
+
                     String name="type"+new String(""+i);
                     button_here.setTag(name);
                     button_here.setId(i);

@@ -32,7 +32,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.choosetype);
         final ChooseTypeGroup chooseTypeGroup=findViewById(R.id.rootGroup_choosetype);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(dm);
@@ -75,11 +74,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void prepareView(){
@@ -108,7 +103,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
                         button_here.setBackground(getDrawable(R.drawable.single));
                     }
                     else if (i==1){
-                        button_here.setBackground(getDrawable(R.drawable.updown));
+                        button_here.setBackground(getDrawable(R.drawable.leftright2));
                     }
                     else{
                         button_here.setBackground(getDrawable(R.drawable.middlemiddle));
@@ -151,7 +146,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         };
         this.runOnUiThread(runnable);
 
-        //chooseTypeGroup.invalidate();
+
 
 
 
@@ -244,14 +239,6 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         }
 
         String identift_code=chartype+question_num+qadecision;
-
-        //Toast.makeText(this,"cha" +identift_code+"0",Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
 
         Resources here_r=this.getResources();
         if (here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"2"),"drawable",this.getPackageName())!=0){

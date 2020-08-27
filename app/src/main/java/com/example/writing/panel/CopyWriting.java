@@ -25,7 +25,6 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.copywriting);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         CopyWritingGroup group=findViewById(R.id.group_copywriting);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         int answer_position=storeinform.getInt("answer_position",0);
@@ -142,11 +141,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override

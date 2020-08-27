@@ -26,7 +26,6 @@ public class EnterScene extends AppCompatActivity implements CompoundButton.OnCh
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         setContentView(R.layout.enterscene);
         CheckBox consent_button=findViewById(R.id.consent_checkBox);
         Button confirm_button=findViewById(R.id.confirmButton_enterScene);

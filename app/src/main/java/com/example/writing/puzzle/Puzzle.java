@@ -45,7 +45,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.puzzle);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
 
         PuzzlePanel up1=findViewById(R.id.charUp1);
         PuzzlePanel up2=findViewById(R.id.charUp2);
@@ -88,11 +87,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
     @Override
     protected void onPause() {

@@ -41,6 +41,7 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memo_editpicture);
+        getSupportActionBar().hide(); //隱藏標題
         Button  complete=findViewById(R.id.complete_editpic);
         Button return_but=findViewById(R.id.delete_editpic);
         ImageButton blackpen=findViewById(R.id.blackPen_memo);
@@ -67,11 +68,6 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
 
 
 
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
     }
 
     @Override

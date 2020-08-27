@@ -34,7 +34,6 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.firstscene);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         ImageView shark=findViewById(R.id.setupshark);
         Button start =findViewById(R.id.beginButton_first);
         Button badge =findViewById(R.id.badge_first);
@@ -47,11 +46,7 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
 
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
 
 

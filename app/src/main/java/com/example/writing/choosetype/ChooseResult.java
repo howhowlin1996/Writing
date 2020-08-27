@@ -27,7 +27,6 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choosetype_result);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         TextView textView=findViewById(R.id.textView_result);
         Button confirm=findViewById(R.id.confirm_result);
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
@@ -48,11 +47,7 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
 
     @Override
     public void onClick(View v) {

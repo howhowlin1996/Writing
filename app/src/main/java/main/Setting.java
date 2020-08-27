@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -30,7 +31,6 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.setting);
         getSupportActionBar().hide(); //隱藏標題
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
         Spinner single = findViewById(R.id.SingleSpin);
         Spinner updown =findViewById(R.id.UpDownSpin);
         Spinner leftright2 =findViewById(R.id.LeftRight2Spin);
@@ -89,11 +89,9 @@ public class Setting extends AppCompatActivity implements AdapterView.OnItemSele
 
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
-    }
+
+
+
 
 
     @Override

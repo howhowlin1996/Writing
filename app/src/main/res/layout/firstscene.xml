@@ -26,13 +26,13 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="0.2"
+        app:layout_constraintDimensionRatio="0.8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.43"
-        app:layout_constraintWidth_percent="0.25">
+        app:layout_constraintWidth_percent="1">
 
         <Button
             android:id="@+id/beginButton_first"
@@ -50,7 +50,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="100dp"
             android:layout_weight="2"
-            android:background="@drawable/startbutton"
+            android:background="@drawable/mybadge"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
             android:id="@+id/setting_firstscene"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="@drawable/setupbutton"
+            android:background="@drawable/setup"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_weight="2" />

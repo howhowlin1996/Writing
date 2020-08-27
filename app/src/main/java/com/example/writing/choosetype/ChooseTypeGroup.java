@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi;
 
 public class ChooseTypeGroup extends ViewGroup {
     int width, height;
-    int type_num = 1, phonetic_num = 1, question_num = 1;
+    int type_num = 1, phonetic_num = 1, question_num = 1;   //type->button
 
     public ChooseTypeGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,11 +51,20 @@ public class ChooseTypeGroup extends ViewGroup {
         int question_height ;
         int phonetic_height;
         type_block = (height-this.getChildAt(0).getLayoutParams().height*type_num) / ( type_num + 1);
+        if(type_block<0){
+            type_block=0;
+        }
         int button_height = type_block;
         if (question_num==3){
 
             question_block =( height-this.getChildAt(type_num).getLayoutParams().height*question_num) / (question_num  + 1);
             phonetic_block = (height-this.getChildAt(type_num).getLayoutParams().height*phonetic_num) / (phonetic_num + 1);
+            if (question_block<0){
+                question_block=0;
+            }
+            if (phonetic_block<0){
+                phonetic_block=0;
+            }
             question_height = question_block;
             phonetic_height = phonetic_block;
 
@@ -65,6 +74,12 @@ public class ChooseTypeGroup extends ViewGroup {
             ChooseTypeGroup.LayoutParams params = new ChooseTypeGroup.LayoutParams(getChildAt(type_num).getLayoutParams());
             question_block = (height/2-params.height)/2;
             phonetic_block = question_block;
+            if (question_block<0){
+                question_block=0;
+            }
+            if (phonetic_block<0){
+                phonetic_block=0;
+            }
             question_height=question_block;
             phonetic_height=phonetic_block;
 
@@ -84,7 +99,7 @@ public class ChooseTypeGroup extends ViewGroup {
                 button_height += type_block;
             } else if (child_tag.contains("question")) {
                 if (question_num==2&&findmiddle_char==2){
-
+                    //ignore the block
                 }
                 else {
                     ChooseTypeGroup.LayoutParams params = new ChooseTypeGroup.LayoutParams(child.getLayoutParams());
@@ -98,7 +113,7 @@ public class ChooseTypeGroup extends ViewGroup {
 
             } else {
                 if (question_num==2&&findmiddle_pho==2){
-
+                    //ignore the block
                 }
                 else{
                     ChooseTypeGroup.LayoutParams params = new ChooseTypeGroup.LayoutParams(child.getLayoutParams());
