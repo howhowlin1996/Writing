@@ -1,6 +1,7 @@
 package com.example.writing.panel;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -8,7 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 public class WritingPanelGroup extends ViewGroup {
-    int width,height,type=1,answer_position=0;
+    int width,height,type=1,answer_position=0,button_width,writing2_width,writing3_width;
     Context this_context;
     public WritingPanelGroup(Context context, AttributeSet attrs) {
         super(context,attrs);
@@ -25,6 +26,12 @@ public class WritingPanelGroup extends ViewGroup {
     public void setType(int type_here,int answer_position_here){
         type=type_here; answer_position=answer_position_here;
     }
+    public  void setDimension(int button,int writing_panel2,int writing_panel3){
+        Log.d("dimensionhere"," "+button+" "+writing_panel2+" "+writing_panel3);
+        button_width=button;
+        writing2_width=writing_panel2;
+        writing3_width=writing_panel3;
+    }
 
 
 
@@ -36,43 +43,27 @@ public class WritingPanelGroup extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        //Log.d("decision_group",new String(" "+type));
-        //Log.d("here"," ");
+        int question_width,question_block;
+
+        if (type==0) {                                                                            //question_type->0 means 2 words(without middle string),1 means 3 words (contain middle string)
+            question_width=writing2_width;
+            question_block=(height-2*button_width-2*question_width)/3;
+            if (question_block<0) {
+                question_block=0;
+            }
+
+        }
+        else {
+            question_width=writing3_width;
+            question_block=(height-2*button_width-3*question_width)/4;
+            if (question_block<0) {
+                question_block=0;
+            }
+
+        }
+
 
         if (type==0){
-            int button_width;
-            int question_width,question_block;
-            if (height/8<width/4){
-               button_width=height/8;
-               question_width=(height-2*button_width)/2;
-                if (question_width>width*3/4){
-                    question_width=width*3/4;
-
-                }
-               question_width=2*question_width/3;
-               question_block=height/2-button_width-question_width;
-               if (question_block<0){
-                   question_block=0;
-               }
-            }
-            else{
-                button_width=width/4;
-                question_width=(height-2*button_width)/2;
-                if (question_width>width*3/4){
-                    question_width=width*3/4;
-
-                }
-                question_width=2*question_width/3;
-                question_block=height/2-button_width-question_width;
-                if (question_block<0){
-                    question_block=0;
-                }
-            }
-
-
-
-
-
 
             if (answer_position==1){
 
@@ -91,15 +82,15 @@ public class WritingPanelGroup extends ViewGroup {
                     width_pos+=width/2;
 
                 }
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
                     getChildAt(i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
                     height_pos+=question_width+question_block;
 
                 }
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    getChildAt(i).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
                     height_pos+=question_width+question_block;
 
                 }
@@ -121,15 +112,15 @@ public class WritingPanelGroup extends ViewGroup {
                     width_pos+=width/2;
 
                 }
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
                     getChildAt(10-i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
                     height_pos+=question_width+question_block;
 
                 }
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(12-i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    getChildAt(12-i).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
                     height_pos+=question_width+question_block;
 
                 }
@@ -139,39 +130,6 @@ public class WritingPanelGroup extends ViewGroup {
 
         }
         else {
-            int button_width;
-            int question_width,question_block;
-            if (height/8<width/4){
-                button_width=height/8;
-                question_width=(height-2*button_width)/3;
-                if (question_width>width*3/4){
-                    question_width=width*3/4;
-
-                }
-                question_width=2*question_width/3;
-                question_block=(height-2*button_width-3*question_width)/2;
-                if (question_block<0){
-                    question_block=0;
-                }
-            }
-            else{
-                button_width=width/4;
-                question_width=(height-2*button_width)/3;
-                if (question_width>width*3/4){
-                    question_width=width*3/4;
-
-                }
-                question_width=2*question_width/3;
-                question_block=(height-2*button_width-3*question_width)/2;
-                if (question_block<0){
-                    question_block=0;
-                }
-            }
-
-
-
-            //button_block=(width-button_width*2)/3;
-            //Log.d("herehere",new String(button_width+" "+question_width+" "+height));
 
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 int width_pos=0,height_pos=0;
@@ -189,7 +147,7 @@ public class WritingPanelGroup extends ViewGroup {
                     width_pos+=width/2;
 
                 }
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
                     getChildAt(10-i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);       //turn up and down reverse change 4 to 6, 6 to 4
                     height_pos+=question_width+question_block;
@@ -197,13 +155,13 @@ public class WritingPanelGroup extends ViewGroup {
                 }
                 getChildAt(8).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
 
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(12-i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    getChildAt(12-i).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
                     height_pos+=question_width+question_block;
 
                 }
-                getChildAt(9).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                getChildAt(9).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
 
             }
 
@@ -224,7 +182,7 @@ public class WritingPanelGroup extends ViewGroup {
                     width_pos+=width/2;
 
                 }
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
                     getChildAt(i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
                     height_pos+=question_width+question_block;
@@ -232,13 +190,13 @@ public class WritingPanelGroup extends ViewGroup {
 
                 }
                 getChildAt(8).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    getChildAt(i).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
                     height_pos+=question_width+question_block;
 
                 }
-                getChildAt(9).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                getChildAt(9).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
 
 
             }
@@ -258,7 +216,7 @@ public class WritingPanelGroup extends ViewGroup {
                     width_pos+=width/2;
 
                 }
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for(int i=4;i<8;i+=2){
                     getChildAt(i).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
                     height_pos+=(question_width+question_block)*2;
@@ -266,16 +224,16 @@ public class WritingPanelGroup extends ViewGroup {
 
                 }
 
-                height_pos=button_width;
+                height_pos=button_width+question_block;
                 for (int i=5;i<8;i+=2){
-                    getChildAt(i).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                    getChildAt(i).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
                     height_pos+=(question_width+question_block)*2;
 
 
                 }
                 height_pos=button_width+question_block+question_width;
                 getChildAt(8).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
-                getChildAt(9).layout(width/2+question_width/2,height_pos,width/2+question_width,height_pos+question_width);
+                getChildAt(9).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
 
             }
 

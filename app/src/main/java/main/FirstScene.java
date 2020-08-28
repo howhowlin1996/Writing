@@ -1,6 +1,7 @@
 package main;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -42,7 +43,7 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
         badge.setOnClickListener(this);
         setting.setOnClickListener(this);
         shark.getBackground().setAlpha(255);
-        Toast.makeText(this,new String(" "+getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet)),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this," "+getSharedPreferences("num", Context.MODE_PRIVATE).getStringSet("chartypenum",defaultSet)+" "+getSharedPreferences("num",Context.MODE_PRIVATE).getInt("writing_panel2",0),Toast.LENGTH_SHORT).show();
 
 
     }

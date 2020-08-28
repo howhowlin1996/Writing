@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -57,7 +58,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
             }
 
             if (setkeyname.size()==0){
-                getSharedPreferences("num",0).edit().putStringSet("chartypenum",defaultSet).clear().commit();
+                getSharedPreferences("num",0).edit().remove("chartypenum").commit();
                 Intent intent = new  Intent(this, FirstScene.class);
                 startActivity(intent);
             }

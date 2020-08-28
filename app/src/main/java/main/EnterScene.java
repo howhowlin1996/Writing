@@ -4,16 +4,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
@@ -29,8 +35,10 @@ public class EnterScene extends AppCompatActivity implements CompoundButton.OnCh
         setContentView(R.layout.enterscene);
         CheckBox consent_button=findViewById(R.id.consent_checkBox);
         Button confirm_button=findViewById(R.id.confirmButton_enterScene);
+
         consent_button.setOnCheckedChangeListener(this);
         confirm_button.setOnClickListener(this);
+        measureButton();
         EnterScene();
 
 
@@ -42,6 +50,33 @@ public class EnterScene extends AppCompatActivity implements CompoundButton.OnCh
         super.onResume();
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
     }
+    private void measureButton(){
+        int width,height;                                                                           //screen's height and width
+        int writing_panel2,writing_panel3,button;                                                    //measure writing_panel2->2 words question,writing3->3 words q.....,button for every buttons in this aoo
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        width = dm.widthPixels;
+        height = dm.heightPixels;
+
+        button=height/8;
+        writing_panel2=(height*3/8)*8/10;
+        if (writing_panel2>width){
+            writing_panel2=width*8/10;
+        }
+        writing_panel3=(height*3/12)*8/10;
+        if (writing_panel3>width){
+            writing_panel3=width*8/10;
+        }
+        SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+        num.edit().putInt("writing_panel2",writing_panel2).commit();
+        num.edit().putInt("button",button).commit();
+        num.edit().putInt("writing_panel3",writing_panel3).commit();
+
+
+
+    }
+
     private void EnterScene(){
         final ImageView shark=findViewById(R.id.shark_enter);
         TextView consent=findViewById(R.id.consentRule);
