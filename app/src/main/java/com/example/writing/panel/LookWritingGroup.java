@@ -3,11 +3,12 @@ package com.example.writing.panel;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
 public class LookWritingGroup extends ViewGroup {
-    int width,height,type=1,answer_position=0;
+    int width,height,type=1,answer_position=0,button_width,writing2_width,writing3_width;
     public LookWritingGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -21,6 +22,13 @@ public class LookWritingGroup extends ViewGroup {
         type=type_here;
         answer_position=answer_position_here;
 
+    }
+
+    public  void setDimension(int button,int writing_panel2,int writing_panel3){
+
+        button_width=button;
+        writing2_width=writing_panel2;
+        writing3_width=writing_panel3;
     }
 
     @Override

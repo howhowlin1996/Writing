@@ -44,7 +44,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         String middleString=storeinform.getString("middle",null);
         Resources here_r=this.getResources();
         if(middleString.equals("0")){
-            group.setType(0,answer_position);
+            setDimension(0,answer_position);
             group.invalidate();
             if(answer_position==0){
                 reset=getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName()));
@@ -65,7 +65,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
 
         }
         else {
-            group.setType(1,answer_position);
+           setDimension(1,answer_position);
             group.invalidate();
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 reset=getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName()));
@@ -140,6 +140,16 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         }
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
+    }
+
+
+
+    private void setDimension(int question_type,int answer_position){                                                   //question_type->0 means 2 words(without middle string),1 means 3 words (contain middle string)
+        final  CopyWritingGroup group=findViewById(R.id.group_copywriting);
+        final  SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        group.setType(question_type,answer_position);
+        group.setDimension(storeinform.getInt("button",0),storeinform.getInt("writing_panel2",0),storeinform.getInt("writing_panel3",0));
+
     }
 
 

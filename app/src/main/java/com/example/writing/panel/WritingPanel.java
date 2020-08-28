@@ -154,6 +154,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
     private void setDimension(int question_type,int answer_position){                                                   //question_type->0 means 2 words(without middle string),1 means 3 words (contain middle string)
         final WritingPanelGroup group=findViewById(R.id.group_writing);
         final  SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);

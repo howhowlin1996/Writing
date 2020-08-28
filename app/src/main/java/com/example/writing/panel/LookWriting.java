@@ -41,7 +41,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         String middleString=storeinform.getString("middle",null);
         Resources here_r=this.getResources();
         if(middleString.equals("0")){
-            group.setType(0,answer_position);
+           setDimension(0,answer_position);
             group.invalidate();
             if(answer_position==0){
                 leftup.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
@@ -57,7 +57,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
 
         }
         else {
-            group.setType(1, answer_position);
+           setDimension(1,answer_position);
             if (answer_position == 0 || answer_position == 10 || answer_position == 20 || answer_position == 210) {
                 leftup.setImageResource(here_r.getIdentifier("cha" + leftString, "drawable", this.getPackageName()));
                 leftdown.setImageResource(here_r.getIdentifier("cha" + middleString, "drawable", this.getPackageName()));
@@ -119,10 +119,15 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); //隱藏狀態
+
+
+
+    private void setDimension(int question_type,int answer_position){                                                   //question_type->0 means 2 words(without middle string),1 means 3 words (contain middle string)
+        final LookWritingGroup group=findViewById(R.id.group_lookwriting);
+        final  SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        group.setType(question_type,answer_position);
+        group.setDimension(storeinform.getInt("button",0),storeinform.getInt("writing_panel2",0),storeinform.getInt("writing_panel3",0));
+
     }
 
 
