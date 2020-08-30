@@ -62,6 +62,7 @@ public class SingleBadge extends AppCompatActivity implements View.OnClickListen
             e.printStackTrace();
         }
 
+
         badgeBackground.setImageBitmap(bmp);
         returnButton.setOnClickListener(this);
         shareButton.setOnClickListener(this);

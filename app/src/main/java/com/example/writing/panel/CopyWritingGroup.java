@@ -133,6 +133,7 @@ public class CopyWritingGroup extends ViewGroup {
                      height_pos+=question_width+question_block;
 
                  }
+                 getChildAt(6).layout(width/2-question_width/2,height_pos,width/2+question_width/2,height_pos+question_width);
                  getChildAt(7).layout(width/2+question_width/2,height_pos,width,height_pos+question_width);
 
 

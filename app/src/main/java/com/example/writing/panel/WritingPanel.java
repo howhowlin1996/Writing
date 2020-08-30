@@ -5,13 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,8 +28,8 @@ import java.util.TreeSet;
 
 
 public class WritingPanel extends AppCompatActivity implements View.OnClickListener {
-    //Panel mPanel;
-     long lastTime =0;
+
+    long lastTime =0;
     Set<String> defaultSet=new TreeSet<String>();
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override

@@ -36,7 +36,7 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
         width=dm.widthPixels;
-       DataHelper dbBadge=new DataHelper(this,"0000"+".db",null,1,"21");
+        DataHelper dbBadge=new DataHelper(this,"0000"+".db",null,1,"21");
         int time;
         time =dbBadge.imageNum();
         dbBadge.close();

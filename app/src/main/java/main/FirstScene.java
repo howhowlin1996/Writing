@@ -5,8 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,6 +45,10 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
         Button start =findViewById(R.id.beginButton_first);
         Button badge =findViewById(R.id.badge_first);
         Button setting =findViewById(R.id.setting_firstscene);
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
+
         start.setOnClickListener(this);
         badge.setOnClickListener(this);
         setting.setOnClickListener(this);

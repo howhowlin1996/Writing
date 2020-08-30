@@ -167,15 +167,15 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         time=dbBadge.practiceTime(file.toString());
 
         if (time==0){
-            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge);
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.seastartbadge);
             dbBadge.insert(file.toString(),1);
         }
         else if (time==1){
-            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge_2);
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.seaurchunbadge);
             dbBadge.update(file.toString(),2);
         }
         else{
-            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.badge_3);
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.shipbadge);
             dbBadge.update(file.toString(),3);
         }
         dbBadge.close();
