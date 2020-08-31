@@ -36,7 +36,6 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
     private float begin_y,move_y,down_y,height;
     private long final_time=0;
     private int decision=0,top,bottom,old_top,old_bottom;
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +59,14 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
         text.setSingleLine(false);
         text.setHorizontallyScrolling(false);
         text.setOnTouchListener(this);
-        text.setBackground(getDrawable(R.drawable.block));
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk< Build.VERSION_CODES.LOLLIPOP){
+            text.setBackground(getResources().getDrawable(R.drawable.block));
+        }
+        else{
+            text.setBackground(getDrawable(R.drawable.block));
+        }
+     ;
         text.setOnFocusChangeListener(this);
         text.setOnKeyListener(this);
         ReadImage();

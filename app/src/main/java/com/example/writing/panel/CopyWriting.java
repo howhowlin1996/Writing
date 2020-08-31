@@ -25,23 +25,36 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.copywriting);
         getSupportActionBar().hide(); //隱藏標題
-        CopyWritingGroup group=findViewById(R.id.group_copywriting);
-        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
-        int answer_position=storeinform.getInt("answer_position",0);
 
-        Panel mypanel=findViewById(R.id.panel_copy);
-        Button confirm=findViewById(R.id.SaveButton_copy);
-        Button delete=findViewById(R.id.DeleteButton_copy);
+        final Button confirm=findViewById(R.id.SaveButton_copy);
+        final Button delete=findViewById(R.id.DeleteButton_copy);
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk< Build.VERSION_CODES.LOLLIPOP){
+            prepareViewOld();
+        }
+        else{
+            prepareView();
+        }
 
 
-        ImageView charleft=findViewById(R.id.characterQleft_copywriting);
-        ImageView pholeft=findViewById(R.id.phoneticQleft_copywriting);
-        ImageView phoright=findViewById(R.id.phoneticQright_copywriting);
-        ImageView charmiddle=findViewById(R.id.characterQmiddle_copywriting);
-        ImageView phomiddle=findViewById(R.id.phoneticQmiddle_copywriting);
-        String rightString=storeinform.getString("right",null);
-        String leftString =storeinform.getString("left",null);
-        String middleString=storeinform.getString("middle",null);
+        confirm.setOnClickListener(this);
+        delete.setOnClickListener(this);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected  void prepareView(){
+        final ImageView charleft=findViewById(R.id.characterQleft_copywriting);
+        final ImageView pholeft=findViewById(R.id.phoneticQleft_copywriting);
+        final ImageView phoright=findViewById(R.id.phoneticQright_copywriting);
+        final ImageView charmiddle=findViewById(R.id.characterQmiddle_copywriting);
+        final ImageView phomiddle=findViewById(R.id.phoneticQmiddle_copywriting);
+        final SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        final  int answer_position=storeinform.getInt("answer_position",0);
+        final String rightString=storeinform.getString("right",null);
+        final  String leftString =storeinform.getString("left",null);
+        final String middleString=storeinform.getString("middle",null);
+        final CopyWritingGroup group=findViewById(R.id.group_copywriting);
+        final Panel mypanel=findViewById(R.id.panel_copy);
         Resources here_r=this.getResources();
         if(middleString.equals("0")){
             setDimension(0,answer_position);
@@ -65,7 +78,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
 
         }
         else {
-           setDimension(1,answer_position);
+            setDimension(1,answer_position);
             group.invalidate();
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 reset=getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName()));
@@ -138,10 +151,119 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
 
 
         }
-        confirm.setOnClickListener(this);
-        delete.setOnClickListener(this);
-    }
 
+    }
+    protected  void prepareViewOld(){
+        final ImageView charleft=findViewById(R.id.characterQleft_copywriting);
+        final ImageView pholeft=findViewById(R.id.phoneticQleft_copywriting);
+        final ImageView phoright=findViewById(R.id.phoneticQright_copywriting);
+        final ImageView charmiddle=findViewById(R.id.characterQmiddle_copywriting);
+        final ImageView phomiddle=findViewById(R.id.phoneticQmiddle_copywriting);
+        final SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        final  int answer_position=storeinform.getInt("answer_position",0);
+        final String rightString=storeinform.getString("right",null);
+        final  String leftString =storeinform.getString("left",null);
+        final String middleString=storeinform.getString("middle",null);
+        final CopyWritingGroup group=findViewById(R.id.group_copywriting);
+        final Panel mypanel=findViewById(R.id.panel_copy);
+        Resources here_r=this.getResources();
+        if(middleString.equals("0")){
+            setDimension(0,answer_position);
+            group.invalidate();
+            if(answer_position==0){
+                reset=getResources().getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName()));
+                mypanel.setBackground(getResources().getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName())));
+                pholeft.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                charleft.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                phoright.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+
+            }
+            else{
+                reset=getResources().getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName()));
+                charleft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                mypanel.setBackground(getResources().getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName())));
+                phoright.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+            }
+
+        }
+        else {
+            setDimension(1,answer_position);
+            group.invalidate();
+            if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
+                reset=getResources().getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName()));
+                mypanel.setBackground(getResources().getDrawable(here_r.getIdentifier("copy"+leftString,"drawable",this.getPackageName())));
+                phoright.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                if (answer_position==10){
+                    charleft.setBackground(getResources().getDrawable(R.drawable.white));
+                    pholeft.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charmiddle.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                    phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else if(answer_position==20){
+                    charleft.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                    pholeft.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charmiddle.setBackground(getResources().getDrawable(R.drawable.white));
+                    phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else if(answer_position==210){
+                    charleft.setBackground(getResources().getDrawable(R.drawable.white));
+                    pholeft.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charmiddle.setBackground(getResources().getDrawable(R.drawable.white));
+                    phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else {
+                    charleft.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                    pholeft.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charmiddle.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                    phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                }
+
+            }
+            else if(answer_position==1||answer_position==21){
+                if (answer_position==1){
+                    charleft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                    pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                    charmiddle.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                    phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else {
+                    charleft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                    pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                    charmiddle.setBackground(getResources().getDrawable(R.drawable.white));
+                    phomiddle.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                reset=getResources().getDrawable(here_r.getIdentifier("copy"+middleString,"drawable",this.getPackageName()));
+                mypanel.setBackground(getResources().getDrawable(here_r.getIdentifier("copy"+middleString,"drawable",this.getPackageName())));
+                phoright.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+            }
+            else if(answer_position==2){
+                reset=getResources().getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName()));
+                charleft.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                pholeft.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charmiddle.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                phomiddle.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                mypanel.setBackground(getResources().getDrawable(here_r.getIdentifier("copy"+rightString,"drawable",this.getPackageName())));
+                phoright.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+            }
+
+
+
+
+
+
+
+        }
+
+    }
 
 
     private void setDimension(int question_type,int answer_position){                                                   //question_type->0 means 2 words(without middle string),1 means 3 words (contain middle string)
@@ -153,7 +275,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     public void onClick(View v) {
         Panel mypanel=findViewById(R.id.panel_copy);

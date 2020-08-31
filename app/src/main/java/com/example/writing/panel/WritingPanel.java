@@ -31,7 +31,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
     long lastTime =0;
     Set<String> defaultSet=new TreeSet<String>();
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +43,35 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         final Panel mPanel =findViewById(R.id.panel);                            //get the panel id in layout.xml
         final Button helpButton=findViewById(R.id.help_writing);
         final Button memo=findViewById(R.id.memo_writing);
+
+
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk< Build.VERSION_CODES.LOLLIPOP){
+            prepareViewOld();
+        }
+        else{
+            prepareView();
+        }
+
+        saveButton.setOnClickListener(this);                                     // if user click the button call function Onclick
+        deleteButton.setOnClickListener(this);
+        helpButton.setOnClickListener(this);
+        memo.setOnClickListener(this);
+
+        if (sdk< Build.VERSION_CODES.LOLLIPOP){
+            mPanel.setBackground(getResources().getDrawable(R.drawable.space));
+        }
+        else{
+            mPanel.setBackground(getDrawable(R.drawable.space));
+        }
+
+
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected  void prepareView(){
+        final WritingPanelGroup group=findViewById(R.id.group_writing);
         final ImageView charimage=findViewById(R.id.characterQleft_writing);
         final Panel charpanel=findViewById(R.id.panel);
         final ImageView phoimage=findViewById(R.id.phoneticleftQ_writing);
@@ -77,7 +106,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
         }
         else {
-           setDimension(1,answer_position);
+            setDimension(1,answer_position);
             group.invalidate();
             if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
                 charpanel.setBackground(getDrawable(R.drawable.block));
@@ -142,11 +171,116 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        saveButton.setOnClickListener(this);                                     // if user click the button call function Onclick
-        deleteButton.setOnClickListener(this);
-        helpButton.setOnClickListener(this);
-        memo.setOnClickListener(this);
-        mPanel.setBackground(getDrawable(R.drawable.space));
+
+
+
+
+
+    }
+    protected  void prepareViewOld(){
+        final WritingPanelGroup group=findViewById(R.id.group_writing);
+        final ImageView charimage=findViewById(R.id.characterQleft_writing);
+        final Panel charpanel=findViewById(R.id.panel);
+        final ImageView phoimage=findViewById(R.id.phoneticleftQ_writing);
+        final ImageView phopanel=findViewById(R.id.phoneticQright_writing);
+        final ImageView charlast=findViewById(R.id.characterQlast_writing);
+        final ImageView pholast=findViewById(R.id.phoneticQlast_writing);
+        final  SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        final int answer_position=storeinform.getInt("answer_position",0);
+        final String rightString=storeinform.getString("right",null);
+        final String leftString =storeinform.getString("left",null);
+        final String middleString=storeinform.getString("middle",null);
+        Resources here_r=this.getResources();
+        if(middleString.equals("0")){
+            setDimension(0,answer_position);
+            group.invalidate();
+            charlast.setVisibility(View.GONE);
+            pholast.setVisibility(View.GONE);
+            if(answer_position==0){
+                charpanel.setBackground(getResources().getDrawable(R.drawable.block));
+                phopanel.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charimage.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                phoimage.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+            }
+            else{
+
+                charimage.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                phoimage.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charpanel.setBackground(getResources().getDrawable(R.drawable.block));
+                phopanel.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+            }
+
+        }
+        else {
+            setDimension(1,answer_position);
+            group.invalidate();
+            if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
+                charpanel.setBackground(getResources().getDrawable(R.drawable.block));
+                phopanel.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                if (answer_position==10){
+                    charimage.setBackground(getResources().getDrawable(R.drawable.white));
+                    phoimage.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charlast.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                    pholast.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else if(answer_position==20){
+                    charimage.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                    phoimage.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charlast.setBackground(getResources().getDrawable(R.drawable.white));
+                    pholast.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else if(answer_position==210){
+                    charimage.setBackground(getResources().getDrawable(R.drawable.white));
+                    phoimage.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charlast.setBackground(getResources().getDrawable(R.drawable.white));
+                    pholast.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else {
+                    charimage.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                    phoimage.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                    charlast.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                    pholast.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+                }
+
+            }
+            else if(answer_position==1||answer_position==21){
+                if (answer_position==1){
+                    charimage.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                    phoimage.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                    charlast.setImageResource(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName()));
+                    pholast.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                else {
+                    charimage.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                    phoimage.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                    charlast.setBackground(getResources().getDrawable(R.drawable.white));
+                    pholast.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+                }
+                charpanel.setBackground(getResources().getDrawable(R.drawable.block));
+                phopanel.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+
+            }
+            else if(answer_position==2){
+                charimage.setImageResource(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName()));
+                phoimage.setImageResource(here_r.getIdentifier("pho"+leftString,"drawable",this.getPackageName()));
+                charlast.setImageResource(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName()));
+                pholast.setImageResource(here_r.getIdentifier("pho"+middleString,"drawable",this.getPackageName()));
+                charpanel.setBackground(getResources().getDrawable(R.drawable.block));
+                phopanel.setImageResource(here_r.getIdentifier("pho"+rightString,"drawable",this.getPackageName()));
+
+            }
+
+        }
+
+
+
+
 
 
     }
@@ -161,7 +295,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     public void onClick(View v) {
         final Panel mPanel =findViewById(R.id.panel);
@@ -198,7 +332,14 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
             }
             else if (v.getId()==R.id.DeleteButton){
                 mPanel.resetCanvas();
-                mPanel.setBackground(getDrawable(R.drawable.space));
+                int sdk = android.os.Build.VERSION.SDK_INT;
+                if (sdk< Build.VERSION_CODES.LOLLIPOP){
+                    mPanel.setBackground(getResources().getDrawable(R.drawable.space));
+                }
+                else{
+                    mPanel.setBackground(getDrawable(R.drawable.space));;
+                }
+
             }
             lastTime=newTime;
         }

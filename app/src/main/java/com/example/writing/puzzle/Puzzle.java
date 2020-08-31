@@ -60,7 +60,13 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
             up_part_question[i]=-1;
             down_part_question[i]=-1;
         }
-        prepareView();
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk< Build.VERSION_CODES.LOLLIPOP){
+            prepareViewOld();
+        }
+        else{
+            prepareView();
+        }
         DisplayMetrics dm = new DisplayMetrics();
 
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
@@ -88,12 +94,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
     }
 
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d("here","===================");
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected  void prepareView(){
@@ -261,6 +261,171 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
         }
     }
+    protected  void prepareViewOld(){
+        PuzzlePanel qu1=findViewById(R.id.questionPanelLeft);
+        PuzzlePanel qu2=findViewById(R.id.questionPanelRIght);
+        PuzzlePanel up1=findViewById(R.id.charUp1);
+        PuzzlePanel up2=findViewById(R.id.charUp2);
+        PuzzlePanel up3=findViewById(R.id.charUp3);
+        PuzzlePanel up4=findViewById(R.id.charUp4);
+        PuzzlePanel down1=findViewById(R.id.charDown1);
+        PuzzlePanel down2=findViewById(R.id.charDown2);
+        PuzzlePanel down3=findViewById(R.id.charDown3);
+        PuzzlePanel down4=findViewById(R.id.charDown4);
+        PuzzlePanelGroup group=findViewById(R.id.Group);
+
+
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        split_code=storeinform.getInt("split_code",0);
+        int part_num=storeinform.getInt("part_num",0);
+        group.splitNum(split_code);
+        int answer_position=storeinform.getInt("answer_position",0);
+        String rightString=storeinform.getString("right",null);
+        String leftString =storeinform.getString("left",null);
+        String middleString=storeinform.getString("middle",null);
+        String partone;
+        String parttwo;
+        if (split_code/10==5){
+            partone="part"+rightString.substring(0,rightString.length()-2)+"1";
+            parttwo="part"+rightString.substring(0,rightString.length()-2)+"0";
+        }
+        else{
+            partone="part"+rightString.substring(0,rightString.length()-2)+"0";
+            parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
+        }
+
+        Resources here_r=this.getResources();
+        if (part_num==1){
+            up2.setVisibility(View.GONE);
+            down2.setVisibility(View.GONE);
+            up3.setVisibility(View.GONE);
+            down3.setVisibility(View.GONE);
+            up4.setVisibility(View.GONE);
+            down4.setVisibility(View.GONE);
+            upRandomPart(1);
+            downRandomPart(1);
+
+        }
+        else if(part_num==2){
+            up3.setVisibility(View.GONE);
+            down3.setVisibility(View.GONE);
+            up4.setVisibility(View.GONE);
+            down4.setVisibility(View.GONE);
+            upRandomPart(2);
+            downRandomPart(2);
+
+
+        }
+        else if (part_num==3){
+            up4.setVisibility(View.GONE);
+            down4.setVisibility(View.GONE);
+            upRandomPart(3);
+            downRandomPart(3);
+
+        }
+        else{
+
+            upRandomPart(4);
+            downRandomPart(4);
+        }
+
+
+        up1.setTag(0);
+        up2.setTag(1);
+        up3.setTag(2);
+        up4.setTag(3);
+        down1.setTag(4);
+        down2.setTag(5);
+        down3.setTag(6);
+        down4.setTag(7);
+        if(middleString.equals("0")){
+            group.setType(0,answer_position);
+            group.invalidate();
+            if(answer_position==0){
+                qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                up1.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[0],"drawable",this.getPackageName())));
+                up2.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[1],"drawable",this.getPackageName())));
+                up3.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[2],"drawable",this.getPackageName())));
+                up4.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[3],"drawable",this.getPackageName())));
+                down1.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[0],"drawable",this.getPackageName())));
+                down2.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[1],"drawable",this.getPackageName())));
+                down3.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[2],"drawable",this.getPackageName())));
+                down4.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[3],"drawable",this.getPackageName())));
+            }
+            else{
+                qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                up1.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[0],"drawable",this.getPackageName())));
+                up2.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[1],"drawable",this.getPackageName())));
+                up3.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[2],"drawable",this.getPackageName())));
+                up4.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[3],"drawable",this.getPackageName())));
+                down1.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[0],"drawable",this.getPackageName())));
+                down2.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[1],"drawable",this.getPackageName())));
+                down3.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[2],"drawable",this.getPackageName())));
+                down4.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[3],"drawable",this.getPackageName())));
+
+            }
+
+        }
+        else {
+            group.setType(1,answer_position);
+            group.invalidate();
+            up1.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[0],"drawable",this.getPackageName())));
+            up2.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[1],"drawable",this.getPackageName())));
+            up3.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[2],"drawable",this.getPackageName())));
+            up4.setBackground(getResources().getDrawable(here_r.getIdentifier(partone+up_part_question[3],"drawable",this.getPackageName())));
+            down1.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[0],"drawable",this.getPackageName())));
+            down2.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[1],"drawable",this.getPackageName())));
+            down3.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[2],"drawable",this.getPackageName())));
+            down4.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo+down_part_question[3],"drawable",this.getPackageName())));
+            if (answer_position==0||answer_position==10||answer_position==20||answer_position==210){
+                if (answer_position==210){
+                    qu1.setBackground(getResources().getDrawable(R.drawable.white));
+                    qu2.setBackground(getResources().getDrawable(R.drawable.white));
+                }
+                else if (answer_position==20){
+                    qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getResources().getDrawable(R.drawable.white));
+                }
+                else if (answer_position==10){
+                    qu1.setBackground(getResources().getDrawable(R.drawable.white));
+                    qu2.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                }
+                else {
+                    qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                }
+
+
+            }
+
+            else if(answer_position==1||answer_position==21){
+                if (answer_position==21){
+                    qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getResources().getDrawable(R.drawable.white));
+
+                }
+                else{
+                    qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                    qu2.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+rightString,"drawable",this.getPackageName())));
+                }
+
+
+
+            }
+            else if(answer_position==2){
+                qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
+                qu2.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
+
+            }
+
+
+
+
+
+
+
+        }
+    }
 
 
 
@@ -327,7 +492,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
                                     v.setVisibility(View.GONE);
                                     if (board1_view!=v&&board1_view!=null){
                                         board1_view.setVisibility(View.VISIBLE);
-                                        Log.d("herehere","====");
                                     }
                                     board1_view=v;
                                     answer1_name=v.getTag().hashCode();
@@ -341,7 +505,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
                                     v.setVisibility(View.GONE);
                                     if (board2_view!=v&&board2_view!=null){
                                         board2_view.setVisibility(View.VISIBLE);
-                                        Log.d("herehere","!!!");
                                     }
                                     board2_view=v;
                                     answer2_name=v.getTag().hashCode();
@@ -356,12 +519,44 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
                                 }
 
                             }
+                            else {
+                                if(v.getTag().hashCode()<4&&checkHit(middle_w,middle_h,answerBoard1)){
+                                    answerBoard1.setBackground(v.getBackground());
+                                    v.setVisibility(View.GONE);
+                                    if (board1_view!=v&&board1_view!=null){
+                                        board1_view.setVisibility(View.VISIBLE);
+                                    }
+                                    board1_view=v;
+                                    answer1_name=v.getTag().hashCode();
+                                    answer1_change=1;
+                                    backToStart(puzzlequeue.element());
+                                    puzzlequeue.remove();
+
+                                }
+                                if(v.getTag().hashCode()>=4&&(checkHit(middle_w,middle_h,answerBoard2))){
+                                    answerBoard2.setBackground(v.getBackground());
+                                    v.setVisibility(View.GONE);
+                                    if (board2_view!=v&&board2_view!=null){
+                                        board2_view.setVisibility(View.VISIBLE);
+                                    }
+                                    board2_view=v;
+                                    answer2_name=v.getTag().hashCode();
+                                    answer2_change=1;
+                                    backToStart(puzzlequeue.element());
+                                    puzzlequeue.remove();
+
+                                }
+                                if((checkHit(middle_w,middle_h,answerBoard3))){
+                                    answerBoard3.setBackground(v.getBackground());
+
+                                }
+                            }
 
 
                         }
                         else{
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
+
                                 if(v.getTag().hashCode()>=4&&(checkHit(middle_w,middle_h,answerBoard1))){
                                     if((checkHit(middle_w,middle_h,answerBoard2))){
                                         answerBoard2.setBackground(v.getBackground());
@@ -391,7 +586,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
                                 }
 
 
-                            }
+
 
                         }
 

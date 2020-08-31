@@ -34,7 +34,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -47,7 +46,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
     File combinefile;
     Set<String> defaultSet=new TreeSet<String>();
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +63,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     public void onClick(View v) {
 
@@ -102,7 +101,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     public void ReadImage(){
         final ImageView badgeView=findViewById(R.id.badgeView);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
@@ -167,15 +166,15 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         time=dbBadge.practiceTime(file.toString());
 
         if (time==0){
-            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.seastartbadge);
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.seaurchunbadge);
             dbBadge.insert(file.toString(),1);
         }
         else if (time==1){
-            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.seaurchunbadge);
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.shipbadge);
             dbBadge.update(file.toString(),2);
         }
         else{
-            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.shipbadge);
+            badge=BitmapFactory.decodeResource(this.getBaseContext().getResources(), R.drawable.seastartbadge);
             dbBadge.update(file.toString(),3);
         }
         dbBadge.close();
