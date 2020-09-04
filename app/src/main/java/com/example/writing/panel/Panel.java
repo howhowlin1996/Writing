@@ -25,6 +25,7 @@ class Panel extends View {
     Canvas vBitmapCanvas;
     String photo_name;
     Paint mainpaint = new Paint();
+    int point=0;
 
 
 
@@ -49,6 +50,7 @@ class Panel extends View {
     @Override
     public void onDraw (Canvas canvas){
         super.onDraw(canvas);
+        point++;
         for (int i = 1; i < points.size(); i++) {
             PointF p1 = points.get(i - 1);
             PointF p2 = points.get(i);
@@ -63,6 +65,7 @@ class Panel extends View {
 
     @Override
     public boolean onTouchEvent (MotionEvent event){
+
         for (int i = 0; i < event.getHistorySize(); i++) {
             points.add(new PointF(event.getHistoricalX(i), event.getHistoricalY(i)));
         }

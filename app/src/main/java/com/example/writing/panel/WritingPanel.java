@@ -58,6 +58,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         helpButton.setOnClickListener(this);
         memo.setOnClickListener(this);
 
+
         if (sdk< Build.VERSION_CODES.LOLLIPOP){
             mPanel.setBackground(getResources().getDrawable(R.drawable.space));
         }
@@ -320,14 +321,20 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                     mPanel.setBackground(getDrawable(R.drawable.space));
                     return;
                 }*/
-                savePicture();
-                //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
-                Intent intent = new  Intent(this, Badge.class);
-                String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
-                int num;
-                num=getSharedPreferences("num",0).getInt(key_name,0);
-                getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
-                startActivity(intent);
+                if (mPanel.point==0){
+                    savePicture();
+                    //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
+                    Intent intent = new  Intent(this, Badge.class);
+                    String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
+                    int num;
+                    num=getSharedPreferences("num",0).getInt(key_name,0);
+                    getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
+                }
+
 
             }
             else if (v.getId()==R.id.DeleteButton){
