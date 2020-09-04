@@ -321,7 +321,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                     mPanel.setBackground(getDrawable(R.drawable.space));
                     return;
                 }*/
-                if (mPanel.point==0){
+                if (mPanel.points.size()!=0){
                     savePicture();
                     //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
                     Intent intent = new  Intent(this, Badge.class);
