@@ -1,6 +1,8 @@
 package com.example.writing.panel;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -8,13 +10,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
+import com.example.writing.badge.Badge;
 
 public class LookWriting extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,6 +31,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         getSupportActionBar().hide(); //隱藏標題
         Button confirm=findViewById(R.id.confirm_lookwriting);
         Button delete=findViewById(R.id.delete_lookwriting);
+
         confirm.setOnClickListener(this);
         delete.setOnClickListener(this);
         int sdk = android.os.Build.VERSION.SDK_INT;
@@ -236,17 +243,67 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
 
 
     @Override
-    public void onClick(View v) {
-        if(v.getId()==R.id.confirm_lookwriting)
-        {
-            Intent intent =new Intent(getBaseContext(), CopyWriting.class);
-            startActivity(intent);
+    public void onClick(View v)  {
+        Panel writimg_panel=findViewById(R.id.rightDownA_lookwriting);
+        if (writimg_panel.points.size()!=0){
+            if(v.getId()==R.id.confirm_lookwriting)
+            {
+                Intent intent =new Intent(getBaseContext(), CopyWriting.class);
+                startActivity(intent);
+            }
+            else{
+                Panel panel=findViewById(R.id.rightDownA_lookwriting);
+                panel.resetCanvas();
+
+            }
         }
         else{
-            Panel panel=findViewById(R.id.rightDownA_lookwriting);
-            panel.resetCanvas();
 
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final Context context=this;
+            builder.setMessage("不要偷懶喔!!老師背後有長眼睛!!!");
+            builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                }
+            });
+            builder.setNegativeButton("我是治療師", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                    here_builder.setView(R.layout.alert_skip_password);
+                    here_builder.setPositiveButton("確定",null );
+                    AlertDialog here =here_builder.create();
+                    here.show();
+                    final EditText password=here.findViewById(R.id.skip_password);
+                    here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                            if (password.getText().toString().equals("850401")){
+                                Intent intent =new Intent(getBaseContext(), CopyWriting.class);
+                                startActivity(intent);
+                            }
+                            else {
+                                password.getText().clear();
+                                Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                    }
+                );
+
+
+
+
+
+
+                }
+            });
+
+            AlertDialog here =builder.create();
+            here.show();
         }
+
 
 
     }

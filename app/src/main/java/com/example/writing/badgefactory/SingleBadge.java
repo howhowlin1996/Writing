@@ -29,10 +29,10 @@ public class SingleBadge extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singlebadge);
         getSupportActionBar().hide(); //隱藏標題
-        ImageView badgeBackground=findViewById(R.id.badge_singleBadge);
-        Button returnButton=findViewById(R.id.returnButton_singleBadge);
-        Button shareButton=findViewById(R.id.shareButton_singleBadge);
-        int time=this.getIntent().getExtras().getInt("background");
+        final ImageView badgeBackground=findViewById(R.id.badge_singleBadge);
+        final Button returnButton=findViewById(R.id.returnButton_singleBadge);
+        final Button shareButton=findViewById(R.id.shareButton_singleBadge);
+        final int time=this.getIntent().getExtras().getInt("background");
 
         DataHelper dbBadge=new DataHelper(this,"0000"+".db",null,1,"21");
         Cursor file_position=dbBadge.getFileName();

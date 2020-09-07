@@ -41,14 +41,14 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memo_editpicture);
         getSupportActionBar().hide(); //隱藏標題
-        Button  complete=findViewById(R.id.complete_editpic);
-        Button return_but=findViewById(R.id.delete_editpic);
-        ImageButton blackpen=findViewById(R.id.blackPen_memo);
-        ImageButton bluepen=findViewById(R.id.bluePen_memo);
-        ImageButton redpen=findViewById(R.id.redPen_memo);
-        ImageButton greenpen=findViewById(R.id.greenPen_memo);
-        ImageButton erase=findViewById(R.id.eraser_memo);
-        EditText text =findViewById(R.id.editText_memo);
+        final Button  complete=findViewById(R.id.complete_editpic);
+        final Button return_but=findViewById(R.id.delete_editpic);
+        final ImageButton blackpen=findViewById(R.id.blackPen_memo);
+        final ImageButton bluepen=findViewById(R.id.bluePen_memo);
+        final ImageButton redpen=findViewById(R.id.redPen_memo);
+        final ImageButton greenpen=findViewById(R.id.greenPen_memo);
+        final ImageButton erase=findViewById(R.id.eraser_memo);
+        final EditText text =findViewById(R.id.editText_memo);
         complete.setOnClickListener(this);
         return_but.setOnClickListener(this);
         blackpen.setOnClickListener(this);

@@ -1,6 +1,7 @@
 package com.example.writing.panel;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -9,14 +10,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 import com.example.writing.badge.Badge;
+import com.example.writing.choosetype.ChooseTypePage;
 import com.example.writing.memo.MemoEditPic;
 import com.example.writing.puzzle.Puzzle;
 
@@ -316,11 +320,6 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         if(newTime-lastTime>1000){
 
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
-                /*if (mPanel.getBackground().getConstantState().equals(getDrawable(R.drawable.space).getConstantState())&&lastTime!=0){
-                    mPanel.resetCanvas();
-                    mPanel.setBackground(getDrawable(R.drawable.space));
-                    return;
-                }*/
                 if (mPanel.points.size()!=0){
                     savePicture();
                     //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
@@ -332,7 +331,55 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    final Context context=this;
+                    builder.setMessage("不要偷懶喔!!老師背後有長眼睛!!!");
+                    builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+                    builder.setNegativeButton("我是治療師", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                            here_builder.setView(R.layout.alert_skip_password);
+                            here_builder.setPositiveButton("確定",null );
+                            AlertDialog here =here_builder.create();
+                            here.show();
+                            final EditText password=here.findViewById(R.id.skip_password);
+                            here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                                @Override
+                                public void onClick(View v) {
+                                    if (password.getText().toString().equals("850401")){
+
+                                        //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
+                                        Intent intent = new  Intent(getBaseContext(), ChooseTypePage.class);
+                                        String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
+                                        int num;
+                                        num=getSharedPreferences("num",0).getInt(key_name,0);
+                                        getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        password.getText().clear();
+                                        Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            }
+                            );
+
+
+
+
+
+
+                        }
+                    });
+
+                    AlertDialog here =builder.create();
+                    here.show();
                 }
 
 

@@ -30,7 +30,7 @@ import java.util.Random;
 
 public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
     private float begin_x,begin_y;
-    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1,up_answer=0,down_answer=4,checkRughtAnswer_time=0;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1,up_answer=0,down_answer=4,checkRughtAnswer_time=0,puzzle_change=0;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
     private View board1_view=null,board2_view=null;
     private int[]begin_l=new int [16];
@@ -484,6 +484,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
                     }
                     if(hit_final-hit_begin>100){
+                        puzzle_change=1;
                         backToStart(v.getId());
                         if (split_code/10!=5){
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
@@ -627,7 +628,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         }
 
 
-        if (answer1_change==1&&answer2_change==1){
+        if (answer1_change==1&&answer2_change==1&&puzzle_change==1){
 
 
             if (answer1_name==up_answer&&answer2_name==down_answer){
@@ -657,9 +658,10 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
             }
             else {
-                answer1_change=0;
-                answer2_change=0;
-                    Toast.makeText(this,"不對喔,再試試看",Toast.LENGTH_SHORT).show();
+                //answer1_change=0;
+                //answer2_change=0;
+                puzzle_change=0;
+                Toast.makeText(this,"不對喔,再試試看",Toast.LENGTH_SHORT).show();
             }
         }
 
