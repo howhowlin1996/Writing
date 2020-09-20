@@ -25,6 +25,7 @@ public class EditText_memo extends AppCompatEditText {
         super(context, attrs);
     }
     public EditText_memo(Context context, AttributeSet attrs, int defStyleAttr) {
+
         super(context, attrs, defStyleAttr);
     }
 
@@ -34,9 +35,6 @@ public class EditText_memo extends AppCompatEditText {
         this.setInputType(InputType.TYPE_NULL);
         return super.onTouchEvent(event);
     }
-
-
-
 
 
 }

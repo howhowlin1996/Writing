@@ -18,10 +18,4 @@
         android:title="儲存"
         />
 
-    <item
-        android:id="@+id/menu_quit"
-        android:orderInCategory="2"
-        app:showAsAction="ifRoom|withText"
-        android:title="結束"
-        />
 </menu>

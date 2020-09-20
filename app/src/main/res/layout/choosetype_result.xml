@@ -7,18 +7,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
-    <TextView
-        android:id="@+id/textView_result"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/result_choosetyperesult"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/confirm_result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/confirm_result"

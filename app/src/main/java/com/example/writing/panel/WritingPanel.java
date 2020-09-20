@@ -351,7 +351,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                             here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
                                 @Override
                                 public void onClick(View v) {
-                                    if (password.getText().toString().equals("850401")){
+                                    if (password.getText().toString().equals("0401")){
 
                                         //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
                                         Intent intent = new  Intent(getBaseContext(), ChooseTypePage.class);

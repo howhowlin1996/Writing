@@ -26,7 +26,7 @@ public class MemoLookUp extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.memo_lookup);
         getSupportActionBar().hide(); //隱藏標題
-            ReadImage();
+        ReadImage();
         final Button keeppractice=findViewById(R.id.keepPractice_lookup);
         final Button edit=findViewById(R.id.editMemo_lookup);
 

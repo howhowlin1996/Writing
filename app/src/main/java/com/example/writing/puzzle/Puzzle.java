@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
+import com.example.writing.panel.CopyWriting;
 import com.example.writing.panel.LookWriting;
 
 import java.util.ArrayList;
@@ -646,7 +647,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
                             answerBoard1.postDelayed(this,1000);
                         }
                         else{
-                            Intent intent =new Intent(getBaseContext(), LookWriting.class);
+                            Intent intent =new Intent(getBaseContext(), CopyWriting.class);
                             startActivity(intent);
                         }
 

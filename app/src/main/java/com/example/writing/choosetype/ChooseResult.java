@@ -3,10 +3,13 @@ package com.example.writing.choosetype;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +30,7 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choosetype_result);
         getSupportActionBar().hide(); //隱藏標題
-        TextView textView=findViewById(R.id.textView_result);
+        ImageView result=findViewById(R.id.result_choosetyperesult);
         Button confirm=findViewById(R.id.confirm_result);
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
         split_code=num.getInt("split_code",0);
@@ -36,13 +39,13 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
 
 
         if (split_code==checkAnswer(key_name)){
-            textView.setText("答對了");
-            //confirm.setText("開始寫字");
+            Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.correct);
+            result.setImageBitmap(bitmap);
             Toast.makeText(this,"開始寫字",Toast.LENGTH_SHORT).show();
         }
         else {
-            textView.setText("答錯了");
-            //confirm.setText("再試一次");
+            Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.wrong);
+            result.setImageBitmap(bitmap);
             Toast.makeText(this,"再試一次",Toast.LENGTH_SHORT).show();
         }
 

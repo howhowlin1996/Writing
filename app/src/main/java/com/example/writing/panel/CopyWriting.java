@@ -285,7 +285,7 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         Panel mypanel=findViewById(R.id.panel_copy);
         if (mypanel.points.size()!=0){
             if(v.getId()==R.id.SaveButton_copy){
-                Intent intent =new Intent(this,WritingPanel.class);
+                Intent intent =new Intent(this,LookWriting.class);
                 intent.putExtra("num",0);
                 startActivity(intent);
 
@@ -315,8 +315,8 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
                     here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View v) {
-                            if (password.getText().toString().equals("850401")){
-                                Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+                            if (password.getText().toString().equals("0401")){
+                                Intent intent =new Intent(getBaseContext(), LookWriting.class);
                                 startActivity(intent);
                             }
                             else {

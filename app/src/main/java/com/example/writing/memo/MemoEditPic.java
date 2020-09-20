@@ -11,19 +11,25 @@ import android.text.InputType;
 import android.util.Log;
 import static java.lang.StrictMath.abs;
 
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Constraints;
 
 import com.example.writing.R;
 
@@ -32,7 +38,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MemoEditPic extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, View.OnFocusChangeListener, View.OnKeyListener {
+public class MemoEditPic extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener{
     private float begin_y,move_y,down_y,height;
     private long final_time=0;
     private int decision=0,top,bottom,old_top,old_bottom;
@@ -42,68 +48,88 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.memo_editpicture);
         getSupportActionBar().hide(); //隱藏標題
         final Button  complete=findViewById(R.id.complete_editpic);
-        final Button return_but=findViewById(R.id.delete_editpic);
-        final ImageButton blackpen=findViewById(R.id.blackPen_memo);
-        final ImageButton bluepen=findViewById(R.id.bluePen_memo);
-        final ImageButton redpen=findViewById(R.id.redPen_memo);
-        final ImageButton greenpen=findViewById(R.id.greenPen_memo);
-        final ImageButton erase=findViewById(R.id.eraser_memo);
+        final Button delete_but=findViewById(R.id.delete_editpic);
+        final ImageView blackpen=findViewById(R.id.blackpen_memo);
+        final ImageView bluepen=findViewById(R.id.bluepen_memo);
+        final ImageView redpen=findViewById(R.id.redpen_memo);
+        final ImageView erase=findViewById(R.id.eraser_memo);
+        final ImageView pinin =findViewById(R.id.pinin_memo);
+        final ImageView yes=findViewById(R.id.yes_memo);
+        final ImageView return_but=findViewById(R.id.return_memo);
         final EditText text =findViewById(R.id.editText_memo);
+        complete.setVisibility(View.GONE);
+        delete_but.setVisibility(View.GONE);
+        text.setVisibility(View.GONE);
         complete.setOnClickListener(this);
-        return_but.setOnClickListener(this);
+        delete_but.setOnClickListener(this);
         blackpen.setOnClickListener(this);
         bluepen.setOnClickListener(this);
         redpen.setOnClickListener(this);
-        greenpen.setOnClickListener(this);
         erase.setOnClickListener(this);
-        text.setSingleLine(false);
-        text.setHorizontallyScrolling(false);
-        text.setOnTouchListener(this);
-        int sdk = android.os.Build.VERSION.SDK_INT;
-        if (sdk< Build.VERSION_CODES.LOLLIPOP){
-            text.setBackground(getResources().getDrawable(R.drawable.block));
-        }
-        else{
-            text.setBackground(getDrawable(R.drawable.block));
-        }
-     ;
-        text.setOnFocusChangeListener(this);
-        text.setOnKeyListener(this);
+        pinin.setOnClickListener(this);
+        text.setOnClickListener(this);
+        yes.setOnClickListener(this);
+        return_but.setOnClickListener(this);
         ReadImage();
+
 
 
 
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
-        M_Panel m_panel=findViewById(R.id.m_Panel);
-        EditText text =findViewById(R.id.editText_memo);
-        if(v.getId()==R.id.complete_editpic){
-
-            m_panel.setText( text);
+        final M_Panel m_panel=findViewById(R.id.m_Panel_memo);
+        final EditText text =findViewById(R.id.editText_memo);
+        final Button  complete=findViewById(R.id.complete_editpic);
+        final Button delete_but=findViewById(R.id.delete_editpic);
+        final ImageView yes=findViewById(R.id.yes_memo);
+        final ImageView return_but=findViewById(R.id.return_memo);
+        if(v.getId()==R.id.yes_memo){
+            m_panel.setText(text);
             Save(m_panel.vBitmap);
             Intent intent =new Intent(this,MemoLookUp.class);
             startActivity(intent);
         }
-        else if(v.getId()==R.id.delete_editpic){
-            m_panel.clearPanel();
+        else if(v.getId()==R.id.return_memo){
+            onBackPressed();
         }
-        else if(v.getId()==R.id.blackPen_memo){
+        else if(v.getId()==R.id.blackpen_memo){
             m_panel.changeColor(Color.BLACK);
         }
-        else if(v.getId()==R.id.bluePen_memo){
+        else if(v.getId()==R.id.bluepen_memo){
             m_panel.changeColor(Color.BLUE);
         }
-        else if(v.getId()==R.id.redPen_memo){
+        else if(v.getId()==R.id.redpen_memo){
             m_panel.changeColor(Color.RED);
         }
-        else if(v.getId()==R.id.greenPen_memo){
-            m_panel.changeColor(Color.GREEN);
-        }
+
         else if(v.getId()==R.id.eraser_memo){
             m_panel.changeColor(Color.WHITE);
+        }
+        else if (v.getId()==R.id.pinin_memo){
+              text.setVisibility(View.VISIBLE);
+              text.requestFocus();
+              InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+              imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+              complete.setVisibility(View.VISIBLE);
+              delete_but.setVisibility(View.VISIBLE);
+              yes.setVisibility(View.GONE);
+              return_but.setVisibility(View.GONE);
+        }
+        else if (v.getId()==R.id.complete_editpic){
+            Save(m_panel.vBitmap);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(0, 0);
+            Intent intent =new Intent(this,MemoPosition.class);
+            intent.putExtra("text",text.getText());
+            startActivity(intent);
+
+        }
+        else if (v.getId()==R.id.delete_editpic){
+
         }
 
 
@@ -127,110 +153,26 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
     public void ReadImage(){
         try{
             FileInputStream fin=openFileInput("P1234.jpg");
-            M_Panel m_panel=findViewById(R.id.m_Panel);
+            M_Panel m_panel=findViewById(R.id.m_Panel_memo);
             Bitmap bitmap = BitmapFactory.decodeStream(fin);
             m_panel.setvBitmap(bitmap);
             height=m_panel.vBitmapCanvas.getHeight();
             fin.close();
-
         }
         catch(Exception e){
             e.printStackTrace();
-            M_Panel m_panel=findViewById(R.id.m_Panel);
+            M_Panel m_panel=findViewById(R.id.m_Panel_memo);
             m_panel.originSetvBitmap();
             height=m_panel.vBitmapCanvas.getHeight();
         }
-
-
 
     }
 
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        LinearLayout here_bound=findViewById(R.id.layout_memo);
-        long begin_time=System.currentTimeMillis();
-        InputMethodManager imm = ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE));
-        if (final_time==0){
-            final_time=begin_time;
-        }
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                begin_y = event.getY();
-                down_y=event.getRawY()-begin_y-25;
-                //Log.d("HEREBEGINhere",new String(" "+" "+begin_y+" "+down_y+" "+v.getHeight()));
-            case MotionEvent.ACTION_MOVE:
-                move_y = event.getRawY() -begin_y-25;
-               // Log.d("HEREBEGIN",new String(" "+" "+begin_y+" "+move_y ));
-
-        }
-         top=v.getTop()+(int)(move_y-down_y);
-         bottom=v.getBottom()+(int)(move_y-down_y);
-
-
-        if(abs(move_y-down_y)>30){
-            final_time=begin_time;
-            if(top<0){
-                top=0;
-                bottom=v.getHeight();
-
-            }
-            if (bottom>here_bound.getTop()){
-                bottom=here_bound.getTop();
-                top=bottom-v.getHeight();
-            }
-            v.layout(0,top,v.getWidth(),bottom);
-            down_y=move_y;
-            decision=0;
-        }
-        else{
-            if(begin_time-final_time>500){
-                v.requestFocus();
-                imm.showSoftInput(v,0);
-                v.layout(0,top,v.getWidth(),bottom);
-                Log.d("TOUC",new String(" "+top+" "+bottom));
-                decision=1;
-                old_top=top;
-                old_bottom=bottom;
-            }
-
-
-        }
-        //Log.d("TOUC",new String(" "+final_time+" "+begin_time));
-        return false;
-    }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus){
-            Log.d("TOUC",new String(" "+hasFocus));
-        }
-        else {
-            Log.d("TOUC",new String(" "+hasFocus));
-        }
-    }
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-            //隐藏键盘
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm.isActive()) {
-                imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-            }
-            EditText_memo here=findViewById(R.id.editText_memo);
-            if (decision==1&&here.getText().toString().length()!=0){
-                Log.d("HEREBEGINhere","hahhah");
-                v.layout(0,old_top,v.getWidth(),old_bottom);
-            }
             return true;
-        }
-
-
-
-
-
-
-        return false;
     }
+
+
 }
