@@ -41,7 +41,7 @@ class M_Panel extends View {
         super(context,attrs);
         paintcolor=Color.BLACK;
         mainpaint.setStyle(Paint.Style.STROKE);
-        mainpaint.setStrokeWidth(10);
+        mainpaint.setStrokeWidth(30);
 
         //取得手機解析度
         DisplayMetrics dm = new DisplayMetrics();
@@ -83,6 +83,7 @@ class M_Panel extends View {
         colors.clear();
         changemap=null;
         this.resetCanvas();
+        vBitmapCanvas.drawColor(Color.WHITE);
         this.invalidate();
 
 

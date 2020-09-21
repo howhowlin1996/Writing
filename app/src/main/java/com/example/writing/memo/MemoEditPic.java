@@ -88,13 +88,12 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
         final ImageView yes=findViewById(R.id.yes_memo);
         final ImageView return_but=findViewById(R.id.return_memo);
         if(v.getId()==R.id.yes_memo){
-            m_panel.setText(text);
             Save(m_panel.vBitmap);
             Intent intent =new Intent(this,MemoLookUp.class);
             startActivity(intent);
         }
         else if(v.getId()==R.id.return_memo){
-            onBackPressed();
+            m_panel.clearPanel();
         }
         else if(v.getId()==R.id.blackpen_memo){
             m_panel.changeColor(Color.BLACK);
@@ -129,6 +128,9 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
 
         }
         else if (v.getId()==R.id.delete_editpic){
+            text.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         }
 

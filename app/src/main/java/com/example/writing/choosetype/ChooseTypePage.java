@@ -118,13 +118,13 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
 
                     if (i==0){
-                        button_here.setBackground(getResources().getDrawable(R.drawable.single));
+                        button_here.setBackground(getResources().getDrawable(R.drawable.singlesum));
                     }
                     else if (i==1){
-                        button_here.setBackground(getResources().getDrawable(R.drawable.leftright2));
+                        button_here.setBackground(getResources().getDrawable(R.drawable.leftrightsum));
                     }
                     else{
-                        button_here.setBackground(getResources().getDrawable(R.drawable.middlemiddle));
+                        button_here.setBackground(getResources().getDrawable(R.drawable.rightupsum));
                     }
 
 
@@ -200,13 +200,13 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
 
                     if (i==0){
-                        button_here.setBackground(getDrawable(R.drawable.single));
+                        button_here.setBackground(getDrawable(R.drawable.singlesum));
                     }
                     else if (i==1){
-                        button_here.setBackground(getDrawable(R.drawable.leftright2));
+                        button_here.setBackground(getDrawable(R.drawable.leftrightsum));
                     }
                     else{
-                        button_here.setBackground(getDrawable(R.drawable.middlemiddle));
+                        button_here.setBackground(getDrawable(R.drawable.rightupsum));
                     }
 
 
