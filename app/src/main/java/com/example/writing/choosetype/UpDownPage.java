@@ -223,17 +223,35 @@ public class UpDownPage extends AppCompatActivity implements View.OnClickListene
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
 
         if(v.getTag().equals("type0")){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("updown2",0);
+            time++;
+            pref.edit().putInt("updown2",time).commit();
             num.edit().putInt("split_code",21).commit();
         }
         else if(v.getTag().equals("type1")){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("updown3",0);
+            time++;
+            pref.edit().putInt("updown3",time).commit();
+            num.edit().putInt("split_code",21).commit();
             num.edit().putInt("split_code",22).commit();
 
         }
         else if(v.getTag().equals("type2")){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("leftright2",0);
+            time++;
+            pref.edit().putInt("leftright2",time).commit();
+            num.edit().putInt("split_code",21).commit();
             num.edit().putInt("split_code",31).commit();
 
         }
         else if(v.getTag().equals("type3")){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("leftright3",0);
+            time++;
+            pref.edit().putInt("leftright3",time).commit();
             num.edit().putInt("split_code",32).commit();
 
         }

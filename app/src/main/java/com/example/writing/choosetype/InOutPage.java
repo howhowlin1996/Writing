@@ -259,28 +259,49 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
         String ID =v.getTag().toString();
         if(ID.equals("type0")){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("rightup",0);
+            time++;
+            pref.edit().putInt("rightup",time).commit();
 
             num.edit().putInt("split_code",51).commit();
         }
         else if(ID.equals("type1")){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("rightdown",0);
+            time++;
+            pref.edit().putInt("rightdown",time).commit();
 
             num.edit().putInt("split_code",52).commit();
         }
         else if(ID.equals("type2")){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("rightmiddle",0);
+            time++;
+            pref.edit().putInt("rightmiddle",time).commit();
 
             num.edit().putInt("split_code",53).commit();
         }
         else if(ID.equals("type3")){
-
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("middlemiddle",0);
+            time++;
+            pref.edit().putInt("middlemiddle",time).commit();
             num.edit().putInt("split_code",54).commit();
 
         }
         else if(ID.equals("type4")){
-
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("middledown",0);
+            time++;
+            pref.edit().putInt("middledown",time).commit();
             num.edit().putInt("split_code",55).commit();
         }
         else if(ID.equals("type5")){
-
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("leftdown",0);
+            time++;
+            pref.edit().putInt("leftdown",time).commit();
             num.edit().putInt("split_code",56).commit();
         }
         startActivity(intent);

@@ -259,14 +259,26 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         int idnum=v.getId();
 
         if (idnum==0){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("singlesum",0);
+            time++;
+            pref.edit().putInt("singlesum",time).commit();
             Intent intent = new  Intent(ChooseTypePage.this, SinglePage.class);             //change activity to the activity that every button matches
             startActivity(intent);
         }
         else if (idnum==1){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("leftrightsum",0);
+            time++;
+            pref.edit().putInt("leftrightsum",time).commit();
             Intent intent = new  Intent(ChooseTypePage.this, UpDownPage.class);
             startActivity(intent);
         }
         else  if (idnum==2){
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            int time =pref.getInt("inoutsum",0);
+            time++;
+            pref.edit().putInt("inoutsum",time).commit();
             Intent intent = new  Intent(ChooseTypePage.this, InOutPage.class);
             startActivity(intent);
         }

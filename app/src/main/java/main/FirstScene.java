@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -53,6 +54,7 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
         badge.setOnClickListener(this);
         setting.setOnClickListener(this);
         shark.getBackground().setAlpha(255);
+        updateRecord();
         //Toast.makeText(this," "+getSharedPreferences("num", Context.MODE_PRIVATE).getStringSet("chartypenum",defaultSet)+" "+getSharedPreferences("num",Context.MODE_PRIVATE).getInt("writing_panel2",0),Toast.LENGTH_SHORT).show();
 
 
@@ -93,6 +95,28 @@ public class FirstScene extends AppCompatActivity implements View.OnClickListene
             startActivity(intent);
 
         }
+
+    }
+
+    public void updateRecord(){
+        SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+        pref.edit().putInt("singlesum",0)
+                   .putInt("leftrightsum",0)
+                    .putInt("inoutsum",0)
+                    .putInt("single",0)
+                    .putInt("updown2",0)
+                    .putInt("updown3",0)
+                    .putInt("leftright2",0)
+                    .putInt("leftright3",0)
+                    .putInt("rightup",0)
+                    .putInt("rightdown",0)
+                    .putInt("rightmiddle",0)
+                    .putInt("middlemiddle",0)
+                    .putInt("middledown",0)
+                    .putInt("leftdown",0)
+                    .commit();
+
+
 
     }
 }
