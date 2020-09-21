@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "525814830320",
+    "firebase_url": "https://handwritingtraining-deb6e.firebaseio.com",
+    "project_id": "handwritingtraining-deb6e",
+    "storage_bucket": "handwritingtraining-deb6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525814830320:android:a10a684efb052efd369e35",
+        "android_client_info": {
+          "package_name": "com.example.writing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525814830320-5trmb7c5eaa7anes75lcu53mtgfe4tbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdyFkpA6cpOC-hJXKBHIMyzjrAEGCw30M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525814830320-5trmb7c5eaa7anes75lcu53mtgfe4tbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

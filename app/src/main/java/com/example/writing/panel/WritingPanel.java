@@ -8,12 +8,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +25,18 @@ import com.example.writing.badge.Badge;
 import com.example.writing.choosetype.ChooseTypePage;
 import com.example.writing.memo.MemoEditPic;
 import com.example.writing.puzzle.Puzzle;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -322,6 +332,11 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
                 if (mPanel.points.size()!=0){
                     savePicture();
+                    try {
+                        uploadFile();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
                     Intent intent = new  Intent(this, Badge.class);
                     String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
@@ -419,6 +434,41 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void uploadFile() throws FileNotFoundException {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="pic"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2);
+        FileInputStream stream=openFileInput(photo_name+".jpg");
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+
+// Create a reference to "mountains.jpg"
+
+        StorageReference mountainsRef = storageRef.child(photo_name+".jpg");
+
+// Create a reference to 'images/mountains.jpg'
+        StorageReference mountainImagesRef = storageRef.child("images/mountains.jpg");
+
+// While the file names are the same, the references point to different files
+        mountainsRef.getName().equals(mountainImagesRef.getName());    // true
+        mountainsRef.getPath().equals(mountainImagesRef.getPath());    // false
+
+        UploadTask uploadTask = mountainsRef.putStream(stream);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+
     }
 
 
