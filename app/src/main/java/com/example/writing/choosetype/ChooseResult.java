@@ -73,7 +73,7 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
                             "小類(右上): "+pref.getInt("rightup",0)+"\n"+
                             "小類(右下): "+pref.getInt("rightdown",0)+"\n"+
                             "小類(右中): "+pref.getInt("rightmiddle",0)+"\n"+
-                            "小類(中中): "+pref.getInt("middlemiddl",0)+"\n"+
+                            "小類(中中): "+pref.getInt("middlemiddle",0)+"\n"+
                             "小類(中下): "+pref.getInt("middledown",0)+"\n"+
                             "小類(左下): "+pref.getInt("leftdown",0)+"\n"
                     );

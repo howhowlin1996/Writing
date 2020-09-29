@@ -211,9 +211,9 @@ public class SinglePage extends AppCompatActivity implements View.OnClickListene
         SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
        if(v.getTag().equals("type0")){
            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
-           int time =pref.getInt("singlesum",0);
+           int time =pref.getInt("single",0);
            time++;
-           pref.edit().putInt("singlesum",time).commit();
+           pref.edit().putInt("single",time).commit();
            num.edit().putInt("split_code",11).commit();
            Intent intent =new Intent(getBaseContext(), ChooseResult.class);
            startActivity(intent);
