@@ -559,8 +559,10 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
                         else{
 
 
-                                if(v.getTag().hashCode()>=4&&(checkHit(middle_w,middle_h,answerBoard1))){
-                                    if((checkHit(middle_w,middle_h,answerBoard2))){
+                                if(checkHit(middle_w,middle_h,answerBoard1)){
+                                    //Log.d("ERROR_PUZZLE","HERE");
+                                    if((checkHit(middle_w,middle_h,answerBoard2))&&v.getTag().hashCode()>=4){
+                                        //Log.d("ERROR_PUZZLE","THERE");
                                         answerBoard2.setBackground(v.getBackground());
                                         if (board2_view!=v&&board2_view!=null){
                                             board2_view.setVisibility(View.VISIBLE);
@@ -572,7 +574,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
                                         backToStart(puzzlequeue.element());
                                         puzzlequeue.remove();
                                     }
-                                    else if(v.getTag().hashCode()<4){
+                                    else if(v.getTag().hashCode()<4&&!checkHit(middle_w,middle_h,answerBoard2)){
                                         answerBoard1.setBackground(v.getBackground());
                                        if (board1_view!=v&&board1_view!=null){
                                             board1_view.setVisibility(View.VISIBLE);
@@ -630,8 +632,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
 
         if (answer1_change==1&&answer2_change==1&&puzzle_change==1){
-
-
             if (answer1_name==up_answer&&answer2_name==down_answer){
 
                 answer1_change=-1;

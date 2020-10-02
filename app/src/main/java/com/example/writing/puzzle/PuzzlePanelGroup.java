@@ -87,7 +87,7 @@ public class PuzzlePanelGroup extends ViewGroup {                               
         }
         else if(piece/10==5){
             answer1.measure(answerboard_width,answerboard_width);
-            answer2.measure(answerboard_width/2,answerboard_width/2);
+            answer2.measure(answerboard_width/3*2,answerboard_width/3*2);
             answer3.measure(0,0);
         }
     }
@@ -362,8 +362,8 @@ public class PuzzlePanelGroup extends ViewGroup {                               
             int secondPanel_h=getChildAt(1).getMeasuredHeight();
 
             if(piece%10==1){
-                getChildAt(1).layout(left_pos+secondPanel_W,viewgroup_h,left_pos+2*secondPanel_W,viewgroup_h+secondPanel_h);
-                begin_l[1]=left_pos+secondPanel_W;
+                getChildAt(1).layout(left_pos+PanelWidth-secondPanel_W,viewgroup_h,left_pos+PanelWidth,viewgroup_h+secondPanel_h);
+                begin_l[1]=left_pos+PanelWidth-secondPanel_W;
                 begin_t[1]=viewgroup_h;
 
             }
