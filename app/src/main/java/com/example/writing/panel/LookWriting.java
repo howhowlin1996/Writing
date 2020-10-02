@@ -248,7 +248,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         if (writimg_panel.points.size()!=0){
             if(v.getId()==R.id.confirm_lookwriting)
             {
-                Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+                Intent intent =new Intent(getBaseContext(), PartWriting.class);
                 startActivity(intent);
             }
             else{
@@ -279,7 +279,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
                         @Override
                         public void onClick(View v) {
                             if (password.getText().toString().equals("0401")){
-                                Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+                                Intent intent =new Intent(getBaseContext(), PartWriting.class);
                                 startActivity(intent);
                             }
                             else {
