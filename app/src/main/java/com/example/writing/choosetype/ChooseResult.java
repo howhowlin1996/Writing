@@ -44,12 +44,12 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
         if (split_code==checkAnswer(key_name)){
             Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.correct);
             result.setImageBitmap(bitmap);
-            Toast.makeText(this,"開始寫字",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"開始寫字",Toast.LENGTH_SHORT).show();
         }
         else {
             Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.wrong);
             result.setImageBitmap(bitmap);
-            Toast.makeText(this,"再試一次",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"再試一次",Toast.LENGTH_SHORT).show();
         }
 
     }
