@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,8 +23,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class CopyWriting extends AppCompatActivity implements View.OnClickListener {
     Drawable reset;
+    int time=1;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -285,14 +293,17 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         Panel mypanel=findViewById(R.id.panel_copy);
         if (mypanel.points.size()!=0){
             if(v.getId()==R.id.SaveButton_copy){
+                saveCorrectPicture();
                 Intent intent =new Intent(this,LookWriting.class);
                 intent.putExtra("num",0);
                 startActivity(intent);
 
             }
             else if(v.getId()==R.id.DeleteButton_copy){
+                saveWrongPicture();
                 mypanel.resetCanvas();
                 mypanel.setBackground(reset);
+                time++;
             }
         }
         else {
@@ -343,4 +354,46 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
 
 
     }
+
+    public  void saveCorrectPicture (){
+        final Panel mPanel =findViewById(R.id.panel_copy);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="copy"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"correct"+time+".jpg";
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/copy");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public  void saveWrongPicture (){
+        final Panel mPanel =findViewById(R.id.panel_copy);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="copy"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"wrong"+time+".jpg";
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/copy");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

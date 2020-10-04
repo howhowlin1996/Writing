@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +24,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import com.example.writing.badge.Badge;
 
-public class LookWriting extends AppCompatActivity implements View.OnClickListener {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+public class LookWriting extends AppCompatActivity implements View.OnClickListener {
+     int time=1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -247,13 +254,15 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         Panel writimg_panel=findViewById(R.id.rightDownA_lookwriting);
         if (writimg_panel.points.size()!=0){
             if(v.getId()==R.id.confirm_lookwriting)
-            {
+            {   saveCorrectPicture();
                 Intent intent =new Intent(getBaseContext(), PartWriting.class);
                 startActivity(intent);
             }
             else{
+                saveWrongPicture();
                 Panel panel=findViewById(R.id.rightDownA_lookwriting);
                 panel.resetCanvas();
+                time++;
 
             }
         }
@@ -306,5 +315,46 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
 
 
 
+    }
+
+    public  void saveCorrectPicture (){
+        final Panel mPanel =findViewById(R.id.rightDownA_lookwriting);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="lookwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"correct"+time+".jpg";
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/lookwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public  void saveWrongPicture (){
+        final Panel mPanel =findViewById(R.id.rightDownA_lookwriting);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="lookwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"wrong"+time+".jpg";
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/lookwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -413,7 +413,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
             lastTime=newTime;
         }
         else{
-            Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
+            //Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
         }
 
 
@@ -443,18 +443,13 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         FileInputStream stream=openFileInput(photo_name+".jpg");
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
-
-// Create a reference to "mountains.jpg"
-
+        // Create a reference to "mountains.jpg"
         StorageReference mountainsRef = storageRef.child(photo_name+".jpg");
-
-// Create a reference to 'images/mountains.jpg'
+        // Create a reference to 'images/mountains.jpg'
         StorageReference mountainImagesRef = storageRef.child("images/mountains.jpg");
-
-// While the file names are the same, the references point to different files
+        // While the file names are the same, the references point to different files
         mountainsRef.getName().equals(mountainImagesRef.getName());    // true
         mountainsRef.getPath().equals(mountainImagesRef.getPath());    // false
-
         UploadTask uploadTask = mountainsRef.putStream(stream);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
