@@ -117,7 +117,7 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         }
         File appDir = new File(Environment.getExternalStorageDirectory(), "Writing");
         if (!appDir.exists()) {
-            Toast.makeText(this,appDir.toString(),Toast.LENGTH_SHORT);
+            //Toast.makeText(this,appDir.toString(),Toast.LENGTH_SHORT);
             appDir.mkdir();
         }
 
