@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +24,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class PartWriting extends AppCompatActivity implements View.OnClickListener {
     Drawable reset;
-    int char_type=0,child_num,time=0;
+    int char_type=0,child_num,time=0,try_time=1;
     Panel child=null;
     ImageView view_child=null;
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -328,7 +335,7 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     private void setChildBackground(){
         final ImageView first_view=findViewById(R.id.panel_partwriting);
         final   Panel second_view=child;
@@ -345,12 +352,12 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         else{
             if (time==0){
                 first_view.setBackground(getResources().getDrawable(here_r.getIdentifier(partone,"drawable",this.getPackageName())));
-                second_view.setBackground(getDrawable(R.drawable.block));
+                second_view.setBackground(getResources().getDrawable(R.drawable.block));
             }
             else{
 
                 first_view.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo,"drawable",this.getPackageName())));
-                second_view.setBackground(getDrawable(R.drawable.block));
+                second_view.setBackground(getResources().getDrawable(R.drawable.block));
 
             }
         }
@@ -374,11 +381,21 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         group.setCharacter_type(char_type,time);
         int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk< Build.VERSION_CODES.LOLLIPOP){
+            mypanel.resetCanvas();
+            mypanel.setBackground(getResources().getDrawable(R.drawable.block));
+            View writingView=group.getChildAt(4);
+            setChildBackground();
+            if(middleString.equals("0")) {
+                group.partSet(writingView.getLeft(), writingView.getTop(), writing2_space, writing2_space);
+            }
+            else {
+                group.partSet(writingView.getLeft(), writingView.getTop(), writing3_space, writing3_space);
+            }
 
         }
         else{
             mypanel.resetCanvas();
-            mypanel.setBackground(reset);
+            mypanel.setBackground(getDrawable(R.drawable.block));
             View writingView=group.getChildAt(4);
             setChildBackground();
             if(middleString.equals("0")) {
@@ -400,6 +417,7 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         Panel mypanel=child;
         if (mypanel.points.size()!=0){
             if(v.getId()==R.id.ConfirmButton_partwriting){
+                saveCorrectPicture();
                 if (time+1==child_num){
                     Intent intent =new Intent(this,WritingPanel.class);
                     intent.putExtra("num",0);
@@ -407,12 +425,15 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
                 }
                 else{
                     resetPart();
+                    try_time=11;
                 }
 
             }
             else if(v.getId()==R.id.DeleteButton_partwriting){
+                saveWrongPicture();
                 mypanel.resetCanvas();
-                mypanel.setBackground(reset);
+                mypanel.setBackground(getResources().getDrawable(R.drawable.block));
+                try_time++;
             }
         }
         else {
@@ -469,5 +490,45 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         }
 
 
+    }
+    public  void saveCorrectPicture (){
+        final Panel mPanel =child;
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="partwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"correct"+try_time+".jpg";
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/partwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public  void saveWrongPicture (){
+        final Panel mPanel =child;
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="partwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"wrong"+try_time+".jpg";
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/partwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
