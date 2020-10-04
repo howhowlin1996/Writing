@@ -2,6 +2,7 @@ package com.example.writing.puzzle;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -12,14 +13,19 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import com.example.writing.panel.CopyWriting;
 import com.example.writing.panel.LookWriting;
+import com.example.writing.panel.WritingPanel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,9 +35,9 @@ import java.util.Queue;
 import java.util.Random;
 
 
-public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
+public class Puzzle extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     private float begin_x,begin_y;
-    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1,up_answer=0,down_answer=4,checkRughtAnswer_time=0,puzzle_change=0;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1,up_answer=0,down_answer=4,checkRightAnswer_time=0,checkWrongAnswer_time=0,puzzle_change=0,try_time=1;
     private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
     private View board1_view=null,board2_view=null;
     private int[]begin_l=new int [16];
@@ -40,7 +46,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
     private int[]down_part_question=new int[4];
     private Map<Integer,Integer>idMap=new HashMap<>();
     private Queue<Integer>puzzlequeue=new LinkedList<Integer>();
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +61,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         PuzzlePanel down2=findViewById(R.id.charDown2);
         PuzzlePanel down3=findViewById(R.id.charDown3);
         PuzzlePanel down4=findViewById(R.id.charDown4);
-        AnswerBoard answerBoard=findViewById(R.id.answerBoard1);
+
+
         PuzzlePanelGroup group=findViewById(R.id.Group);
         for(int i=0;i<4;i++){
             up_part_question[i]=-1;
@@ -63,10 +70,10 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         }
         int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk< Build.VERSION_CODES.LOLLIPOP){
-            prepareViewOld();
+            prepareViewOld(0);
         }
         else{
-            prepareView();
+            prepareView(0);
         }
         DisplayMetrics dm = new DisplayMetrics();
 
@@ -86,6 +93,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         down4.setOnTouchListener(this);
 
 
+
         for (int i=0;i<15;i++){
             idMap.put(group.getChildAt(i).getId(),i);
         }
@@ -97,7 +105,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    protected  void prepareView(){
+    protected  void prepareView(int flag){
         PuzzlePanel qu1=findViewById(R.id.questionPanelLeft);
         PuzzlePanel qu2=findViewById(R.id.questionPanelRIght);
         PuzzlePanel up1=findViewById(R.id.charUp1);
@@ -131,38 +139,67 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         }
 
         Resources here_r=this.getResources();
-        if (part_num==1){
-            up2.setVisibility(View.GONE);
-            down2.setVisibility(View.GONE);
-            up3.setVisibility(View.GONE);
-            down3.setVisibility(View.GONE);
-            up4.setVisibility(View.GONE);
-            down4.setVisibility(View.GONE);
-            upRandomPart(1);
-            downRandomPart(1);
+
+        if (flag==0){
+            if (part_num==1){
+                up2.setVisibility(View.GONE);
+                down2.setVisibility(View.GONE);
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+                upRandomPart(1);
+                downRandomPart(1);
+
+            }
+            else if(part_num==2){
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+                upRandomPart(2);
+                downRandomPart(2);
+
+
+            }
+            else if (part_num==3){
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+                upRandomPart(3);
+                downRandomPart(3);
+
+            }
+            else{
+
+                upRandomPart(4);
+                downRandomPart(4);
+            }
+
+
 
         }
-        else if(part_num==2){
-            up3.setVisibility(View.GONE);
-            down3.setVisibility(View.GONE);
-            up4.setVisibility(View.GONE);
-            down4.setVisibility(View.GONE);
-            upRandomPart(2);
-            downRandomPart(2);
 
+        else {
+            if (part_num==1){
+                up2.setVisibility(View.GONE);
+                down2.setVisibility(View.GONE);
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+            }
+            else if(part_num==2){
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+            }
+            else if (part_num==3){
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
 
-        }
-        else if (part_num==3){
-            up4.setVisibility(View.GONE);
-            down4.setVisibility(View.GONE);
-            upRandomPart(3);
-            downRandomPart(3);
+            }
 
-        }
-        else{
-
-            upRandomPart(4);
-            downRandomPart(4);
         }
 
 
@@ -174,6 +211,9 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         down2.setTag(5);
         down3.setTag(6);
         down4.setTag(7);
+
+
+
         if(middleString.equals("0")){
             group.setType(0,answer_position);
             group.invalidate();
@@ -262,7 +302,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
         }
     }
-    protected  void prepareViewOld(){
+    protected  void prepareViewOld(int flag){
         PuzzlePanel qu1=findViewById(R.id.questionPanelLeft);
         PuzzlePanel qu2=findViewById(R.id.questionPanelRIght);
         PuzzlePanel up1=findViewById(R.id.charUp1);
@@ -296,38 +336,66 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         }
 
         Resources here_r=this.getResources();
-        if (part_num==1){
-            up2.setVisibility(View.GONE);
-            down2.setVisibility(View.GONE);
-            up3.setVisibility(View.GONE);
-            down3.setVisibility(View.GONE);
-            up4.setVisibility(View.GONE);
-            down4.setVisibility(View.GONE);
-            upRandomPart(1);
-            downRandomPart(1);
+        if (flag==0){
+            if (part_num==1){
+                up2.setVisibility(View.GONE);
+                down2.setVisibility(View.GONE);
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+                upRandomPart(1);
+                downRandomPart(1);
+
+            }
+            else if(part_num==2){
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+                upRandomPart(2);
+                downRandomPart(2);
+
+
+            }
+            else if (part_num==3){
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+                upRandomPart(3);
+                downRandomPart(3);
+
+            }
+            else{
+
+                upRandomPart(4);
+                downRandomPart(4);
+            }
+
+
 
         }
-        else if(part_num==2){
-            up3.setVisibility(View.GONE);
-            down3.setVisibility(View.GONE);
-            up4.setVisibility(View.GONE);
-            down4.setVisibility(View.GONE);
-            upRandomPart(2);
-            downRandomPart(2);
 
+        else {
+            if (part_num==1){
+                up2.setVisibility(View.GONE);
+                down2.setVisibility(View.GONE);
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+            }
+            else if(part_num==2){
+                up3.setVisibility(View.GONE);
+                down3.setVisibility(View.GONE);
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
+            }
+            else if (part_num==3){
+                up4.setVisibility(View.GONE);
+                down4.setVisibility(View.GONE);
 
-        }
-        else if (part_num==3){
-            up4.setVisibility(View.GONE);
-            down4.setVisibility(View.GONE);
-            upRandomPart(3);
-            downRandomPart(3);
+            }
 
-        }
-        else{
-
-            upRandomPart(4);
-            downRandomPart(4);
         }
 
 
@@ -438,7 +506,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         final AnswerBoard answerBoard1=findViewById(R.id.answerBoard1);
@@ -485,6 +553,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
                     }
                     if(hit_final-hit_begin>100){
+
                         puzzle_change=1;
                         backToStart(v.getId());
                         if (split_code/10!=5){
@@ -557,10 +626,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
                         }
                         else{
-
-
                                 if(checkHit(middle_w,middle_h,answerBoard1)){
-                                    //Log.d("ERROR_PUZZLE","HERE");
                                     if((checkHit(middle_w,middle_h,answerBoard2))&&v.getTag().hashCode()>=4){
                                         //Log.d("ERROR_PUZZLE","THERE");
                                         answerBoard2.setBackground(v.getBackground());
@@ -632,23 +698,28 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
 
         if (answer1_change==1&&answer2_change==1&&puzzle_change==1){
+
+
             if (answer1_name==up_answer&&answer2_name==down_answer){
 
+
+
+                //Toast.makeText(this,"答對了",Toast.LENGTH_SHORT).show();
                 answer1_change=-1;
                 answer2_change=-1;
-                Toast.makeText(this,"答對了",Toast.LENGTH_SHORT).show();
+                answer1_name=-1;
+                answer2_name=-1;
 
                 Runnable check =new Runnable(){
 
                     @Override
                     public void run() {
-                        if (checkRughtAnswer_time==0){
-                            checkRughtAnswer_time++;
-                            answerBoard1.postDelayed(this,1000);
+                        if (checkRightAnswer_time==0){
+                            checkRightAnswer_time++;
+                            answerBoard1.postDelayed(this,1500);
                         }
                         else{
-                            Intent intent =new Intent(getBaseContext(), CopyWriting.class);
-                            startActivity(intent);
+                            changeContext(0);
                         }
 
                     }
@@ -659,11 +730,36 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
             }
             else {
-                //answer1_change=0;
-                //answer2_change=0;
+
+
+
                 puzzle_change=0;
-                Toast.makeText(this,"不對喔,再試試看",Toast.LENGTH_SHORT).show();
+                answer1_change=-1;
+                answer2_change=-1;
+                answer1_name=-1;
+                answer2_name=-1;
+                //Toast.makeText(this,"不對喔,再試試看",Toast.LENGTH_SHORT).show();
+                Runnable check =new Runnable(){
+
+                    @Override
+                    public void run() {
+                        if (checkWrongAnswer_time==0){
+                            checkWrongAnswer_time++;
+                            answerBoard1.postDelayed(this,1500);
+                        }
+                        else{
+                             checkWrongAnswer_time=0;
+                            changeContext(1);
+                        }
+
+                    }
+                };
+                this.runOnUiThread(check);
+
+
+
             }
+
         }
 
 
@@ -671,16 +767,46 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
         return true;
     }
 
-    protected  Boolean checkHit(int middle_w,int middle_h,View board){
 
+
+    protected  Boolean checkHit(int middle_w,int middle_h,View board){
         if (middle_w>board.getLeft()&&middle_w<board.getRight()&&middle_h>board.getTop()&&middle_h<board.getBottom()){
             return true;
         }
-
-
-
-
         return  false;
+    }
+
+
+    public   void changeContext( int flag){
+        final AnswerBoard answerBoard1=findViewById(R.id.answerBoard1);
+        AnswerBoard answerBoard2=findViewById(R.id.answerBoard2);
+        AnswerBoard answerBoard3=findViewById(R.id.answerBoard3);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        final String photo_name="puzzle"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2);
+
+        if (flag==0){
+            PuzzleCombine puzzleCombine =new PuzzleCombine(split_code,answerBoard1.getBackground(),null,answerBoard2.getBackground());
+            puzzleCombine.photo_name=photo_name+"correct"+try_time;
+            puzzleCombine.Combine();
+            setContentView(R.layout.choosetype_result);
+            ImageView result=findViewById(R.id.result_choosetyperesult);
+            result.setBackground(getResources().getDrawable(R.drawable.correct));
+            Button confirm_button=findViewById(R.id.confirm_result);
+            confirm_button.setOnClickListener(this);
+
+        }
+        else{
+            PuzzleCombine puzzleCombine =new PuzzleCombine(split_code,answerBoard1.getBackground(),null,answerBoard2.getBackground());
+            puzzleCombine.photo_name=photo_name+"wrong"+try_time;
+            puzzleCombine.Combine();
+            setContentView(R.layout.choosetype_result);
+            ImageView result=findViewById(R.id.result_choosetyperesult);
+            result.setBackground(getResources().getDrawable(R.drawable.wrong));
+            Button confirm_button=findViewById(R.id.confirm_result);
+            confirm_button.setOnClickListener(this);
+
+        }
+        try_time++;
 
 
 
@@ -767,6 +893,78 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener  {
 
 
         }
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (checkRightAnswer_time>0){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final Context context=this;
+            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+            builder.setMessage("等等其他人喔"
+            );
+            builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                    here_builder.setView(R.layout.alert_skip_password);
+                    here_builder.setPositiveButton("確定",null );
+                    AlertDialog here =here_builder.create();
+                    here.show();
+                    final EditText password=here.findViewById(R.id.skip_password);
+                    here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                                                                                           @Override
+                                                                                           public void onClick(View v) {
+                                                                                               if (password.getText().toString().equals("0401")){
+                                                                                                   Intent intent =new Intent(getBaseContext(), CopyWriting.class);
+                                                                                                   startActivity(intent);
+                                                                                               }
+                                                                                               else {
+                                                                                                   password.getText().clear();
+                                                                                                   Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                                                                                               } }
+
+                                                                                       }
+                    );
+                }
+            });
+            AlertDialog here =builder.create();
+            here.show();
+
+
+        }
+        else{
+            setContentView(R.layout.puzzle);
+            PuzzlePanel up1=findViewById(R.id.charUp1);
+            PuzzlePanel up2=findViewById(R.id.charUp2);
+            PuzzlePanel up3=findViewById(R.id.charUp3);
+            PuzzlePanel up4=findViewById(R.id.charUp4);
+            PuzzlePanel down1=findViewById(R.id.charDown1);
+            PuzzlePanel down2=findViewById(R.id.charDown2);
+            PuzzlePanel down3=findViewById(R.id.charDown3);
+            PuzzlePanel down4=findViewById(R.id.charDown4);
+            int sdk = android.os.Build.VERSION.SDK_INT;
+            if (sdk< Build.VERSION_CODES.LOLLIPOP){
+                prepareViewOld(1);
+            }
+            else{
+                prepareView(1);
+            }
+            up1.setOnTouchListener(this);
+            up2.setOnTouchListener(this);
+            up3.setOnTouchListener(this);
+            up4.setOnTouchListener(this);
+            down1.setOnTouchListener(this);
+            down2.setOnTouchListener(this);
+            down3.setOnTouchListener(this);
+            down4.setOnTouchListener(this);
+            answer1_change=-1;
+            answer2_change=-1;
+            answer1_name=-1;
+            answer2_name=-1;
+        }
+
 
     }
 }
