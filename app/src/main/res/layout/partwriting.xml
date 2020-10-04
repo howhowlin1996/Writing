@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/partwriting_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <com.example.writing.panel.PartWritngGroup
+        android:id="@+id/group_partwriting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/DeleteButton_partwriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/changeword" />
+
+        <Button
+            android:id="@+id/ConfirmButton_partwriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yesword"
+             />
+
+        <ImageView
+            android:id="@+id/characterQleft_partwriting"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <ImageView
+            android:id="@+id/phoneticQleft_partwriting"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp" />
+
+        <ImageView
+            android:id="@+id/panel_partwriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/phoneticQright_partwriting"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp" />
+
+        <ImageView
+            android:id="@+id/characterQmiddle_partwriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/block" />
+
+        <ImageView
+            android:id="@+id/phoneticQmiddle_partwriting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/block" />
+
+    </com.example.writing.panel.PartWritngGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>
