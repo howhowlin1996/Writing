@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PartWriting extends AppCompatActivity implements View.OnClickListener {
     Drawable reset;
@@ -419,13 +421,86 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
             if(v.getId()==R.id.ConfirmButton_partwriting){
                 saveCorrectPicture();
                 if (time+1==child_num){
-                    Intent intent =new Intent(this,WritingPanel.class);
+                    /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    final Context context=this;
+                    builder.setMessage("等等其他人喔"
+                    );
+                    builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                            here_builder.setView(R.layout.alert_skip_password);
+                            here_builder.setPositiveButton("確定",null );
+                            AlertDialog here =here_builder.create();
+                            here.show();
+                            final EditText password=here.findViewById(R.id.skip_password);
+                            here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                                                                                                   @Override
+                                                                                                   public void onClick(View v) {
+                                                                                                       if (password.getText().toString().equals("0401")){
+                                                                                                           Intent intent =new Intent(getBaseContext(),WritingPanel.class);
+                                                                                                           intent.putExtra("num",0);
+                                                                                                           startActivity(intent);
+                                                                                                       }
+                                                                                                       else {
+                                                                                                           password.getText().clear();
+                                                                                                           Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                                                                                                       } }
+
+                                                                                               }
+                            );
+                        }
+                    });
+                    AlertDialog here =builder.create();
+                    here.show();*/
+                    Intent intent =new Intent(getBaseContext(),WritingPanel.class);
                     intent.putExtra("num",0);
                     startActivity(intent);
+
                 }
                 else{
+
+
+
+                    /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    final Context context=this;
+                    builder.setMessage("等等其他人喔"
+                    );
+                    builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                            here_builder.setView(R.layout.alert_skip_password);
+                            here_builder.setPositiveButton("確定",null );
+                            final AlertDialog here =here_builder.create();
+                            here.show();
+                            final EditText password=here.findViewById(R.id.skip_password);
+                            here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                                                                                                   @Override
+                                                                                                   public void onClick(View v) {
+                                                                                                       if (password.getText().toString().equals("0401")){
+                                                                                                           resetPart();
+                                                                                                           try_time=11;
+                                                                                                           here.hide();
+                                                                                                       }
+                                                                                                       else {
+                                                                                                           password.getText().clear();
+                                                                                                           Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                                                                                                       }
+
+                                                                                                   }
+
+                                                                                               }
+                            );
+                        }
+                    });
+                    AlertDialog here =builder.create();
+                    here.show();*/
                     resetPart();
                     try_time=11;
+
+
+
+
+
                 }
 
             }
@@ -495,7 +570,17 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         final Panel mPanel =child;
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         String photo_name="partwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"correct"+try_time+".jpg";
-        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/partwriting");
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/partwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/partwriting"+"/correct");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/partwriting"+"/correct/"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2));
         if (!appDir.exists()) {
             appDir.mkdir();
         }
@@ -515,7 +600,17 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         final Panel mPanel =child;
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         String photo_name="partwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"wrong"+try_time+".jpg";
-        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/partwriting");
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/partwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/partwriting"+"/wrong");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/partwriting"+"/wrong/"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2));
         if (!appDir.exists()) {
             appDir.mkdir();
         }

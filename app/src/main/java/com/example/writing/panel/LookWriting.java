@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LookWriting extends AppCompatActivity implements View.OnClickListener {
      int time=1;
@@ -254,9 +256,42 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         Panel writimg_panel=findViewById(R.id.rightDownA_lookwriting);
         if (writimg_panel.points.size()!=0){
             if(v.getId()==R.id.confirm_lookwriting)
-            {   saveCorrectPicture();
+            {   /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                final Context context=this;
+                builder.setMessage("等等其他人喔"
+                );
+                builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                        here_builder.setView(R.layout.alert_skip_password);
+                        here_builder.setPositiveButton("確定",null );
+                        AlertDialog here =here_builder.create();
+                        here.show();
+                        final EditText password=here.findViewById(R.id.skip_password);
+                        here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                                                                                               @Override
+                                                                                               public void onClick(View v) {
+                                                                                                   if (password.getText().toString().equals("0401")){
+                                                                                                       saveCorrectPicture();
+                                                                                                       Intent intent =new Intent(getBaseContext(), PartWriting.class);
+                                                                                                       startActivity(intent);
+                                                                                                   }
+                                                                                                   else {
+                                                                                                       password.getText().clear();
+                                                                                                       Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                                                                                                   } }
+
+                                                                                           }
+                        );
+                    }
+                });
+                AlertDialog here =builder.create();
+                here.show();*/
+
+                saveCorrectPicture();
                 Intent intent =new Intent(getBaseContext(), PartWriting.class);
                 startActivity(intent);
+
             }
             else{
                 saveWrongPicture();
@@ -268,7 +303,7 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         }
         else{
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             final Context context=this;
             builder.setMessage("不要偷懶喔!!老師背後有長眼睛!!!");
             builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
@@ -310,7 +345,9 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
             });
 
             AlertDialog here =builder.create();
-            here.show();
+            here.show();*/
+            Intent intent =new Intent(getBaseContext(), PartWriting.class);
+            startActivity(intent);
         }
 
 
@@ -321,7 +358,17 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         final Panel mPanel =findViewById(R.id.rightDownA_lookwriting);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         String photo_name="lookwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"correct"+time+".jpg";
-        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/lookwriting");
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/lookwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/lookwriting"+"/correct");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/lookwriting"+"/correct/"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2));
         if (!appDir.exists()) {
             appDir.mkdir();
         }
@@ -341,7 +388,17 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         final Panel mPanel =findViewById(R.id.rightDownA_lookwriting);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         String photo_name="lookwriting"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"wrong"+time+".jpg";
-        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/lookwriting");
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/lookwriting");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/lookwriting"+"/wrong");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/lookwriting"+"/wrong/"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2));
         if (!appDir.exists()) {
             appDir.mkdir();
         }

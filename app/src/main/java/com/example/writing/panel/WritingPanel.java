@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -316,9 +319,44 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         final Panel mPanel =findViewById(R.id.panel);
         long newTime = System.currentTimeMillis();                              //set time limit to avoid users hitting the button too many times in a short period
         if(v.getId()==R.id.help_writing){
-            Intent intent = new  Intent(this, Puzzle.class);
+            /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final Context context=this;
+            builder.setMessage("等等其他人喔"
+            );
+            builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                    here_builder.setView(R.layout.alert_skip_password);
+                    here_builder.setPositiveButton("確定",null );
+                    AlertDialog here =here_builder.create();
+                    here.show();
+                    final EditText password=here.findViewById(R.id.skip_password);
+                    here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                                                                                           @Override
+                                                                                           public void onClick(View v) {
+                                                                                               if (password.getText().toString().equals("0401")){
+                                                                                                   Intent intent = new  Intent(getBaseContext(), Puzzle.class);
+                                                                                                   startActivity(intent);
+                                                                                               }
+                                                                                               else {
+                                                                                                   password.getText().clear();
+                                                                                                   Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                                                                                               } }
+
+                                                                                       }
+                    );
+                }
+            });
+            AlertDialog here =builder.create();
+            here.show();*/
+            Intent intent = new  Intent(getBaseContext(), Puzzle.class);
             startActivity(intent);
-            this.finish();
+
+
+
+            
+
+
 
         }
         if(v.getId()==R.id.memo_writing){
@@ -331,19 +369,61 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
                 if (mPanel.points.size()!=0){
+                    /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    final Context context=this;
+                    builder.setMessage("等等其他人喔"
+                    );
+                    builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
+                            here_builder.setView(R.layout.alert_skip_password);
+                            here_builder.setPositiveButton("確定",null );
+                            AlertDialog here =here_builder.create();
+                            here.show();
+                            final EditText password=here.findViewById(R.id.skip_password);
+                            here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+                                                                                                   @Override
+                                                                                                   public void onClick(View v) {
+                                                                                                       if (password.getText().toString().equals("0401")){
+                                                                                                           savePicture();
+                                                                                                           try {
+                                                                                                               uploadFile();
+                                                                                                           } catch (FileNotFoundException e) {
+                                                                                                               e.printStackTrace();
+                                                                                                           }
+                                                                                                           //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
+                                                                                                           Intent intent = new  Intent(getBaseContext(), Badge.class);
+                                                                                                           String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
+                                                                                                           int num;
+                                                                                                           num=getSharedPreferences("num",0).getInt(key_name,0);
+                                                                                                           getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
+                                                                                                           startActivity(intent);
+                                                                                                       }
+                                                                                                       else {
+                                                                                                           password.getText().clear();
+                                                                                                           Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
+                                                                                                       } }
+
+                                                                                               }
+                            );
+                        }
+                    });
+                    AlertDialog here =builder.create();
+                    here.show();*/
+                    saveCorrectPicture();
                     savePicture();
                     try {
                         uploadFile();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-                    //Toast.makeText(WritingPanel.this,"儲存完畢",Toast.LENGTH_LONG).show();
-                    Intent intent = new  Intent(this, Badge.class);
+                    Intent intent = new  Intent(getBaseContext(), Badge.class);
                     String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
                     int num;
                     num=getSharedPreferences("num",0).getInt(key_name,0);
                     getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
                     startActivity(intent);
+
                 }
                 else{
                     //Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
@@ -400,6 +480,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
             }
             else if (v.getId()==R.id.DeleteButton){
+                saveWrongPicture();
                 mPanel.resetCanvas();
                 int sdk = android.os.Build.VERSION.SDK_INT;
                 if (sdk< Build.VERSION_CODES.LOLLIPOP){
@@ -424,8 +505,10 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         final Panel mPanel =findViewById(R.id.panel);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         String photo_name="pic"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2);
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
         try {
-            FileOutputStream fos = openFileOutput( photo_name+".jpg",Context.MODE_PRIVATE);
+            FileOutputStream fos = openFileOutput( nowDate+user_name+photo_name+".jpg",Context.MODE_PRIVATE);
             mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
@@ -434,17 +517,89 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    public void  saveCorrectPicture(){
+        final Panel mPanel =findViewById(R.id.panel);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="writing"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"correct"+".jpg";
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/writing");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/writing"+"/correct");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/writing"+"/correct/"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2));
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    public void  saveWrongPicture(){
+        final Panel mPanel =findViewById(R.id.panel);
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String photo_name="writing"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2)+"correct"+".jpg";
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/writing");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/writing"+"/wrong");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/writing"+"/wrong/"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2));
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        File file = new File(appDir, photo_name);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            mPanel.vBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
     public void uploadFile() throws FileNotFoundException {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String user_name=storeinform.getString("userkey",null);
         String photo_name="pic"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2);
-        FileInputStream stream=openFileInput(photo_name+".jpg");
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        FileInputStream stream=openFileInput(nowDate+user_name+photo_name+".jpg");
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
         // Create a reference to "mountains.jpg"
-        StorageReference mountainsRef = storageRef.child(photo_name+".jpg");
+        StorageReference mountainsRef = storageRef.child(nowDate+user_name+photo_name+".jpg");
         // Create a reference to 'images/mountains.jpg'
         StorageReference mountainImagesRef = storageRef.child("images/mountains.jpg");
         // While the file names are the same, the references point to different files
