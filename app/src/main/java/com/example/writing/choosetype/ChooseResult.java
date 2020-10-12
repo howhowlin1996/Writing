@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import com.example.writing.panel.WritingPanel;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -59,7 +63,7 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
         if (split_code==checkAnswer(key_name)){
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             final Context context=this;
             SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
             builder.setMessage("大類(單個部件): "+pref.getInt("singlesum",0)+"\n"+
@@ -104,7 +108,12 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
                 }
             });
             AlertDialog here =builder.create();
-            here.show();
+            here.show();*/
+            writeFile();
+            updateRecord();
+            Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+            intent.putExtra("num",split_code);
+            startActivity(intent);
 
         }
         else {
@@ -182,4 +191,36 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
         return chartype;
 
     }
+
+    public void writeFile(){
+        SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
+        String user_name=storeinform.getString("userkey",null);
+        String file_name=user_name+"chooseresult"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate+"/chooseresult");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
+        String nowtime = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        String data[]={nowtime,"\n","大類(單個部件): ",Integer.toString(pref.getInt("singlesum",0)),"\n",
+                "大類(上下): ",Integer.toString(pref.getInt("leftrightsum",0)),"\n",
+                "大類(裡外): ",Integer.toString(pref.getInt("inoutsum",0)),"\n",
+                "小類(單個部件): ",Integer.toString(pref.getInt("single",0)),"\n",
+                "小類(上下2): ",Integer.toString(pref.getInt("updown2",0)),"\n",
+                "小類(上下3): ",Integer.toString(pref.getInt("updown3",0)),"\n",
+                "小類(左右2): ",Integer.toString(pref.getInt("leftright2",0)),"\n",
+                "小類(左右3): ",Integer.toString(pref.getInt("leftright3",0)),"\n",
+                "小類(右上): ",Integer.toString(pref.getInt("rightup",0)),"\n",
+                "小類(右下): ",Integer.toString(pref.getInt("rightdown",0)),"\n",
+                "小類(右中): ",Integer.toString(pref.getInt("rightmiddle",0)),"\n",
+                "小類(中中): ",Integer.toString(pref.getInt("middlemiddle",0)),"\n",
+                "小類(中下): ",Integer.toString(pref.getInt("middledown",0)),"\n",
+                "小類(左下): ",Integer.toString(pref.getInt("leftdown",0)),"\n"};
+                WritingCsvFile here=new WritingCsvFile(data,file_name,appDir.toString());
+                here.run();
+
+
+
+}
 }

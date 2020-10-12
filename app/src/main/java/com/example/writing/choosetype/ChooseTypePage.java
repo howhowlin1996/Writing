@@ -62,10 +62,10 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
                 position=getSharedPreferences("num",0).getInt(key_name+new String("_position"),0);
 
                 if (sdk< Build.VERSION_CODES.LOLLIPOP){
-                    setQuestionOld(key_name,(position-1)*5+5-num);
+                    setQuestionOld(key_name,(position-1)*4+4-num);
                 }
                 else{
-                    setQuestion(key_name,(position-1)*5+5-num);
+                    setQuestion(key_name,(position-1)*4+4-num);
                 }
 
             }
@@ -79,10 +79,10 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         }
         else{
             if (sdk< Build.VERSION_CODES.LOLLIPOP){
-                setQuestionOld(key_name,(position-1)*5+5-num);
+                setQuestionOld(key_name,(position-1)*4+4-num);
             }
             else{
-                setQuestion(key_name,(position-1)*5+5-num);
+                setQuestion(key_name,(position-1)*4+4-num);
             }
 
         }
@@ -349,6 +349,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
         else{
             question_num=new String("000"+num);
         }
+        Log.d("ERROR_HERE",question_num);
 
         String identift_code=chartype+question_num+qadecision;
 
@@ -447,6 +448,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
         }
         else{
+            Log.d("ERROR_HERE","cha" +chartype+question_num+qadecision+"0");
             chooseTypeGroup.getNum(3,2,2);
             chooseTypeGroup.invalidate();
             if(here_r.getIdentifier("cha" +chartype+question_num+qadecision+"0","drawable",this.getPackageName())!=0){
@@ -465,7 +467,7 @@ public class ChooseTypePage extends AppCompatActivity implements View.OnClickLis
 
             }
             else if(here_r.getIdentifier(new String("cha" +chartype+question_num+qadecision+"1"),"drawable",this.getPackageName())!=0){
-
+                Log.d("ERROR_HERE","cha" +chartype+question_num+qadecision+"1");
                 charquestionmiddle.setVisibility(View.GONE);
                 phoquestionmiddle.setVisibility(View.GONE);
                 //charquestionright.setBackground(R.drawable.white);
