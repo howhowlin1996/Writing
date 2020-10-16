@@ -18,6 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.writing.R;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class InOutPage extends AppCompatActivity implements View.OnClickListener {
     Context context;
     int width_here,height_here;
@@ -71,8 +74,9 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
                     chooseTypeGroup.addView(button_here);
 
                 }
-
+                ArrayList<Integer> order=randomChoose();
                 for (int i=0;i<6;i++){
+                    int button_order=order.get(i);
                     View button_here=chooseTypeGroup.getChildAt(i);
                     ChooseTypeGroup.LayoutParams params=new ChooseTypeGroup.LayoutParams(button_here.getLayoutParams());
                     if (width_here*6/3>height_here){
@@ -84,26 +88,26 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
                         params.width=width_here/3;
                     }
 
-                    String name="type"+new String(""+i);
+                    String name="type"+new String(""+button_order);
                     button_here.setTag(name);
-                    button_here.setId(i);
+                    button_here.setId(button_order);
                     button_here.setLayoutParams(params);
 
 
-                    if (i==0){
+                    if (button_order==0){
                         button_here.setBackground(getDrawable(R.drawable.rightup));
                     }
-                    else if (i==1){
+                    else if (button_order==1){
                         button_here.setBackground(getDrawable(R.drawable.rightdown));
 
                     }
-                    else if(i==2){
+                    else if(button_order==2){
                         button_here.setBackground(getDrawable(R.drawable.rightmiddle));
                     }
-                    else if(i==3){
+                    else if(button_order==3){
                         button_here.setBackground(getDrawable(R.drawable.middlemiddle));
                     }
-                    else if(i==4){
+                    else if(button_order==4){
                         button_here.setBackground(getDrawable(R.drawable.middledown));
                     }
                     else{
@@ -168,8 +172,9 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
                     chooseTypeGroup.addView(button_here);
 
                 }
-
+                ArrayList<Integer> order=randomChoose();
                 for (int i=0;i<6;i++){
+                    int button_order=order.get(i);
                     View button_here=chooseTypeGroup.getChildAt(i);
                     ChooseTypeGroup.LayoutParams params=new ChooseTypeGroup.LayoutParams(button_here.getLayoutParams());
                     if (width_here*6/3>height_here){
@@ -181,26 +186,26 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
                         params.width=width_here/3;
                     }
 
-                    String name="type"+new String(""+i);
+                    String name="type"+new String(""+button_order);
                     button_here.setTag(name);
-                    button_here.setId(i);
+                    button_here.setId(button_order);
                     button_here.setLayoutParams(params);
 
 
-                    if (i==0){
+                    if (button_order==0){
                         button_here.setBackground(getResources().getDrawable(R.drawable.rightup));
                     }
-                    else if (i==1){
+                    else if (button_order==1){
                         button_here.setBackground(getResources().getDrawable(R.drawable.rightdown));
 
                     }
-                    else if(i==2){
+                    else if(button_order==2){
                         button_here.setBackground(getResources().getDrawable(R.drawable.rightmiddle));
                     }
-                    else if(i==3){
+                    else if(button_order==3){
                         button_here.setBackground(getResources().getDrawable(R.drawable.middlemiddle));
                     }
-                    else if(i==4){
+                    else if(button_order==4){
                         button_here.setBackground(getResources().getDrawable(R.drawable.middledown));
                     }
                     else{
@@ -545,5 +550,23 @@ public class InOutPage extends AppCompatActivity implements View.OnClickListener
 
 
 
+    }
+
+
+    private ArrayList<Integer> randomChoose(){
+        ArrayList<Integer> chooseOrder =new ArrayList<>();
+        ArrayList<Integer>numlist=new ArrayList<Integer>();
+        for (int i=0;i<6;i++){
+            numlist.add(i);
+        }
+        int bound=6;
+        Random rd=new Random();
+        for (int i=0;i<6;i++){
+            int here= rd.nextInt(bound);
+            chooseOrder.add(numlist.get(here));
+            numlist.remove(here);
+            bound--;
+        }
+        return  chooseOrder;
     }
 }
