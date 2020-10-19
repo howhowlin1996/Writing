@@ -33,6 +33,8 @@ import java.util.Date;
 public class CopyWriting extends AppCompatActivity implements View.OnClickListener {
     Drawable reset;
     int time=1;
+    int confirmClick_time=0;
+    long begin_time=0;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -329,10 +331,14 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
                 });
                 AlertDialog here =builder.create();
                 here.show();*/
-                saveCorrectPicture();
-                Intent intent =new Intent(getBaseContext(),LookWriting.class);
-                intent.putExtra("num",0);
-                startActivity(intent);
+               int flag=checkPassword();
+               if (flag==1){
+                   saveCorrectPicture();
+                   Intent intent =new Intent(getBaseContext(),LookWriting.class);
+                   intent.putExtra("num",0);
+                   startActivity(intent);
+               }
+
 
 
 
@@ -456,6 +462,35 @@ public class CopyWriting extends AppCompatActivity implements View.OnClickListen
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int checkPassword(){
+
+        if (confirmClick_time==0){
+            begin_time=System.currentTimeMillis();
+        }
+
+        if (System.currentTimeMillis()-begin_time>1000){
+
+            if (confirmClick_time==2){
+                confirmClick_time=0;
+                return 1;
+            }
+            else{
+                confirmClick_time=0;
+                Toast.makeText(this,"不要亂按",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            confirmClick_time++;
+            Toast.makeText(this,"按了"+confirmClick_time+"次",Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+
+
+
+        return 0;
     }
 
 }

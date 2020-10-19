@@ -33,6 +33,8 @@ import java.util.Date;
 
 public class LookWriting extends AppCompatActivity implements View.OnClickListener {
      int time=1;
+     int confirmClick_time;
+     long begin_time=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -287,10 +289,15 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
                 });
                 AlertDialog here =builder.create();
                 here.show();*/
+             int flag=checkPassword();
+             if (flag==1){
+                 saveCorrectPicture();
+                 Intent intent =new Intent(getBaseContext(), PartWriting.class);
+                 startActivity(intent);
 
-                saveCorrectPicture();
-                Intent intent =new Intent(getBaseContext(), PartWriting.class);
-                startActivity(intent);
+             }
+
+
 
             }
             else{
@@ -413,5 +420,34 @@ public class LookWriting extends AppCompatActivity implements View.OnClickListen
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int checkPassword(){
+
+        if (confirmClick_time==0){
+            begin_time=System.currentTimeMillis();
+        }
+
+        if (System.currentTimeMillis()-begin_time>1000){
+
+            if (confirmClick_time==2){
+                confirmClick_time=0;
+                return 1;
+            }
+            else{
+                confirmClick_time=0;
+                Toast.makeText(this,"不要亂按",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            confirmClick_time++;
+            Toast.makeText(this,"按了"+confirmClick_time+"次",Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+
+
+
+        return 0;
     }
 }

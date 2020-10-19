@@ -33,7 +33,8 @@ import java.util.Date;
 
 public class PartWriting extends AppCompatActivity implements View.OnClickListener {
     Drawable reset;
-    int char_type=0,child_num,time=0,try_time=1;
+    int char_type=0,child_num,time=0,try_time=1,confirmClick_time=0;
+    long begin_time=0;
     Panel child=null;
     ImageView view_child=null;
 
@@ -353,12 +354,12 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         }
         else{
             if (time==0){
-                first_view.setBackground(getResources().getDrawable(here_r.getIdentifier(partone,"drawable",this.getPackageName())));
+                first_view.setBackground(getResources().getDrawable(here_r.getIdentifier("answer"+partone,"drawable",this.getPackageName())));
                 second_view.setBackground(getResources().getDrawable(R.drawable.block));
             }
             else{
 
-                first_view.setBackground(getResources().getDrawable(here_r.getIdentifier(parttwo,"drawable",this.getPackageName())));
+                first_view.setBackground(getResources().getDrawable(here_r.getIdentifier("answer"+parttwo,"drawable",this.getPackageName())));
                 second_view.setBackground(getResources().getDrawable(R.drawable.block));
 
             }
@@ -452,9 +453,13 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
                     });
                     AlertDialog here =builder.create();
                     here.show();*/
-                    Intent intent =new Intent(getBaseContext(),WritingPanel.class);
-                    intent.putExtra("num",0);
-                    startActivity(intent);
+                    int flag=checkPassword();
+                    if (flag==1){
+                        Intent intent =new Intent(getBaseContext(),WritingPanel.class);
+                        intent.putExtra("num",0);
+                        startActivity(intent);
+                    }
+
 
                 }
                 else{
@@ -625,5 +630,34 @@ public class PartWriting extends AppCompatActivity implements View.OnClickListen
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int checkPassword(){
+
+        if (confirmClick_time==0){
+            begin_time=System.currentTimeMillis();
+        }
+
+        if (System.currentTimeMillis()-begin_time>1000){
+
+            if (confirmClick_time==2){
+                confirmClick_time=0;
+                return 1;
+            }
+            else{
+                confirmClick_time=0;
+                Toast.makeText(this,"不要亂按",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            confirmClick_time++;
+            Toast.makeText(this,"按了"+confirmClick_time+"次",Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+
+
+
+        return 0;
     }
 }

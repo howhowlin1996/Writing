@@ -45,8 +45,8 @@ import java.util.TreeSet;
 
 
 public class WritingPanel extends AppCompatActivity implements View.OnClickListener {
-
-    long lastTime =0;
+    int confirmClick_time=0;
+    long begin_time;
     Set<String> defaultSet=new TreeSet<String>();
 
     @Override
@@ -349,12 +349,9 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
             });
             AlertDialog here =builder.create();
             here.show();*/
-            Intent intent = new  Intent(getBaseContext(), Puzzle.class);
-            startActivity(intent);
 
-
-
-            
+                Intent intent = new  Intent(getBaseContext(), Puzzle.class);
+                startActivity(intent);
 
 
 
@@ -365,7 +362,7 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        if(newTime-lastTime>1000){
+
 
             if (v.getId()==R.id.SaveButton){                                    // distinct which the button hit by users
                 if (mPanel.points.size()!=0){
@@ -410,19 +407,26 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                     });
                     AlertDialog here =builder.create();
                     here.show();*/
-                    saveCorrectPicture();
-                    savePicture();
-                    try {
-                        uploadFile();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                    int flag=checkPassword();
+                    if (flag==1){
+                        saveCorrectPicture();
+                        savePicture();
+                        try {
+                            uploadFile();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new  Intent(getBaseContext(), Badge.class);
+                        String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
+                        int num;
+                        num=getSharedPreferences("num",0).getInt(key_name,0);
+                        getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
+                        startActivity(intent);
+
+
+
                     }
-                    Intent intent = new  Intent(getBaseContext(), Badge.class);
-                    String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
-                    int num;
-                    num=getSharedPreferences("num",0).getInt(key_name,0);
-                    getSharedPreferences("num",0).edit().putInt(key_name,num-1).commit();
-                    startActivity(intent);
+
 
                 }
                 else{
@@ -491,11 +495,8 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
                 }
 
             }
-            lastTime=newTime;
-        }
-        else{
-            //Toast.makeText(WritingPanel.this,"停",Toast.LENGTH_LONG).show();
-        }
+
+
 
 
     }
@@ -619,6 +620,35 @@ public class WritingPanel extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+    }
+
+    private int checkPassword(){
+
+        if (confirmClick_time==0){
+            begin_time=System.currentTimeMillis();
+        }
+
+        if (System.currentTimeMillis()-begin_time>1000){
+
+            if (confirmClick_time==2){
+                confirmClick_time=0;
+                return 1;
+            }
+            else{
+                confirmClick_time=0;
+                Toast.makeText(this,"不要亂按",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            confirmClick_time++;
+            Toast.makeText(this,"按了"+confirmClick_time+"次",Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+
+
+
+        return 0;
     }
 
 
