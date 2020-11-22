@@ -1,5 +1,4 @@
 package com.example.writing.badge;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,28 +11,22 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import com.example.writing.R;
 import com.example.writing.badgefactory.BadgeFactory;
 import com.example.writing.choosetype.ChooseTypePage;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -106,8 +99,10 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
         final ImageView badgeView=findViewById(R.id.badgeView);
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         photo_name="pic"+storeinform.getString("right",null).substring(0,storeinform.getString("right",null).length()-2);
+        String user_name=storeinform.getString("userkey",null);
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
         try{
-            FileInputStream fin=openFileInput(photo_name+".jpg");
+            FileInputStream fin=openFileInput(nowDate+user_name+photo_name+".jpg");
             photo=fin;
             bmp = BitmapFactory.decodeStream(fin);
             fin.close();
@@ -143,10 +138,10 @@ public class Badge extends AppCompatActivity implements View.OnClickListener {
             fos.close();
 
         } catch (FileNotFoundException e) {
-            Log.d("hahaha","no file");
+            //Log.d("hahaha","no file");
             e.printStackTrace();
         } catch (IOException e) {
-            Log.d("hahaha","error");
+            //Log.d("hahaha","error");
             e.printStackTrace();
         }
         combinefile=file;

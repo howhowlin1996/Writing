@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,11 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
@@ -119,7 +112,7 @@ public class EnterScene extends AppCompatActivity implements CompoundButton.OnCh
     public void consentShow(){
         SharedPreferences num=getSharedPreferences("consent", Context.MODE_PRIVATE);
         if (num.getInt("consent",0)==1){
-            Intent intent =new Intent(getBaseContext(), FirstScene.class);
+            Intent intent =new Intent(getBaseContext(), UserEnter.class);
             startActivity(intent);
         }
         else{
@@ -189,7 +182,7 @@ public class EnterScene extends AppCompatActivity implements CompoundButton.OnCh
         SharedPreferences num=getSharedPreferences("consent", Context.MODE_PRIVATE);
         if (check==true){
             num.edit().putInt("consent",1).commit();
-            Intent intent =new Intent(getBaseContext(), FirstScene.class);
+            Intent intent =new Intent(getBaseContext(), UserEnter.class);
             startActivity(intent);
 
         }

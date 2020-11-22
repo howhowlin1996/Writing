@@ -21,11 +21,13 @@ public class DataHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         final String SQL = "CREATE TABLE IF NOT EXISTS " +  "table_"+tableName + "( " +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "file_name VARCHAR(100), " +
                 "practice_time INT" +
                 ");";
+
         db.execSQL(SQL);
 
 

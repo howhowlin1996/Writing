@@ -2,30 +2,24 @@ package com.example.writing.puzzle;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.writing.R;
 import com.example.writing.panel.CopyWriting;
-import com.example.writing.panel.LookWriting;
-import com.example.writing.panel.WritingPanel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,9 +31,11 @@ import java.util.Random;
 
 public class Puzzle extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     private float begin_x,begin_y;
-    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1,up_answer=0,down_answer=4,checkRightAnswer_time=0,checkWrongAnswer_time=0,puzzle_change=0,try_time=1;
-    private long begin_time=0,final_time=0,hit_begin=0,hit_final=0;
+    private int move_x,move_y,width,height,hit_l,hit_t,hit_r,hit_b,hit_puzzle_id,split_code,answer1_change=0,answer2_change=0,answer1_name=-1,answer2_name=-1,up_answer=0,down_answer=4,checkRightAnswer_time=0,checkWrongAnswer_time=0,puzzle_change=0,try_time=1,confirmClick_time=0;
+    private long begin_time=0,final_time=0,hit_begin=0,hit_final=0,beginpassword_time=0;
     private View board1_view=null,board2_view=null;
+    private String puzzlename[]=new String[8];
+    private  String partone,parttwo;
     private int[]begin_l=new int [16];
     private int[]begin_t=new int[16];
     private int[]up_part_question=new int[4];
@@ -64,6 +60,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
 
 
         PuzzlePanelGroup group=findViewById(R.id.Group);
+
         for(int i=0;i<4;i++){
             up_part_question[i]=-1;
             down_part_question[i]=-1;
@@ -81,6 +78,10 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
         windowManager.getDefaultDisplay().getMetrics(dm);
         width=dm.widthPixels;
         height=dm.heightPixels;
+
+
+
+
 
 
         up1.setOnTouchListener(this);
@@ -122,23 +123,20 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
         SharedPreferences storeinform=getSharedPreferences("num", Context.MODE_PRIVATE);
         split_code=storeinform.getInt("split_code",0);
         int part_num=storeinform.getInt("part_num",0);
+        if (split_code/10==5){
+            PuzzlePanel newpart=new PuzzlePanel(this,null);
+            group.addView(newpart);
+
+        }
         group.splitNum(split_code);
         int answer_position=storeinform.getInt("answer_position",0);
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
         String middleString=storeinform.getString("middle",null);
-        String partone;
-        String parttwo;
-        if (split_code/10==5){
-            partone="part"+rightString.substring(0,rightString.length()-2)+"1";
-            parttwo="part"+rightString.substring(0,rightString.length()-2)+"0";
-        }
-        else{
-            partone="part"+rightString.substring(0,rightString.length()-2)+"0";
-            parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
-        }
-
+        partone="part"+rightString.substring(0,rightString.length()-2)+"0";
+        parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
         Resources here_r=this.getResources();
+        setquestionPuzzle(split_code);
 
         if (flag==0){
             if (part_num==1){
@@ -320,20 +318,25 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
         split_code=storeinform.getInt("split_code",0);
         int part_num=storeinform.getInt("part_num",0);
         group.splitNum(split_code);
+        if (split_code/10==5){
+            PuzzlePanel newpart=new PuzzlePanel(this,null);
+            group.addView(newpart);
+
+        }
+        setquestionPuzzle(split_code);
         int answer_position=storeinform.getInt("answer_position",0);
         String rightString=storeinform.getString("right",null);
         String leftString =storeinform.getString("left",null);
         String middleString=storeinform.getString("middle",null);
-        String partone;
-        String parttwo;
-        if (split_code/10==5){
+
+        /*if (split_code/10==5){
             partone="part"+rightString.substring(0,rightString.length()-2)+"1";
             parttwo="part"+rightString.substring(0,rightString.length()-2)+"0";
-        }
-        else{
+        }*/
+        //else{
             partone="part"+rightString.substring(0,rightString.length()-2)+"0";
             parttwo="part"+rightString.substring(0,rightString.length()-2)+"1";
-        }
+        //}
 
         Resources here_r=this.getResources();
         if (flag==0){
@@ -485,6 +488,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
                 qu1.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+leftString,"drawable",this.getPackageName())));
                 qu2.setBackground(getResources().getDrawable(here_r.getIdentifier("cha"+middleString,"drawable",this.getPackageName())));
 
+
             }
 
 
@@ -495,16 +499,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
 
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -556,10 +550,11 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
 
                         puzzle_change=1;
                         backToStart(v.getId());
-                        if (split_code/10!=5){
+                       // if (split_code/10!=5){
+                        Resources here_r=this.getResources();
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//set panel background for copying the character
                                 if(v.getTag().hashCode()<4&&checkHit(middle_w,middle_h,answerBoard1)){
-                                    answerBoard1.setBackground(v.getBackground());
+                                    answerBoard1.setBackground(getDrawable(here_r.getIdentifier("answer"+partone+up_part_question[v.getTag().hashCode()],"drawable",this.getPackageName())));
                                     v.setVisibility(View.GONE);
                                     if (board1_view!=v&&board1_view!=null){
                                         board1_view.setVisibility(View.VISIBLE);
@@ -571,8 +566,22 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
                                     puzzlequeue.remove();
 
                                 }
-                                if(v.getTag().hashCode()>=4&&(checkHit(middle_w,middle_h,answerBoard2))){
-                                    answerBoard2.setBackground(v.getBackground());
+                                final PuzzlePanelGroup group=findViewById(R.id.Group);
+                                View checkboard;
+                                if (split_code/10==5){
+                                    checkboard=group.getChildAt(group.getChildCount()-1);
+                                }
+                                else {
+                                    checkboard=answerBoard2;
+                                }
+                                if(v.getTag().hashCode()>=4&&(checkHit(middle_w,middle_h,checkboard))){
+
+                                    if (split_code/10==5){
+                                        answerBoard2.setVisibility(View.VISIBLE);
+                                        group.getChildAt(group.getChildCount()-1).setVisibility(View.INVISIBLE);
+                                    }
+                                    answerBoard2.setBackground(getDrawable(here_r.getIdentifier("answer"+parttwo+down_part_question[v.getTag().hashCode()-4],"drawable",this.getPackageName())));
+
                                     v.setVisibility(View.GONE);
                                     if (board2_view!=v&&board2_view!=null){
                                         board2_view.setVisibility(View.VISIBLE);
@@ -592,7 +601,7 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
                             }
                             else {
                                 if(v.getTag().hashCode()<4&&checkHit(middle_w,middle_h,answerBoard1)){
-                                    answerBoard1.setBackground(v.getBackground());
+                                    answerBoard1.setBackground(getResources().getDrawable(here_r.getIdentifier("answer"+partone+up_part_question[v.getTag().hashCode()],"drawable",this.getPackageName())));
                                     v.setVisibility(View.GONE);
                                     if (board1_view!=v&&board1_view!=null){
                                         board1_view.setVisibility(View.VISIBLE);
@@ -604,9 +613,21 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
                                     puzzlequeue.remove();
 
                                 }
-                                if(v.getTag().hashCode()>=4&&(checkHit(middle_w,middle_h,answerBoard2))){
-                                    answerBoard2.setBackground(v.getBackground());
+                                final PuzzlePanelGroup group=findViewById(R.id.Group);
+                                View checkboard;
+                                if (split_code/10==5){
+                                    checkboard=group.getChildAt(group.getChildCount()-1);
+                                }
+                                else {
+                                    checkboard=answerBoard2;
+                                }
+                                if(v.getTag().hashCode()>=4&&(checkHit(middle_w,middle_h,checkboard))){
+                                    answerBoard2.setBackground(getResources().getDrawable(here_r.getIdentifier("answer"+parttwo+down_part_question[v.getTag().hashCode()-4],"drawable",this.getPackageName())));
                                     v.setVisibility(View.GONE);
+                                    if (split_code/10==5){
+                                        answerBoard2.setVisibility(View.VISIBLE);
+                                        group.getChildAt(group.getChildCount()-1).setVisibility(View.INVISIBLE);
+                                    }
                                     if (board2_view!=v&&board2_view!=null){
                                         board2_view.setVisibility(View.VISIBLE);
                                     }
@@ -623,42 +644,6 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
                                 }
                             }
 
-
-                        }
-                        else{
-                                if(checkHit(middle_w,middle_h,answerBoard1)){
-                                    if((checkHit(middle_w,middle_h,answerBoard2))&&v.getTag().hashCode()>=4){
-                                        //Log.d("ERROR_PUZZLE","THERE");
-                                        answerBoard2.setBackground(v.getBackground());
-                                        if (board2_view!=v&&board2_view!=null){
-                                            board2_view.setVisibility(View.VISIBLE);
-                                        }
-                                        board2_view=v;
-                                        v.setVisibility(View.GONE);
-                                        answer2_name=v.getTag().hashCode();
-                                        answer2_change=1;
-                                        backToStart(puzzlequeue.element());
-                                        puzzlequeue.remove();
-                                    }
-                                    else if(v.getTag().hashCode()<4&&!checkHit(middle_w,middle_h,answerBoard2)){
-                                        answerBoard1.setBackground(v.getBackground());
-                                       if (board1_view!=v&&board1_view!=null){
-                                            board1_view.setVisibility(View.VISIBLE);
-                                        }
-                                        board1_view=v;
-                                        v.setVisibility(View.GONE);
-                                        answer1_name=v.getTag().hashCode();
-                                        answer1_change=1;
-                                        backToStart(puzzlequeue.element());
-                                        puzzlequeue.remove();
-                                    }
-
-                                }
-
-
-
-
-                        }
 
 
                     }
@@ -701,15 +686,10 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
 
 
             if (answer1_name==up_answer&&answer2_name==down_answer){
-
-
-
-                //Toast.makeText(this,"答對了",Toast.LENGTH_SHORT).show();
                 answer1_change=-1;
                 answer2_change=-1;
                 answer1_name=-1;
                 answer2_name=-1;
-
                 Runnable check =new Runnable(){
 
                     @Override
@@ -725,14 +705,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
                     }
                 };
                 this.runOnUiThread(check);
-
-
-
             }
             else {
-
-
-
                 puzzle_change=0;
                 answer1_change=-1;
                 answer2_change=-1;
@@ -786,6 +760,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
 
         if (flag==0){
             PuzzleCombine puzzleCombine =new PuzzleCombine(split_code,answerBoard1.getBackground(),null,answerBoard2.getBackground());
+            final SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+            puzzleCombine.user_name=num.getString("userkey",null);
             puzzleCombine.photo_name=photo_name+"correct"+try_time;
             puzzleCombine.Combine();
             setContentView(R.layout.choosetype_result);
@@ -797,6 +773,8 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
         }
         else{
             PuzzleCombine puzzleCombine =new PuzzleCombine(split_code,answerBoard1.getBackground(),null,answerBoard2.getBackground());
+            final SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+            puzzleCombine.user_name=num.getString("userkey",null);
             puzzleCombine.photo_name=photo_name+"wrong"+try_time;
             puzzleCombine.Combine();
             setContentView(R.layout.choosetype_result);
@@ -899,40 +877,14 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
 
     @Override
     public void onClick(View v) {
+
         if (checkRightAnswer_time>0){
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            final Context context=this;
-            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
-            builder.setMessage("等等其他人喔"
-            );
-            builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
-                    here_builder.setView(R.layout.alert_skip_password);
-                    here_builder.setPositiveButton("確定",null );
-                    AlertDialog here =here_builder.create();
-                    here.show();
-                    final EditText password=here.findViewById(R.id.skip_password);
-                    here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
-                                                                                           @Override
-                                                                                           public void onClick(View v) {
-                                                                                               if (password.getText().toString().equals("0401")){
-                                                                                                   Intent intent =new Intent(getBaseContext(), CopyWriting.class);
-                                                                                                   startActivity(intent);
-                                                                                               }
-                                                                                               else {
-                                                                                                   password.getText().clear();
-                                                                                                   Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
-                                                                                               } }
+            int flag=checkPassword();
+            if (flag==1){
 
-                                                                                       }
-                    );
-                }
-            });
-            AlertDialog here =builder.create();
-            here.show();
-
-
+                Intent intent =new Intent(getBaseContext(), CopyWriting.class);
+                startActivity(intent);
+            }
         }
         else{
             setContentView(R.layout.puzzle);
@@ -967,4 +919,53 @@ public class Puzzle extends AppCompatActivity implements View.OnTouchListener, V
 
 
     }
+
+    private int checkPassword(){
+
+        if (confirmClick_time==0){
+            beginpassword_time=System.currentTimeMillis();
+        }
+
+        if (System.currentTimeMillis()-beginpassword_time>1000){
+
+            if (confirmClick_time==2){
+                confirmClick_time=0;
+                return 1;
+
+            }
+            else{
+                confirmClick_time=0;
+                //Toast.makeText(this,"不要亂按",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            confirmClick_time++;
+            Toast.makeText(this,"按了"+confirmClick_time+"次",Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+
+
+
+        return 0;
+    }
+
+    private void setquestionPuzzle(int type){
+        PuzzlePanelGroup group=findViewById(R.id.Group);
+        if (type/10==3){
+            group.getChildAt(0).setBackground(getResources().getDrawable(R.drawable.leftelement));
+            group.getChildAt(1).setBackground(getResources().getDrawable(R.drawable.rightelement));
+        }
+        else if (type/10==5){
+                group.getChildAt(1).setVisibility(View.INVISIBLE);
+                group.getChildAt(group.getChildCount()-1).setBackground(getResources().getDrawable(R.drawable.inoutelement));
+                group.getChildAt(0).setBackground(getResources().getDrawable(R.drawable.single));
+        }
+    }
+
+
+
+
+
+
 }

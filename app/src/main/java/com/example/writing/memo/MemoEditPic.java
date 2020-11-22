@@ -138,8 +138,8 @@ public class MemoEditPic extends AppCompatActivity implements View.OnClickListen
     }
 
     public void Save ( Bitmap bmp) {
-
         try {
+
             FileOutputStream fos = openFileOutput( "P1234"+ ".jpg",Context.MODE_PRIVATE);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();

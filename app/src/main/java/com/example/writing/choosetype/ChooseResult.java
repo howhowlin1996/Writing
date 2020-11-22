@@ -30,7 +30,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class ChooseResult extends AppCompatActivity implements View.OnClickListener {
-    int split_code;
+    int split_code,confirmClick_time=0;
+    long begin_time;
     Set<String> defaultSet=new TreeSet<String>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,57 +64,17 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         String key_name=getSharedPreferences("num",0).getStringSet("chartypenum",defaultSet).iterator().next();
         if (split_code==checkAnswer(key_name)){
-            /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            final Context context=this;
-            SharedPreferences pref = getSharedPreferences("record", MODE_PRIVATE);
-            builder.setMessage("大類(單個部件): "+pref.getInt("singlesum",0)+"\n"+
-                            "大類(上下): "+pref.getInt("leftrightsum",0)+"\n"+
-                            "大類(裡外): "+pref.getInt("inoutsum",0)+"\n"+
-                            "小類(單個部件): "+pref.getInt("single",0)+"\n"+
-                            "小類(上下2): "+pref.getInt("updown2",0)+"\n"+
-                            "小類(上下3): "+pref.getInt("updown3",0)+"\n"+
-                            "小類(左右2): "+pref.getInt("leftright2",0)+"\n"+
-                            "小類(左右3): "+pref.getInt("leftright3",0)+"\n"+
-                            "小類(右上): "+pref.getInt("rightup",0)+"\n"+
-                            "小類(右下): "+pref.getInt("rightdown",0)+"\n"+
-                            "小類(右中): "+pref.getInt("rightmiddle",0)+"\n"+
-                            "小類(中中): "+pref.getInt("middlemiddle",0)+"\n"+
-                            "小類(中下): "+pref.getInt("middledown",0)+"\n"+
-                            "小類(左下): "+pref.getInt("leftdown",0)+"\n"
-                    );
-            builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    final AlertDialog.Builder here_builder = new AlertDialog.Builder(context) ;
-                    here_builder.setView(R.layout.alert_skip_password);
-                    here_builder.setPositiveButton("確定",null );
-                    AlertDialog here =here_builder.create();
-                    here.show();
-                    final EditText password=here.findViewById(R.id.skip_password);
-                    here.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            if (password.getText().toString().equals("0401")){
-                                updateRecord();
-                                Intent intent =new Intent(getBaseContext(), WritingPanel.class);
-                                intent.putExtra("num",split_code);
-                                startActivity(intent);
-                            }
-                            else {
-                                password.getText().clear();
-                                Toast.makeText(context,"密碼不對喔",Toast.LENGTH_SHORT).show();
-                            } }
+            int flag=checkPassword();
+            if (flag==1){
+                writeFile();
+                updateRecord();
+                Intent intent =new Intent(getBaseContext(), WritingPanel.class);
+                intent.putExtra("num",split_code);
+                startActivity(intent);
 
-                    }
-                    );
-                }
-            });
-            AlertDialog here =builder.create();
-            here.show();*/
-            writeFile();
-            updateRecord();
-            Intent intent =new Intent(getBaseContext(), WritingPanel.class);
-            intent.putExtra("num",split_code);
-            startActivity(intent);
+
+            }
+
 
         }
         else {
@@ -223,4 +184,36 @@ public class ChooseResult extends AppCompatActivity implements View.OnClickListe
 
 
 }
+
+
+    private int checkPassword(){
+
+        if (confirmClick_time==0){
+            begin_time=System.currentTimeMillis();
+        }
+
+        if (System.currentTimeMillis()-begin_time>1000){
+
+            if (confirmClick_time==2){
+                confirmClick_time=0;
+                return 1;
+            }
+            else{
+                confirmClick_time=0;
+                Toast.makeText(this,"不要亂按",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            confirmClick_time++;
+            Toast.makeText(this,"按了"+confirmClick_time+"次",Toast.LENGTH_SHORT).show();
+            return 0;
+        }
+
+
+
+        return 0;
+    }
+
+
 }

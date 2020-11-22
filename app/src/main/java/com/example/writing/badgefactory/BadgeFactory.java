@@ -30,7 +30,7 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.badgefactory);
         getSupportActionBar().hide(); //隱藏標題
         final BadgeGroup group=findViewById(R.id.badgeGroup_badgefactory);
-        final ScrollView scrollView=findViewById(R.id.ScrollView_badge_factory);
+        //final ScrollView scrollView=findViewById(R.id.ScrollView_badge_factory);
         int width;
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
@@ -63,7 +63,7 @@ public class BadgeFactory extends AppCompatActivity implements View.OnClickListe
 
             }
             catch(Exception e){
-                Log.d("HERE","file_position.getString(0)");
+                //Log.d("HERE","file_position.getString(0)");
                 e.printStackTrace();
             }
 

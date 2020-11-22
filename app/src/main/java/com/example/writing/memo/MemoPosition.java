@@ -33,7 +33,7 @@ import java.io.IOException;
 public class MemoPosition extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     private int width=0,height=0,move_x=0,move_y=0,picture_height=0,textheight=0,textwidth=0;
     private  String   keyin_word;
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -53,7 +53,7 @@ public class MemoPosition extends AppCompatActivity implements View.OnTouchListe
         textView.setText(keyin_word);
         textView.setTextSize(30);
         textView.setTypeface(Typeface.DEFAULT_BOLD,Typeface.BOLD);
-        textView.setBackground(getDrawable(R.drawable.block));                     //remember the version problem
+        textView.setBackground(getResources().getDrawable(R.drawable.block));                     //remember the version problem
         Log.d("test_change"," "+keyin_word.length()+" "+textView.getTextSize());
         textView.layout(0,0,changeSp2Dp(30)*(keyin_word.length()+1),changeSp2Dp(30)*2);
         textwidth=changeSp2Dp(30)*(keyin_word.length());

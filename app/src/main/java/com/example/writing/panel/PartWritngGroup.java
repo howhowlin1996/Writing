@@ -98,12 +98,24 @@ public class PartWritngGroup extends ViewGroup {
         else if(character_type/10==5){
             if (character_type%10==1){
                 if (child_time==0){
+                    getChildAt(4).layout(left, top, left+partwidth, top+partheight);
                     getChildAt(childnum).layout(left, top, left+partwidth, top+partheight);
-                    getChildAt(4).layout(left+partwidth/3,top,left+partwidth,top+partheight*2/3);
                 }
                 else{
+                    getChildAt(4).layout(left+partwidth/3, top, left+partwidth, top+partheight/3*2);
+                    getChildAt(childnum).layout(left,top,left+partwidth,top+partheight);
+                }
+
+            }
+            if (character_type%10==2){
+                if (child_time==0){
                     getChildAt(4).layout(left, top, left+partwidth, top+partheight);
-                    getChildAt(childnum).layout(left+partwidth/3,top,left+partwidth,top+partheight*2/3);
+                    getChildAt(childnum).layout(left, top, left+partwidth, top+partheight);
+
+                }
+                else{
+                    getChildAt(4).layout(left+partwidth/4, top+partheight/2, left+partwidth/4*3, top+partheight);
+                    getChildAt(childnum).layout(left,top,left+partwidth,top+partheight);
                 }
 
             }

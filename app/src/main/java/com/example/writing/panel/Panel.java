@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -49,6 +50,7 @@ class Panel extends View {
     @Override
     public void onDraw (Canvas canvas){
         super.onDraw(canvas);
+
         for (int i = 1; i < points.size(); i++) {
             PointF p1 = points.get(i - 1);
             PointF p2 = points.get(i);
@@ -67,6 +69,7 @@ class Panel extends View {
         for (int i = 0; i < event.getHistorySize(); i++) {
             points.add(new PointF(event.getHistoricalX(i), event.getHistoricalY(i)));
         }
+
         Panel.this.invalidate();
         return true;
     }

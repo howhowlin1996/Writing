@@ -48,7 +48,7 @@ public class UserEnter extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         final  EditText user_code=findViewById(R.id.userCodeEdit_enteruser);
         if (v.getId()==R.id.confirm_userenterscene){
-           final String user_name=user_code.getText().toString();
+           /*final String user_name=user_code.getText().toString();
            if (user_name.length()==0){
                return;
            }
@@ -94,7 +94,24 @@ public class UserEnter extends AppCompatActivity implements View.OnClickListener
                 }
             });
             AlertDialog here =builder.create();
-            here.show();
+            here.show();*/
+            final String user_name=user_code.getText().toString();
+            final SharedPreferences num=getSharedPreferences("num", Context.MODE_PRIVATE);
+            num.edit().putString("userkey",user_name).commit();
+            File appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name);
+            if (!appDir.exists()) {
+                //Log.d("ERROR_FILE",appDir.toString());
+                appDir.mkdir();
+            }
+            String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+            appDir = new File(Environment.getExternalStorageDirectory(), "Writing/"+user_name+"/"+nowDate);
+            if (!appDir.exists()) {
+                //Log.d("ERROR_FILE",appDir.toString());
+                appDir.mkdir();
+            }
+            Intent intent =new Intent(getBaseContext(), FirstScene.class);
+            startActivity(intent);
+
 
         }
         else{

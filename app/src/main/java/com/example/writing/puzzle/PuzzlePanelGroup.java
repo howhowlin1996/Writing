@@ -60,11 +60,16 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                 answer1.measure(answerboard_width,answerboard_width/2);
                 answer2.measure(answerboard_width,answerboard_width/2);
                 answer3.measure(0,0);
+
+
+
+
             }
             else if(piece%10==2){
                 answer1.measure(answerboard_width,answerboard_width/3);
                 answer2.measure(answerboard_width,answerboard_width/3);
                 answer3.measure(answerboard_width,answerboard_width/3);
+
             }
 
         }
@@ -73,6 +78,7 @@ public class PuzzlePanelGroup extends ViewGroup {                               
                 answer1.measure(answerboard_width/2,answerboard_width);
                 answer2.measure(answerboard_width/2,answerboard_width);
                 answer3.measure(0,0);
+
             }
             else if(piece%10==2){
                 answer1.measure(answerboard_width/3,answerboard_width);
@@ -86,9 +92,18 @@ public class PuzzlePanelGroup extends ViewGroup {                               
             answer3.measure(answerboard_width/2,answerboard_width/2);
         }
         else if(piece/10==5){
-            answer1.measure(answerboard_width,answerboard_width);
-            answer2.measure(answerboard_width/3*2,answerboard_width/3*2);
-            answer3.measure(0,0);
+            if (piece%10==1){
+                answer1.measure(answerboard_width,answerboard_width);
+                answer2.measure(answerboard_width/2,answerboard_width/4*3);
+                answer3.measure(0,0);
+                getChildAt(getChildCount()-1).measure(answerboard_width/2,answerboard_height/2);
+            }
+            if (piece%10==2){
+                answer1.measure(answerboard_width,answerboard_width);
+                answer2.measure(answerboard_width/2,answerboard_width/3*2);
+                answer3.measure(0,0);
+                getChildAt(getChildCount()-1).measure(answerboard_width/2,answerboard_height/2);
+            }
         }
     }
 
@@ -360,17 +375,21 @@ public class PuzzlePanelGroup extends ViewGroup {                               
             begin_t[0]=viewgroup_h;
             int secondPanel_W=getChildAt(1).getMeasuredWidth();
             int secondPanel_h=getChildAt(1).getMeasuredHeight();
+            Log.d("ERROR_HERE"," "+secondPanel_W+" "+answerboard_width+" ");
 
             if(piece%10==1){
-                getChildAt(1).layout(left_pos+PanelWidth-secondPanel_W,viewgroup_h,left_pos+PanelWidth,viewgroup_h+secondPanel_h);
-                begin_l[1]=left_pos+PanelWidth-secondPanel_W;
-                begin_t[1]=viewgroup_h;
+                getChildAt(1).layout(left_pos+PanelWidth/3,viewgroup_h,left_pos+PanelWidth,viewgroup_h+secondPanel_h);
+                getChildAt(getChildCount()-1).layout(left_pos+PanelWidth/2,viewgroup_h,left_pos+PanelWidth,viewgroup_h+PanelWidth/2);
+                begin_l[1]=left_pos+PanelWidth/3;
+                begin_t[1]=viewgroup_h+PanelWidth-secondPanel_h;
 
             }
             else if(piece%10==2){
-                getChildAt(1).layout(left_pos+secondPanel_W,viewgroup_h+secondPanel_h,left_pos+2*secondPanel_W,viewgroup_h+2*secondPanel_h);
-                begin_l[1]=left_pos+secondPanel_W;
-                begin_t[1]=viewgroup_h+secondPanel_h;
+                Log.d("i am here","hahah");
+                getChildAt(1).layout(left_pos+PanelWidth/3,viewgroup_h+PanelWidth-secondPanel_h,left_pos+PanelWidth/3+secondPanel_W,viewgroup_h+PanelHeight);
+                getChildAt(getChildCount()-1).layout(left_pos+PanelWidth/2,viewgroup_h+PanelWidth/2,left_pos+PanelWidth,viewgroup_h+PanelWidth);
+                begin_l[1]=left_pos+PanelWidth/3;
+                begin_t[1]=viewgroup_h+PanelWidth-secondPanel_h;
 
             }
             else if(piece%10==3){
